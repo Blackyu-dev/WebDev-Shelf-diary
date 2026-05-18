@@ -1,0 +1,72 @@
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f5f0e6;
+  /* 米色背景 */
+  margin: 0;
+  padding: 0;
+  color: #3e3e3e;
+}
+
+.app-container {
+  padding: 20px;
+}
+
+header {
+  background-color: #e8dcc4;
+  /* 淺米色 header */
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  margin: 0;
+  color: #5a4632;
+  /* 深咖啡字體 */
+}
+
+h2 {
+  margin: 0;
+  color: #5a4632;
+  /* 深咖啡字體 */
+}
+
+nav a {
+  margin: 0 8px;
+  text-decoration: none;
+  color: #6b4f2d;
+  /* 咖啡色連結 */
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #a67c52;
+  /* hover 時更亮的咖啡色 */
+}
+
+.card-grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #fffaf0;
+  /* 米白色卡片 */
+  border: 1px solid #e0d6c2;
+  border-radius: 10px;
+  padding: 16px;
+  width: 220px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #5a4632;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.15);
+}
