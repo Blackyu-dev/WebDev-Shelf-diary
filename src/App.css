@@ -1,72 +1,201 @@
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #f5f0e6;
-  /* 米色背景 */
+/* =========================
+   功能區
+========================= */
+
+* {
   margin: 0;
   padding: 0;
-  color: #3e3e3e;
+  box-sizing: border-box;
 }
 
-.app-container {
+body {
+  font-family: "Noto Sans TC", sans-serif;
+  background: #f7f1e8;
+}
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* 側邊欄 */
+
+.sidebar {
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+.sidebar.open {
+  width: 240px;
+}
+
+.sidebar.closed {
+  width: 85px;
+}
+
+/* 側邊欄標題 */
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   padding: 20px;
 }
 
-header {
-  background-color: #e8dcc4;
-  /* 淺米色 header */
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+/* 開關按鈕 */
+
+.toggle-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
-header h1 {
-  margin: 0;
-  color: #5a4632;
-  /* 深咖啡字體 */
+/* 導覽列 */
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
 }
 
-h2 {
-  margin: 0;
-  color: #5a4632;
-  /* 深咖啡字體 */
-}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 
-nav a {
-  margin: 0 8px;
   text-decoration: none;
-  color: #6b4f2d;
-  /* 咖啡色連結 */
+
+  padding: 14px;
+  margin: 6px 0;
+
+  transition: 0.2s;
+}
+
+.icon {
+  min-width: 24px;
+  text-align: center;
+}
+
+.label {
+  white-space: nowrap;
+}
+
+/* 主內容 */
+
+.main-content {
+  flex: 1;
+}
+
+.topbar {
+  padding: 24px;
+}
+
+.content {
+  padding: 24px;
+}
+
+/* =========================
+   美化區（米色系）
+========================= */
+
+/* 整體背景 */
+
+body {
+  background: #f6f0e7;
+  color: #5f4b3a;
+}
+
+/* 側邊欄 */
+
+.sidebar {
+  background: #d8c3a5;
+
+  border-right: 2px solid #c8ae8d;
+
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 標題 */
+
+.sidebar-header h2 {
+  font-size: 22px;
+  color: #4e3b2c;
   font-weight: bold;
 }
 
-nav a:hover {
-  color: #a67c52;
-  /* hover 時更亮的咖啡色 */
+/* 開關按鈕 */
+
+.toggle-btn {
+  font-size: 24px;
+  color: #6b4f3b;
+
+  transition: 0.2s;
 }
 
-.card-grid {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
+.toggle-btn:hover {
+  transform: scale(1.1);
+  color: #8b6a50;
 }
 
-.card {
-  background: #fffaf0;
-  /* 米白色卡片 */
-  border: 1px solid #e0d6c2;
-  border-radius: 10px;
-  padding: 16px;
-  width: 220px;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s, box-shadow 0.2s;
+/* 導覽按鈕 */
+
+.nav-item {
+  color: #5a4330;
+
+  border-radius: 14px;
+
+  font-size: 16px;
+  font-weight: 500;
 }
 
-.card h3 {
-  margin-top: 0;
-  color: #5a4632;
+.nav-item:hover {
+  background: #eadbc8;
+
+  transform: translateX(4px);
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.15);
+/* icon */
+
+.icon {
+  font-size: 22px;
+}
+
+/* 主區域 */
+
+.main-content {
+  background: #fdfaf6;
+}
+
+/* 上方欄 */
+
+.topbar {
+  background: #efe3d3;
+
+  border-bottom: 2px solid #dbc4a5;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.topbar h1 {
+  font-size: 30px;
+  color: #5c4332;
+}
+
+/* 內容區 */
+
+.content {
+  color: #5a4636;
+}
+
+/* 卡片感 */
+
+.content>* {
+  background: white;
+
+  padding: 20px;
+
+  border-radius: 18px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
