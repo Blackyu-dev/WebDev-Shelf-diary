@@ -218,7 +218,7 @@ body {
   border-radius: 6px;
 }
 
-.custom-modal-overlay {
+.modal-overlay {
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.7);
@@ -233,7 +233,7 @@ body {
    Modal Content
 ========================= */
 
-.custom-modal-content {
+.modal-content {
   background-color: #fdfaf6;
   color: #5a4636;
   width: fit-content;
@@ -250,7 +250,7 @@ body {
    Header
 ========================= */
 
-.custom-modal-header {
+.modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -259,7 +259,7 @@ body {
   padding-bottom: 12px;
 }
 
-.custom-modal-title {
+.modal-title {
   margin: 0;
   font-size: 24px;
   color: #4e3b2c;
@@ -269,7 +269,7 @@ body {
    Close Button
 ========================= */
 
-.custom-close-btn {
+.close-btn {
   background: none;
   border: none;
   font-size: 32px;
@@ -278,7 +278,7 @@ body {
   transition: 0.2s;
 }
 
-.custom-close-btn:hover {
+.close-btn:hover {
   transform: scale(1.1);
 }
 
@@ -286,7 +286,7 @@ body {
    Main Layout
 ========================= */
 
-.custom-modal-main-layout {
+.modal-main-layout {
   display: flex;
 
   gap: 30px;
@@ -298,7 +298,7 @@ body {
    Left Side
 ========================= */
 
-.custom-modal-body-left {
+.modal-body-left {
   display: flex;
   gap: 20px;
   width: 420px;
@@ -307,7 +307,7 @@ body {
 
 /* 書封 */
 
-.custom-modal-cover {
+.modal-cover {
   width: 140px;
   height: 210px;
   object-fit: cover;
@@ -317,13 +317,13 @@ body {
 
 /* 資訊區 */
 
-.custom-modal-info {
+.modal-info {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.custom-modal-info p {
+.modal-info p {
   margin-bottom: 10px;
   line-height: 1.6;
 }
@@ -385,7 +385,7 @@ body {
    Right Side
 ========================= */
 
-.custom-modal-body-right {
+.modal-body-right {
   width: 400px;
   flex: 1;
   background-color: #f7f1e8;
@@ -457,19 +457,19 @@ body {
 
 @media (max-width: 768px) {
 
-  .custom-modal-content {
+  .modal-content {
     width: 100%;
   }
 
-  .custom-modal-main-layout {
+  .modal-main-layout {
     flex-direction: column;
   }
 
-  .custom-modal-body-left {
+  .modal-body-left {
     width: 100%;
   }
 
-  .custom-modal-body-right {
+  .modal-body-right {
     width: 100%;
   }
 }

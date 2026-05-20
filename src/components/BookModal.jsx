@@ -10,24 +10,24 @@ export default function BookModal({ book, isOpen, onClose }) {
 
     return (
         <div
-            className={`custom-modal-overlay ${isExpanded ? 'expanded' : ''}`}
+            className={`modal-overlay ${isExpanded ? 'expanded' : ''}`}
             onClick={onClose}
         >
             {/* 阻止點擊視窗內部時觸發外層的 onClose */}
-            <div className="custom-modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
 
-                <div className="custom-modal-header">
-                    <h3 className="custom-modal-title">{book.title}</h3>
-                    <button className="custom-close-btn" onClick={onClose}>&times;</button>
+                <div className="modal-header">
+                    <h3 className="modal-title">{book.title}</h3>
+                    <button className="close-btn" onClick={onClose}>&times;</button>
                 </div>
 
-                <div className="custom-modal-main-layout">
+                <div className="modal-main-layout">
                     {/* ===================== 左側：書本基本資訊 ===================== */}
-                    <div className="custom-modal-body-left">
+                    <div className="modal-body-left">
                         <div className="modal-image-container">
-                            <img src={book.coverImage} alt={book.title} className="custom-modal-cover" />
+                            <img src={book.coverImage} alt={book.title} className="modal-cover" />
                         </div>
-                        <div className="custom-modal-info">
+                        <div className="modal-info">
                             <p><strong>作者：</strong> {book.author}</p>
                             <p><strong>分類：</strong> {book.category}</p>
                             <p><strong>ISBN：</strong> {book.isbn}</p>
@@ -52,7 +52,7 @@ export default function BookModal({ book, isOpen, onClose }) {
                     {/* ===================== 右側：條件渲染的詳細描述 ===================== */}
                     {/* 條件渲染：當 isExpanded 為 true 時才顯示 description */}
                     {isExpanded && (
-                        <div className="custom-modal-body-right">
+                        <div className="modal-body-right">
                             <hr className="modal-divider" />
                             <p className="modal-description">{book.description}</p>
                         </div>
