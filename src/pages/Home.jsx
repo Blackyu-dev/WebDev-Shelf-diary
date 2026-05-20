@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { booksData } from '../data';
 import BookModal from '../components/BookModal';
 
+
 export default function Home() {
     // 狀態管理：記錄選中哪本書、燈箱是否開啟
     const [selectedBook, setSelectedBook] = useState(null);

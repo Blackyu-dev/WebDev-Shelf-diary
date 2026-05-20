@@ -8,16 +8,21 @@ import AddBook from "./pages/AddBook";
 import Search from "./pages/Search";
 import Collections from "./pages/Collections";
 import Settings from "./pages/Setting";
+import Icon1Img from './assets/home.png';
+import Icon2Img from './assets/plus.png';
+import Icon3Img from './assets/search.png';
+import Icon4Img from './assets/heart.png';
+import Icon5Img from './assets/settings.png';
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(true);
 
   const menuItems = [
-    { path: "/", icon: "🏠", label: "首頁" },
-    { path: "/add", icon: "➕", label: "新增書籍" },
-    { path: "/search", icon: "🔍", label: "搜尋" },
-    { path: "/collections", icon: "📚", label: "我的收藏" },
-    { path: "/settings", icon: "⚙️", label: "設定" },
+    { path: "/", icon: Icon1Img, label: "首頁" },
+    { path: "/add", icon: Icon2Img, label: "新增書籍" },
+    { path: "/search", icon: Icon3Img, label: "搜尋" },
+    { path: "/collections", icon: Icon4Img, label: "我的收藏" },
+    { path: "/settings", icon: Icon5Img, label: "設定" },
   ];
 
   return (
@@ -39,8 +44,7 @@ export default function App() {
           <nav className="sidebar-nav">
             {menuItems.map((item) => (
               <Link key={item.path} to={item.path} className="nav-item">
-                <span className="icon">{item.icon}</span>
-
+                <img src={item.icon} alt={item.label} className="icon" />
                 {isOpen && <span className="label">{item.label}</span>}
               </Link>
             ))}

@@ -158,7 +158,8 @@ body {
 /* icon */
 
 .icon {
-  font-size: 22px;
+  width: 24px;
+  height: 24px;
 }
 
 /* 主區域 */
