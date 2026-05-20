@@ -1,8 +1,12 @@
-export default function Card({ title, description }) {
+export default function Card({ book, onClick }) {
     return (
-        <div className="card">
-            <h3>{title}</h3>
-            <p>{description}</p>
+        <div className="book-card" onClick={() => onClick(book)}>
+            <img
+                src={book.coverImage}
+                alt={book.title}
+                title={book.title}
+                className="book-cover"
+            />
         </div>
     );
 }

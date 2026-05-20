@@ -1,15 +1,44 @@
 import Card from "../components/Card";
+import { useState } from 'react';
+import { booksData } from '../data';
+import BookModal from '../components/BookModal';
 
 export default function Home() {
-    return (
-        <section>
-            <h2>📚 首頁 - 書籍清單</h2>
+    // 狀態管理：記錄選中哪本書、燈箱是否開啟
+    const [selectedBook, setSelectedBook] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    // 點擊書本的處理函式
+    const handleBookClick = (book) => {
+        setSelectedBook(book);
+        setIsModalOpen(true);
+    };
 
-            <div className="card-grid">
-                <Card title="書籍 A" description="這是一本測試書籍" />
-                <Card title="書籍 B" description="這是第二本測試書籍" />
+    // 關閉燈箱的處理函式
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedBook(null);
+    };
+    return (
+        <div className="container mt-5">
+            {/* 書架容器 */}
+            <div className="bookshelf-row ">
+                {booksData.map((book) => (
+                    <Card
+                        key={book.id}
+                        book={book}
+                        onClick={handleBookClick}
+                    />
+                ))}
             </div>
-        </section>
+
+            {/* 詳細資訊燈箱 */}
+            <BookModal
+                key={selectedBook ? selectedBook.id : 'empty'}
+                book={selectedBook}
+                isOpen={isModalOpen}
+                onClose={closeModal}
+            />
+        </div>
     );
 }
 

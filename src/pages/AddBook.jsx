@@ -6,13 +6,17 @@ export default function AddBook() {
             <h2>➕ 新增書籍</h2>
 
             <Card
-                title="ISBN 匯入"
-                description="輸入 ISBN 自動抓取書籍資訊"
+                book={{
+                    title: "ISBN 匯入",
+                    description: "輸入 ISBN 自動抓取書籍資訊"
+                }}
             />
 
             <Card
-                title="手動輸入"
-                description="自行輸入書籍資料"
+                book={{
+                    title: "手動輸入",
+                    description: "自行輸入書籍資料"
+                }}
             />
         </section>
     );
