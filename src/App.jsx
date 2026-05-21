@@ -53,9 +53,9 @@ export default function App() {
 
         {/* 主內容 */}
         <div className="main-content">
-          <header className="topbar">
+          {/* <header className="topbar">
             <h1>我的書籍紀錄網站</h1>
-          </header>
+          </header> */}
 
           <main className="content">
             <Routes>
