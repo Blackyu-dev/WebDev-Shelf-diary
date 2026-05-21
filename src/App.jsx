@@ -19,9 +19,9 @@ export default function App() {
 
   const menuItems = [
     { path: "/", icon: Icon1Img, label: "首頁" },
-    { path: "/add", icon: Icon2Img, label: "新增書籍" },
+    { path: "/add", icon: Icon2Img, label: "新增" },
     { path: "/search", icon: Icon3Img, label: "搜尋" },
-    { path: "/collections", icon: Icon4Img, label: "我的收藏" },
+    { path: "/collections", icon: Icon4Img, label: "收藏" },
     { path: "/settings", icon: Icon5Img, label: "設定" },
   ];
 
