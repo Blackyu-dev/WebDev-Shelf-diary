@@ -1,7 +1,7 @@
 import './Card.css';
 export default function Card({ book, onClick }) {
     return (
-        <div className="book-card" onClick={() => onClick(book)}>
+        <div className="book-card" onClick={() => onClick && onClick(book)}>
             <img
                 src={book.coverImage}
                 alt={book.title}

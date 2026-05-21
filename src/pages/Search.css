@@ -1,0 +1,80 @@
+/* src/pages/Search.css */
+
+.search-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 80vh;
+}
+
+.search-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+/* 搜尋框外層置中 */
+.search-bar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+/* 搜尋框本體設計 */
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* 聚焦時的樣式變化 */
+.search-input-wrapper:focus-within {
+    border-color: #aaa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.5;
+    margin-right: 10px;
+}
+
+/* 輸入框本身的設定 */
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+}
+
+/* 網格系統：完美取代 Bootstrap */
+.books-grid {
+    display: grid;
+    /* 這行是魔法：會根據螢幕寬度自動決定要塞幾本書，每本最小 200px */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+/* 空白狀態 */
+.empty-state {
+    text-align: center;
+    padding: 4rem 1rem;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    color: #666;
+    margin-top: 2rem;
+}
+
+.empty-state h4 {
+    margin-bottom: 0.5rem;
+    color: #333;
+}
