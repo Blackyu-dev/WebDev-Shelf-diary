@@ -1,0 +1,32 @@
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+}
+
+.topbar {
+    padding: 24px;
+}
+
+.content {
+    padding: 24px;
+}
+
+.content {
+    color: #5a4636;
+}
+
+/* 卡片感 */
+
+.content>* {
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 4px 12px rgba(178, 163, 163, 0.05);
+}

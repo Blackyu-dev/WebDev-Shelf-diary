@@ -1,4 +1,5 @@
 
+import './BookModal.css';
 import { useState } from 'react';
 export default function BookModal({ book, isOpen, onClose }) {
 

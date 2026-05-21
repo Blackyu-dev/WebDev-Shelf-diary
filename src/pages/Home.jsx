@@ -2,6 +2,8 @@ import Card from "../components/Card";
 import { useState } from 'react';
 import { booksData } from '../data';
 import BookModal from '../components/BookModal';
+import "./Home.css";
+
 
 
 export default function Home() {
