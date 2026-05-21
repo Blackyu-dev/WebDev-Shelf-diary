@@ -4,12 +4,22 @@ import { booksData } from '../data';
 import BookModal from '../components/BookModal';
 import "./Home.css";
 
-
-
 export default function Home() {
     // 狀態管理：記錄選中哪本書、燈箱是否開啟
     const [selectedBook, setSelectedBook] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // ===== 篩選功能 =====
+
+    // 書籍類型篩選（全部 / 漫畫 / 小說）
+    const [selectedCategory, setSelectedCategory] = useState("全部");
+
+    // 作品狀態篩選（全部 / 連載 / 完結）
+    const [selectedSerialStatus, setSelectedSerialStatus] = useState("全部");
+
+    // 閱讀狀態篩選（全部 / 已讀 / 未讀）
+    const [selectedReadStatus, setSelectedReadStatus] = useState("全部");
+
     // 點擊書本的處理函式
     const handleBookClick = (book) => {
         setSelectedBook(book);
@@ -21,11 +31,86 @@ export default function Home() {
         setIsModalOpen(false);
         setSelectedBook(null);
     };
+
+    // ===== 書籍篩選邏輯 =====
+    const filteredBooks = booksData.filter((book) => {
+
+        // 類型篩選
+        const matchCategory =
+            selectedCategory === "全部" ||
+            book.category === selectedCategory;
+
+        // 連載狀態篩選
+        const matchSerial =
+            selectedSerialStatus === "全部" ||
+            book.serialStatus === selectedSerialStatus;
+
+        // 閱讀狀態篩選
+        const matchRead =
+            selectedReadStatus === "全部" ||
+            book.status === selectedReadStatus;
+
+        // 三個條件都符合才顯示
+        return matchCategory && matchSerial && matchRead;
+    });
+
     return (
         <div className="container mt-5">
+
+            {/* ===== 篩選區 ===== */}
+            <div className="filter-section mb-4">
+
+                {/* 第一行：書籍類型 */}
+                <div className="filter-row">
+
+                    {["全部", "漫畫", "小說"].map((item) => (
+                        <button
+                            key={item}
+
+                            // active：目前選中的按鈕高亮
+                            className={`filter-btn ${selectedCategory === item ? "active" : ""}`}
+
+                            // 點擊切換類型
+                            onClick={() => setSelectedCategory(item)}
+                        >
+                            {item}
+                        </button>
+                    ))}
+                </div>
+
+                {/* 第二行：連載狀態 + 閱讀狀態 */}
+                <div className="filter-row mt-2">
+
+                    {/* 連載 / 完結 */}
+                    {["全部", "連載", "完結"].map((item) => (
+                        <button
+                            key={item}
+                            className={`filter-btn ${selectedSerialStatus === item ? "active" : ""}`}
+                            onClick={() => setSelectedSerialStatus(item)}
+                        >
+                            {item}
+                        </button>
+                    ))}
+
+                    {/* 已讀 / 未讀 */}
+                    <div className="read-filter">
+
+                        {["全部", "已讀", "未讀"].map((item) => (
+                            <button
+                                key={item}
+                                className={`filter-btn small ${selectedReadStatus === item ? "active" : ""}`}
+                                onClick={() => setSelectedReadStatus(item)}
+                            >
+                                {item}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
             {/* 書架容器 */}
             <div className="bookshelf-row ">
-                {booksData.map((book) => (
+                {filteredBooks.map((book) => (
                     <Card
                         key={book.id}
                         book={book}

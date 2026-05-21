@@ -6,3 +6,51 @@
     /* justify-content: center; */
     align-items: flex-end;
 }
+
+/* 整個篩選區 */
+.filter-section {
+    margin-bottom: 24px;
+}
+
+/* 每一行篩選按鈕 */
+.filter-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* 篩選按鈕基本樣式 */
+.filter-btn {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background-color: #e7dccd;
+    color: #5b4636;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* 滑鼠移上去效果 */
+.filter-btn:hover {
+    background-color: #d8c5af;
+}
+
+/* 被選中的按鈕 */
+.filter-btn.active {
+    background-color: #8b6b4f;
+    color: white;
+}
+
+/* 已讀/未讀區塊靠右 */
+.read-filter {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+}
+
+/* 小型按鈕（已讀/未讀） */
+.filter-btn.small {
+    padding: 6px 12px;
+    font-size: 14px;
+}
