@@ -21,12 +21,20 @@
   padding: 20px;
 }
 
+h2 {
+  color: #5a4636;
+  font-size: 30px;
+  margin: 0;
+}
+
 /* 開關按鈕 */
 
 .toggle-btn {
   border: none;
   background: none;
   cursor: pointer;
+  color: #5a4636;
+  font-size: 24px;
 }
 
 /* 導覽列 */
