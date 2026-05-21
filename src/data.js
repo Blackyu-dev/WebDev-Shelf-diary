@@ -10,6 +10,7 @@ export const booksData = [
         coverImage: book1Img,
         description: "東京，20歲。一段足以相伴一生的戀情。...",
         category: "漫畫",
+        serialStatus: "連載",
         isbn: "4714453010566",
         status: "已讀",
         source: "readmoo"
@@ -21,6 +22,7 @@ export const booksData = [
         coverImage: book2Img,
         description: "討厭看到笑容的具元×擁有開朗笑容的嗣朗★兩人真正的初次見面與過往故事★...",
         category: "漫畫",
+        serialStatus: "連載",
         isbn: "9786264348324",
         status: "已讀",
         source: "誠品"
@@ -32,6 +34,7 @@ export const booksData = [
         coverImage: book3Img,
         description: "只有她知道發生了什麼;只有我能讓她說出口...",
         category: "文學小說",
+        serialStatus: "連載",
         isbn: "9789577412713",
         status: "未讀",
         source: "Hyread"
@@ -43,6 +46,7 @@ export const booksData = [
         coverImage: book4Img,
         description: "「不要拋下我一個人，拜託不要走。」...",
         category: "文學小說",
+        serialStatus: "連載",
         isbn: "9786263471689",
         status: "未讀",
         source: "博客來"
