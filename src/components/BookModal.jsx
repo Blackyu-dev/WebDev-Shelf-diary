@@ -26,7 +26,12 @@ export default function BookModal({ book, isOpen, onClose }) {
                     {/* ===================== 左側：書本基本資訊 ===================== */}
                     <div className="modal-body-left">
                         <div className="modal-image-container">
-                            <img src={book.coverImage} alt={book.title} className="modal-cover" />
+                            {/* <img src={book.coverImage} alt={book.title} className="modal-cover" /> */}
+                            <img
+                                className="modal-cover"
+                                src={book.cover}
+                                alt={book.title}
+                            />
                         </div>
                         <div className="modal-info">
                             <p><strong>作者：</strong> {book.author}</p>
