@@ -70,12 +70,7 @@ export default function AddBook() {
             });
 
             // 封面圖（重點：要補 domain）
-            const img =
-                doc.querySelector(".card-body img");
-
-            const cover = img
-                ? "https://isbn.tw" + img.getAttribute("src")
-                : "";
+            const cover = `https://isbn.tw/${isbn}.jpg`;
 
             const bookData = {
                 id: Date.now(),
@@ -83,7 +78,7 @@ export default function AddBook() {
                 author,
                 publisher,
                 isbn,
-                cover,
+                cover: `https://isbn.tw/${isbn}.jpg`,
             };
 
             setSelectedBook(bookData);
