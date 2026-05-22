@@ -33,9 +33,17 @@ export default function BookModal({ book, isOpen, onClose }) {
                                 alt={book.title}
                             />
                         </div>
+
+                        {/* 書籍基本資訊(顯示) */}
                         <div className="modal-info">
                             <p><strong>作者：</strong> {book.author}</p>
-                            <p><strong>分類：</strong> {book.category}</p>
+                            <p><strong>出版社：</strong> {book.publisher}</p>
+                            {/* <p><strong>出版日期：</strong> {book.publishDate}</p>
+                            <p><strong>出版地：</strong> {book.publishPlace}</p> */}
+                            <p><strong>語言：</strong> {book.language}</p>
+                            <p><strong>版本：</strong> {book.version}</p>
+                            <p><strong>裝訂：</strong> {book.binding}</p>
+                            <p><strong>分級：</strong> {book.grade}</p>
                             <p><strong>ISBN：</strong> {book.isbn}</p>
                             {/* 新增狀態與來源的標籤 */}
                             <div className="tag-container">

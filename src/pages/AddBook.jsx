@@ -31,54 +31,120 @@ export default function AddBook() {
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, "text/html");
 
-            // 書名
+            // 基本欄位
             const title =
                 doc.querySelector("h1")?.innerText?.trim() ||
                 "未知書名";
 
-            // 作者（精準抓 dl dt=作者）
-            let author = "未知作者";
+            // 圖片
+            const cover = `https://isbn.tw/${isbn}.jpg`;
 
+            // 預設欄位
+            let author = "未知作者";
+            let publisher = "";
+            let publishDate = "";
+            let publishPlace = "";
+            let language = "";
+            let version = "";
+            let binding = "";
+            let grade = "";
+            let isbnValue = isbn;
+
+            // 抓 dt / dd 結構
             const dts = doc.querySelectorAll("dt");
 
             dts.forEach((dt) => {
-                if (dt.innerText.trim() === "作者") {
-                    const dd = dt.nextElementSibling;
-                    author = dd?.innerText?.trim() || "未知作者";
+                const key = dt.innerText.trim();
+                const value =
+                    dt.nextElementSibling?.innerText?.trim() ||
+                    "";
+
+                switch (key) {
+                    case "作者":
+                        author = value;
+                        break;
+
+                    case "出版社":
+                        publisher = value;
+                        break;
+
+                    case "出版日期":
+                        publishDate = value;
+                        break;
+
+                    case "出版地":
+                        publishPlace = value;
+                        break;
+
+                    case "語言":
+                        language = value;
+                        break;
+
+                    case "版本":
+                        version = value;
+                        break;
+
+                    case "裝訂":
+                        binding = value;
+                        break;
+
+                    case "分級":
+                        grade = value;
+                        break;
+
+                    case "ISBN":
+                        isbnValue = value;
+                        break;
                 }
             });
 
-            // 出版社
-            let publisher = "";
+            // 簡介
+            let description = "";
 
-            dts.forEach((dt) => {
-                if (dt.innerText.trim() === "出版社") {
-                    const dd = dt.nextElementSibling;
-                    publisher = dd?.innerText?.trim() || "";
+            const introHeaders =
+                doc.querySelectorAll(".card-header");
+
+            introHeaders.forEach((header) => {
+                if (header.innerText.trim() === "簡介") {
+                    const body =
+                        header.nextElementSibling;
+
+                    if (!body) return;
+
+                    // 抓所有 p（不管是不是影片包住）
+                    const paragraphs =
+                        body.querySelectorAll("p");
+
+                    let texts = [];
+
+                    paragraphs.forEach((p) => {
+                        const text =
+                            p.innerText
+                                ?.replace(/\s+/g, " ")
+                                .trim();
+
+                        if (text) texts.push(text);
+                    });
+
+                    description = texts.join("\n\n");
                 }
             });
 
-
-            let isbnValue = "";
-
-            dts.forEach((dt) => {
-                if (dt.innerText.trim() === "ISBN") {
-                    const dd = dt.nextElementSibling;
-                    isbnValue =
-                        dd?.innerText?.trim() || "";
-                }
-            });
-
-            // 封面圖（重點：要補 domain）
-            const cover = `https://isbn.tw/${isbn}.jpg`;
-
+            // 建立書籍資料
             const bookData = {
                 id: Date.now(),
                 title,
                 author,
                 publisher,
-                isbn,
-                cover: `https://isbn.tw/${isbn}.jpg`,
+                publishDate,
+                publishPlace,
+                language,
+                version,
+                binding,
+                grade,
+                isbn: isbnValue,
+                cover,
+                description,
             };
 
             setSelectedBook(bookData);
