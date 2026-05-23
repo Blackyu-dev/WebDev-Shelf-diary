@@ -1,7 +1,8 @@
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
 import { getBooks } from "../data/booksStorage";
-import BookModal from '../components/BookModal';
+// import BookModal from '../components/BookModal';
+import BookDetailPanel from "../components/BookDetailPanel";
 import "./Home.css";
 
 export default function Home() {
@@ -15,7 +16,7 @@ export default function Home() {
 
     // 狀態管理：記錄選中哪本書、燈箱是否開啟
     const [selectedBook, setSelectedBook] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    // const [isModalOpen, setIsModalOpen] = useState(false);
 
     // ===== 篩選功能 =====
 
@@ -31,14 +32,14 @@ export default function Home() {
     // 點擊書本的處理函式
     const handleBookClick = (book) => {
         setSelectedBook(book);
-        setIsModalOpen(true);
+        // setIsModalOpen(true);
     };
 
     // 關閉燈箱的處理函式
-    const closeModal = () => {
-        setIsModalOpen(false);
-        setSelectedBook(null);
-    };
+    // const closeModal = () => {
+    //     setIsModalOpen(false);
+    //     setSelectedBook(null);
+    // };
 
     // ===== 書籍篩選邏輯 =====
     const filteredBooks = booksData.filter((book) => {
@@ -127,13 +128,19 @@ export default function Home() {
                 ))}
             </div>
 
-            {/* 詳細資訊燈箱 */}
+            {/* // 詳細資訊側邊欄 */}
+            <BookDetailPanel
+                book={selectedBook}
+                onClose={() => setSelectedBook(null)}
+            />
+
+            {/* 詳細資訊燈箱
             <BookModal
                 key={selectedBook ? selectedBook.id : 'empty'}
                 book={selectedBook}
                 isOpen={isModalOpen}
                 onClose={closeModal}
-            />
+            /> */}
         </div>
     );
 }

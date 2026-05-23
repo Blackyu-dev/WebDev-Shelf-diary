@@ -1,0 +1,97 @@
+.side-panel {
+  position: fixed;
+  /* 固定在右側 */
+  top: 0;
+  right: -420px;
+  /* 初始藏起來 */
+  width: 420px;
+  height: 100vh;
+  background: white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease;
+  z-index: 9999;
+  overflow-y: auto;
+}
+
+.side-panel.open {
+  right: 0;
+  /* 滑入右側 */
+}
+
+.panel-header {
+  position: relative;
+  /* 讓子元素可以 absolute */
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 0 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* ← 固定最左 */
+.back-btn {
+  position: absolute;
+  left: 15px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #222;
+}
+
+/* 標題置中 */
+.panel-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* 上半部左右排版 */
+.top-section {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+/* 封面縮小 */
+.panel-cover {
+  width: 120px;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* 右側資訊 */
+.info-section {
+  text-align: left;
+  /*  左對齊 */
+}
+
+.info-section p {
+  margin: 4px 0;
+  /* 控制間距 */
+  line-height: 1.6;
+}
+
+/* tag */
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+/* 簡介 */
+.desc-section {
+  margin-top: 10px;
+}
+
+.desc {
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
