@@ -1,10 +1,18 @@
 import Card from "../components/Card";
-import { useState } from 'react';
-import { booksData } from '../data';
+import { useEffect, useState } from "react";
+import { getBooks } from "../data/booksStorage";
 import BookModal from '../components/BookModal';
 import "./Home.css";
 
 export default function Home() {
+    // 書籍資料狀態
+    const [booksData, setBooksData] = useState([]);
+
+    // 首次載入從 localStorage 取得書籍資料
+    useEffect(() => {
+        setBooksData(getBooks());
+    }, []);
+
     // 狀態管理：記錄選中哪本書、燈箱是否開啟
     const [selectedBook, setSelectedBook] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);

@@ -29,7 +29,7 @@ export default function BookModal({ book, isOpen, onClose }) {
                             {/* <img src={book.coverImage} alt={book.title} className="modal-cover" /> */}
                             <img
                                 className="modal-cover"
-                                src={book.cover}
+                                src={book.coverImage}
                                 alt={book.title}
                             />
                         </div>

@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { booksData } from '../data';
+import { getBooks } from "../data/booksStorage";
 import Card from '../components/Card';
 import BookModal from '../components/BookModal';
 import './Search.css';
 
 const Search = () => {
+    const [booksData, setBooksData] = useState(getBooks());
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedBook, setSelectedBook] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);

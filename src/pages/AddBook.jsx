@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { addBook } from "../data/booksStorage";
 import Card from "../components/Card";
 import BookModal from "../components/BookModal";
 import "./AddBook.css";
 
 export default function AddBook() {
+    const navigate = useNavigate();
     const [isbn, setIsbn] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -143,13 +146,17 @@ export default function AddBook() {
                 binding,
                 grade,
                 isbn: isbnValue,
-                cover,
+                coverImage: cover,
                 description,
             };
 
             setSelectedBook(bookData);
 
             setIsModalOpen(true);
+
+            // 新增到 localStorage
+            addBook(bookData);
+
         } catch (error) {
             console.error(error);
 
