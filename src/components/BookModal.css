@@ -115,17 +115,22 @@
 .tag-container {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
     margin: 15px 0;
 }
 
+/* 共用標籤樣式 */
 .status-tag,
-.source-tag {
+.source-tag,
+.category-tag,
+.serial-tag {
     padding: 4px 12px;
     border-radius: 20px;
     font-size: 14px;
     font-weight: bold;
 }
+
 
 .status-tag.read {
     background-color: #d4e1d4;
@@ -140,6 +145,16 @@
 .source-tag {
     background-color: #e2d5c4;
     color: #5a4636;
+}
+
+.category-tag {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.serial-tag {
+    background-color: #dcfce7;
+    color: #166534;
 }
 
 /* =========================

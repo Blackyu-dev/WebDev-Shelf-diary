@@ -45,13 +45,26 @@ export default function BookModal({ book, isOpen, onClose }) {
                             <p><strong>裝訂：</strong> {book.binding}</p>
                             <p><strong>分級：</strong> {book.grade}</p>
                             <p><strong>ISBN：</strong> {book.isbn}</p>
+
                             {/* 新增狀態與來源的標籤 */}
                             <div className="tag-container">
-                                <span className={`status-tag ${book.status === '已讀' ? 'read' : 'reading'
-                                    }`}>
+
+                                <span className={`status-tag ${book.status === '已讀' ? 'read' : 'reading'}`}>
                                     {book.status}
                                 </span>
-                                <span className="source-tag">{book.source}</span>
+
+                                <span className="source-tag">
+                                    {book.source}
+                                </span>
+
+                                <span className="category-tag">
+                                    {book.category}
+                                </span>
+
+                                <span className="serial-tag">
+                                    {book.serialStatus}
+                                </span>
+
                             </div>
 
                             {/* 展開/收起 按鈕 */}
