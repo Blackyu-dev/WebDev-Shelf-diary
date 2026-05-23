@@ -18,41 +18,68 @@ export default function BookDetailPanel({ book, onClose }) {
       {/*----------- 內容區 -----------*/}
       <div className="panel-body">
 
-        {/* ===== 上半部：左圖 + 右資訊 ===== */}
-        <div className="top-section">
+        {/* ===== 卡片1：基本資訊 ===== */}
+        <div className="card info-card">
 
-          {/* 左：封面 */}
-          <img
-            src={book.coverImage}
-            alt={book.title}
-            className="panel-cover"
-          />
+          <div className="top-section">
 
-          {/* 右：資訊 */}
-          <div className="info-section">
-            <p><strong>作者：</strong>{book.author}</p>
-            <p><strong>出版社：</strong>{book.publisher}</p>
-            <p><strong>語言：</strong> {book.language}</p>
-            <p><strong>版本：</strong> {book.version}</p>
-            <p><strong>裝訂：</strong> {book.binding}</p>
-            <p><strong>分級：</strong> {book.grade}</p>
-            <p><strong>ISBN：</strong> {book.isbn}</p>
+            <img
+              src={book.coverImage}
+              className="panel-cover"
+            />
+
+            <div className="info-section">
+
+              {/* 作者 + 出版社（主資訊） */}
+              <div className="line strong">
+                {book.author}
+              </div>
+
+              <div className="line">
+                {book.publisher}
+              </div>
+
+              {/* 時間 */}
+              <div className="line">
+                {book.publishDate
+                  .replace("年", "-")
+                  .replace("月", "-")
+                  .replace("日", "")
+                }
+              </div>
+
+              {/* 地區 + 語言 */}
+              <div className="line">
+                {book.publishPlace} ｜ {book.language}
+              </div>
+
+              {/* 版本 + 裝訂 + 分級 */}
+              <div className="line">
+                {book.version} ｜ {book.binding} ｜ {book.grade}
+              </div>
+
+              {/* ISBN */}
+              <div className="line isbn">
+                ISBN {book.isbn}
+              </div>
+
+            </div>
+
           </div>
-
         </div>
 
-        {/* ===== TAG 區 ===== */}
-        <div className="tag-container">
-          <span className="status-tag">{book.status}</span>
-          <span className="source-tag">{book.source}</span>
-          <span className="category-tag">{book.category}</span>
-          <span className="serial-tag">{book.serialStatus}</span>
+        {/* ===== 卡片2：Tags ===== */}
+        <div className="card tag-card">
+          <span className="tag">{book.status}</span>
+          <span className="tag">{book.source}</span>
+          <span className="tag">{book.category}</span>
+          <span className="tag">{book.serialStatus}</span>
         </div>
 
-        {/* ===== 簡介 ===== */}
-        <div className="desc-section">
-          <h4>簡介</h4>
-          <p className="desc">{book.description}</p>
+        {/* ===== 卡片3：簡介 ===== */}
+        <div className="card desc-card">
+          <div className="desc-title">簡介</div>
+          <p className="desc-text">{book.description}</p>
         </div>
 
       </div>

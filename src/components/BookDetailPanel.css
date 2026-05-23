@@ -6,6 +6,7 @@
   /* 初始藏起來 */
   width: 420px;
   height: 100vh;
+  padding: 20px;
   background: white;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
   transition: right 0.3s ease;
@@ -26,6 +27,20 @@
   height: 50px;
   padding: 0 15px;
   border-bottom: 1px solid #ddd;
+}
+
+.panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 /* ← 固定最左 */
@@ -53,8 +68,8 @@
 /* 上半部左右排版 */
 .top-section {
   display: flex;
-  gap: 15px;
   align-items: flex-start;
+  gap: 50px;
 }
 
 /* 封面縮小 */
@@ -67,14 +82,34 @@
 
 /* 右側資訊 */
 .info-section {
-  text-align: left;
-  /*  左對齊 */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  padding: 4px 0;
 }
 
-.info-section p {
-  margin: 4px 0;
-  /* 控制間距 */
-  line-height: 1.6;
+/* 一般資訊 */
+.line {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.5;
+
+  text-align: left;
+}
+
+/* 第一行 */
+.line.strong {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ISBN */
+.line.isbn {
+  font-size: 12px;
+  color: #999;
+  font-family: monospace;
+  margin-top: 4px;
 }
 
 /* tag */
@@ -85,13 +120,47 @@
   margin: 12px 0;
 }
 
-/* 簡介 */
-.desc-section {
-  margin-top: 10px;
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #eee;
+  color: #444;
+  white-space: nowrap;
 }
 
-.desc {
+.tag-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* 簡介 */
+.desc-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 標題（更書店感） */
+.desc-title {
   font-size: 14px;
-  line-height: 1.6;
+  font-weight: 600;
+  color: #5f4b3a;
+  text-align: left;
+  letter-spacing: 0.5px;
+}
+
+/* 內文 */
+.desc-text {
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #444;
+  text-align: left;
+
+  /* 關鍵：讓排版變乾淨 */
   white-space: pre-line;
+  margin: 0;
 }
