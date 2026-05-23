@@ -4,20 +4,20 @@ const STORAGE_KEY = "books";
 
 // 取得所有書
 export function getBooks() {
-    const data = localStorage.getItem("books");
+  const data = localStorage.getItem("books");
 
-    return data ? JSON.parse(data) : [];
+  return data ? JSON.parse(data) : [];
 }
 
 export function addBook(book) {
-    const books = getBooks();
+  const books = getBooks();
 
-    books.push(book);
+  books.push(book);
 
-    localStorage.setItem(
-        "books",
-        JSON.stringify(books)
-    );
+  localStorage.setItem(
+    "books",
+    JSON.stringify(books)
+  );
 }
 
 // 刪除書
