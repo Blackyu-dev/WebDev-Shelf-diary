@@ -12,11 +12,11 @@
 /* =========================
    Modal Content
 ========================= */
-
 .modal-content {
     background-color: #fdfaf6;
     color: #5a4636;
     width: fit-content;
+    display: inline-block;
     max-width: 95vw;
     border-radius: 18px;
     padding: 30px;
@@ -24,12 +24,12 @@
     animation: modalFadeIn 0.3s ease;
     overflow: hidden;
     transition: all 0.3s ease;
+    /* 讓寬度變換更滑順 */
 }
 
 /* =========================
    Header
 ========================= */
-
 .modal-header {
     display: flex;
     justify-content: space-between;
@@ -43,12 +43,17 @@
     margin: 0;
     font-size: 24px;
     color: #4e3b2c;
+    line-height: 1.4;
+    /* 增加行高，換行時比較好看 */
+    word-break: break-word;
+    /* 強迫過長的字串自動換行 */
+    padding-right: 20px;
+    /* 避免標題文字跟右邊的叉叉重疊 */
 }
 
 /* =========================
    Close Button
 ========================= */
-
 .close-btn {
     background: none;
     border: none;
@@ -65,27 +70,34 @@
 /* =========================
    Main Layout
 ========================= */
-
 .modal-main-layout {
     display: flex;
-
-    gap: 30px;
-
     align-items: flex-start;
+}
+
+/* 預設狀態 (未展開)：限制最大寬度，剛好包住左側內容，強迫長標題換行 */
+.modal-overlay:not(.expanded) .modal-content {
+    max-width: 540px;
+    /* 480px(左側內容) + 60px(左右padding) */
+    width: 100%;
+}
+
+/* 展開狀態：放寬限制，讓右側的 Description 空間可以順利顯示 */
+.modal-overlay.expanded .modal-content {
+    max-width: 980px;
+    width: 100%;
 }
 
 /* =========================
    Left Side
 ========================= */
-
 .modal-body-left {
     display: flex;
     gap: 20px;
-    width: 420px;
+    width: 480px;
+    /* 稍微加寬，讓三個下拉選單有空間並排 */
     flex-shrink: 0;
 }
-
-/* 書封 */
 
 .modal-cover {
     width: 140px;
@@ -95,8 +107,6 @@
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* 資訊區 */
-
 .modal-info {
     flex: 1;
     display: flex;
@@ -104,112 +114,169 @@
 }
 
 .modal-info p {
-    margin-bottom: 10px;
-    line-height: 1.6;
+    margin-bottom: 8px;
+    line-height: 1.5;
+    font-size: 14px;
 }
 
 /* =========================
-   Tags
+   Tags (下拉選單區域)
 ========================= */
-
 .tag-container {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: row;
+    /* 強制橫向排列 */
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
     margin: 15px 0;
+    width: 100%;
 }
 
-/* 共用標籤樣式 */
-.status-tag,
-.source-tag,
-.category-tag,
-.serial-tag {
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: bold;
+.select-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    /* 讓三個欄位平分寬度 */
 }
 
-
-.status-tag.read {
-    background-color: #d4e1d4;
-    color: #3b5a3b;
-}
-
-.status-tag.reading {
-    background-color: #eadbc8;
+.select-group label {
+    font-size: 13px;
+    font-weight: 600;
     color: #6b4f3b;
+    /* 修正顏色以搭配淺色背景 */
 }
 
-.source-tag {
-    background-color: #e2d5c4;
+/* 修正輸入框與下拉選單的顏色，原本白底白字導致看不見 */
+.select-group select,
+.select-group input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #dbc4a5;
+    background: #fff;
     color: #5a4636;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
 }
 
-.category-tag {
-    background-color: #dbeafe;
-    color: #1e40af;
+.select-group select:hover,
+.select-group input:hover {
+    border-color: #ba9d77;
 }
 
-.serial-tag {
-    background-color: #dcfce7;
-    color: #166534;
+.select-group select:focus,
+.select-group input:focus {
+    border-color: #6b4f3b;
+    box-shadow: 0 0 0 3px rgba(107, 79, 59, 0.15);
 }
 
-/* =========================
-   Button
-========================= */
+/* 自訂輸入框與確認按鈕群組 */
+.custom-input-group {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+}
 
-.expand-btn {
-    margin-top: auto;
+.custom-confirm-btn {
     background-color: #6b4f3b;
     color: white;
     border: none;
+    border-radius: 8px;
+    padding: 0 10px;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    /* 確保按鈕文字不折行 */
+    transition: 0.2s;
+}
+
+.custom-confirm-btn:hover {
+    background-color: #4e3b2c;
+}
+
+/* =========================
+   Buttons
+========================= */
+.expand-btn {
+    margin-top: auto;
+    background-color: #e2d5c4;
+    color: #4e3b2c;
+    border: none;
     padding: 10px 16px;
     border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
     transition: 0.2s;
 }
 
 .expand-btn:hover {
-    background-color: #4e3b2c;
+    background-color: #dbc4a5;
+}
+
+.save-btn {
+    width: 100%;
+    margin: 15px 0;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 12px;
+    background: #6b4f3b;
+    /* 配合主題色替換了原本突兀的紫色 */
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(107, 79, 59, 0.3);
+}
+
+.save-btn:active {
+    transform: scale(0.98);
 }
 
 /* =========================
    Right Side
 ========================= */
-
 .modal-body-right {
     width: 400px;
-    flex: 1;
     background-color: #f7f1e8;
     border: 1px solid #dbc4a5;
     border-radius: 12px;
     padding: 20px;
     min-height: 220px;
-    animation: modalFadeInRight 0.3s ease;
+    margin-left: 24px;
+    animation: fadeSlide 0.3s ease forwards;
+}
+
+.scrollable {
+    max-height: 480px;
     overflow-y: auto;
+    padding-right: 8px;
 }
 
 /* =========================
    Description
 ========================= */
-
 .modal-divider {
     border: none;
     border-top: 1px solid #dbc4a5;
-    margin: 12px 0 18px;
+    margin: 0 0 16px;
 }
 
 .modal-description {
     line-height: 1.8;
+    font-size: 15px;
 }
 
 /* =========================
    Animations
 ========================= */
-
 @keyframes modalFadeIn {
     from {
         opacity: 0;
@@ -222,22 +289,11 @@
     }
 }
 
-@keyframes modalFadeInRight {
+@keyframes fadeSlide {
     from {
         opacity: 0;
-        transform: translateX(15px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(20px);
+        transform: translateX(-15px);
+        /* 修改成從內側滑出 */
     }
 
     to {
@@ -247,13 +303,30 @@
 }
 
 /* =========================
-   Mobile
+   Scrollbar & Mobile
 ========================= */
+.scrollable::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: #dbc4a5;
+    border-radius: 999px;
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+    background: #ba9d77;
+}
 
 @media (max-width: 768px) {
-
     .modal-content {
         width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
     }
 
     .modal-main-layout {
@@ -266,5 +339,12 @@
 
     .modal-body-right {
         width: 100%;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .tag-container {
+        flex-direction: column;
+        /* 手機版空間不夠，改回直向排列 */
     }
 }

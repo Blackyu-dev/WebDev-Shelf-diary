@@ -56,10 +56,10 @@
     padding: 0.5rem 0;
 }
 
-/* 網格系統：完美取代 Bootstrap */
+/* 網格系統 */
 .books-grid {
     display: grid;
-    /* 這行是魔法：會根據螢幕寬度自動決定要塞幾本書，每本最小 200px */
+    /* 根據螢幕寬度自動決定要塞幾本書，每本最小 200px */
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1.5rem;
 }

@@ -9,6 +9,7 @@ export default function AddBook() {
     const navigate = useNavigate();
     const [isbn, setIsbn] = useState("");
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const [selectedBook, setSelectedBook] =
         useState(null);
@@ -22,6 +23,7 @@ export default function AddBook() {
 
         try {
             setLoading(true);
+            setError("");
 
             // vite proxy
             const response = await fetch(
@@ -36,14 +38,20 @@ export default function AddBook() {
 
             // 基本欄位
             const title =
-                doc.querySelector("h1")?.innerText?.trim() ||
-                "未知書名";
+                doc.querySelector("h1")?.innerText?.trim();
+
+            if (!title) {
+
+                setError("找不到這本書，請改用手動輸入");
+
+                return;
+            }
 
             // 圖片
             const cover = `https://isbn.tw/${isbn}.jpg`;
 
             // 預設欄位
-            let author = "未知作者";
+            let author = "";
             let publisher = "";
             let publishDate = "";
             let publishPlace = "";
@@ -55,6 +63,12 @@ export default function AddBook() {
 
             // 抓 dt / dd 結構
             const dts = doc.querySelectorAll("dt");
+            if (dts.length === 0) {
+
+                setError("找不到這本書，請改用手動輸入");
+
+                return;
+            }
 
             dts.forEach((dt) => {
                 const key = dt.innerText.trim();
@@ -159,7 +173,7 @@ export default function AddBook() {
             setIsModalOpen(true);
 
             // 新增到 localStorage
-            addBook(bookData);
+            // addBook(bookData); 改由 Modal 確認新增
 
         } catch (error) {
             console.error(error);
@@ -208,6 +222,12 @@ export default function AddBook() {
                         : "ISBN 匯入"}
                 </button>
             </div>
+
+            {error && (
+                <p className="isbn-error">
+                    {error}
+                </p>
+            )}
 
             {/* 卡片 */}
             <div className="add-book-grid">
