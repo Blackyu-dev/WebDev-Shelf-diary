@@ -136,18 +136,22 @@ export default function AddBook() {
             // 建立書籍資料
             const bookData = {
                 id: Date.now(),
-                title,
-                author,
-                publisher,
-                publishDate,
-                publishPlace,
-                language,
-                version,
-                binding,
-                grade,
-                isbn: isbnValue,
-                coverImage: cover,
-                description,
+                title,                  // 書名
+                author,                 // 作者
+                publisher,              // 出版社
+                publishDate,            // 出版日期
+                publishPlace,           // 出版地
+                language,               // 語言
+                version,                // 版本
+                binding,                // 裝訂
+                grade,                  // 分級
+                isbn: isbnValue,        // ISBN
+                coverImage: cover,      // 書封面
+                description,            // 簡介
+                category: "未分類",     // 預設類別
+                serialStatus: "連載中", // 預設連載狀態(連載中/已完結/全一冊)
+                status: "未讀",         // 預設閱讀狀態(未讀/閱讀中/已讀/棄讀/想讀/收藏/借閱/借出/其他)
+                source: "未知",         // 預設來源(博客來/墊腳石/Hread/讀冊/其他/未知)
             };
 
             setSelectedBook(bookData);
