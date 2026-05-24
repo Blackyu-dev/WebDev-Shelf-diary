@@ -4,16 +4,16 @@
   flex-direction: row !important;
   align-items: flex-start !important;
   /* 確保頂部對齊 */
-  gap: 20px !important;
+  gap: 50px !important;
   /* 加大圖片與文字的間距，讓它有呼吸空間 */
+  justify-content: flex-start !important;
 }
 
 /* ====== 嚴格限制封面大小 ====== */
 .panel-cover {
-  width: 90px !important;
-  min-width: 90px !important;
-  height: 125px !important;
-  /* 直接給定高度，避免比例失控 */
+  width: 120px !important;
+  min-width: 120px !important;
+  height: 170px !important;
   border-radius: 6px;
   object-fit: cover !important;
   /* 確保圖片不變形 */
@@ -91,12 +91,24 @@
 }
 
 .side-panel.open {
-  width: 320px;
+  width: 400px;
   min-width: 320px;
   opacity: 1;
   padding: 20px;
   margin-left: 15px;
 }
+
+.panel-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Chrome / Edge / Safari 隱藏滾動條，但仍然可滾動*/
+.side-panel.open::-webkit-scrollbar {
+  width: 0px;
+}
+
 
 /* ====== Header 與標題 (修復叉叉位置) ====== */
 .panel-header {
@@ -184,39 +196,81 @@
   border-color: #baaa9e;
 }
 
-/* ====== 💄 新增備註按鈕大改造 ====== */
+/* ======  備註 ====== */
+.note-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.note-input {
+  width: 360px;
+  min-height: 120px;
+  resize: vertical;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d4c5b9;
+  background: #fdfaf5;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5a4636;
+}
+
+.note-time {
+  font-size: 12px;
+  color: #888;
+  margin-top: 6px;
+  margin-bottom: 10px;
+  flex: 1;
+  /* 讓時間訊息占滿剩餘空間，將儲存按鈕推到右側 */
+}
+
 .add-note-btn {
   background-color: #5a4636;
-  color: #ffffff;
+  color: #fff;
   border: none;
   padding: 10px 16px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s;
-  width: 100%;
-  /* 讓按鈕填滿寬度，比較現代感 */
-  margin-top: 8px;
-  box-shadow: 0 4px 6px rgba(90, 70, 54, 0.15);
+  transition: all 0.2s ease;
+  width: auto;
+  margin-top: 10px;
+  box-shadow: 0 4px 8px rgba(90, 70, 54, 0.15);
 }
 
 .add-note-btn:hover {
   background-color: #453427;
   transform: translateY(-2px);
-  /* 滑過時微微浮起 */
-  box-shadow: 0 6px 8px rgba(90, 70, 54, 0.2);
+  box-shadow: 0 8px 14px rgba(90, 70, 54, 0.2);
 }
 
 .add-note-btn:active {
   transform: translateY(0);
+  box-shadow: 0 3px 6px rgba(90, 70, 54, 0.15);
+}
+
+.note-footer {
+  display: flex;
+  justify-content: space-between;
+  /* 左右分開 */
+  align-items: center;
+  /* 垂直置中 */
+  margin-top: 0px;
+  gap: 10px;
 }
 
 /* ====== 簡介卡片 (修復滾動) ====== */
 .desc-card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0px;
+}
+
+.desc-title {
+  text-align: center;
+  width: 100%;
 }
 
 .desc-text {

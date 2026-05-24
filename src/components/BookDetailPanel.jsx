@@ -5,17 +5,26 @@ import { updateBook } from "../data/booksStorage";
 
 export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+  const [noteText, setNoteText] = useState(
+    book?.note?.text || ""
+  );
+
+
 
   if (!book) return null;
 
   // 處理備註新增
-  const handleAddNote = (newNoteText) => {
-    // ...保持之前的程式碼不變...
-    const newNote = { id: Date.now().toString(), text: newNoteText, date: new Date().toLocaleDateString() };
-    const updatedBook = { ...book, notes: book.notes ? [...book.notes, newNote] : [newNote] };
+  const handleSaveNote = () => {
+    const updatedBook = {
+      ...book,
+      note: {
+        text: noteText,
+        updatedAt: new Date().toLocaleString()
+      }
+    };
+
     updateBook(updatedBook);
-    if (onUpdateBook) onUpdateBook(updatedBook);
-    setIsNoteModalOpen(false);
+    onUpdateBook?.(updatedBook);
   };
 
   // 🟢 新增：處理下拉選單變更的函式
@@ -70,6 +79,7 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
               <div className="line">{book.publishPlace} ｜ {book.language}</div>
               <div className="line">{book.version} ｜ {book.binding} ｜ {book.grade}</div>
               <div className="line isbn">ISBN {book.isbn}</div>
+              {renderStars()}{/* 顯示星級評分 */}
             </div>
           </div>
         </div>
@@ -130,26 +140,33 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
           <p className="desc-text">{book.description}</p>
         </div>
 
-        {/* ===== 卡片4：備註 (請確認這段還在) ===== */}
+        {/* ===== 卡片4：備註  ===== */}
         <div className="card note-card">
-          <div className="desc-title">最新備註</div>
-          <div className="note-content">
-            {latestNote ? (
-              <p>{latestNote.date}: {latestNote.text}</p>
-            ) : (
-              <p className="empty-text">目前尚無備註...</p>
-            )}
+          <div className="desc-title">備註</div>
+
+          <textarea
+            className="note-input"
+            value={noteText}
+            onChange={(e) => setNoteText(e.target.value)}
+            placeholder="輸入你的備註..."
+          />
+
+          <div className="note-footer">
+            <div className="note-time">
+              {book.note?.updatedAt ? `最後更新：${book.note.updatedAt}` : "尚未有備註"}
+            </div>
+
+            <button className="add-note-btn" onClick={handleSaveNote}>
+              儲存
+            </button>
           </div>
-          <button className="add-note-btn" onClick={() => setIsNoteModalOpen(true)}>
-            + 新增備註
-          </button>
         </div>
       </div> {/* <-- 這是 panel-body 的結尾 */}
 
       {isNoteModalOpen && (
         <NoteModal
           onClose={() => setIsNoteModalOpen(false)}
-          onSave={handleAddNote}
+          onSave={handleSaveNote}
           notesHistory={book.notes || []}
         />
       )}
