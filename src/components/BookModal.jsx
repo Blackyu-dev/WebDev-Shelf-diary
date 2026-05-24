@@ -26,6 +26,21 @@ export default function BookModal({ book, isOpen, onClose }) {
     const [customSource, setCustomSource] = useState("");
     const [customCategory, setCustomCategory] = useState("");
 
+    // ==========================================
+    // 🌟 全面擴充：讓所有基本欄位都變成可編輯狀態
+    // ==========================================
+    const [title, setTitle] = useState(book?.title || "");
+    const [author, setAuthor] = useState(book?.author || "");
+    const [publisher, setPublisher] = useState(book?.publisher || "");
+    const [language, setLanguage] = useState(book?.language || "");
+    const [isbnState, setIsbnState] = useState(book?.isbn || ""); // 避免跟內建變數衝突，取名 isbnState
+
+    const [version, setVersion] = useState(book?.version || "");
+    const [binding, setBinding] = useState(book?.binding || "");
+    const [grade, setGrade] = useState(book?.grade || "");
+
+
+
     // 新增自訂來源並確認
     const handleConfirmSource = () => {
         if (customSource.trim() !== "") {
@@ -54,9 +69,13 @@ export default function BookModal({ book, isOpen, onClose }) {
     const handleSave = () => {
         const updatedBook = {
             ...book,
+            title: title || "未命名書籍",
             status,
             source,
             category,
+            version: version || "未知",
+            binding: binding || "未知",
+            grade: grade || "未知"
         };
         addBook(updatedBook);
         onClose();
@@ -71,7 +90,17 @@ export default function BookModal({ book, isOpen, onClose }) {
         >
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
-                    <h3 className="modal-title">{book.title}</h3>
+                    {book.title ? (
+                        <h3 className="modal-title">{book.title}</h3>
+                    ) : (
+                        <input
+                            type="text"
+                            placeholder="請輸入書名..."
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            style={{ fontSize: "1.2em", fontWeight: "bold", padding: "5px", width: "80%" }}
+                        />
+                    )}
                     <button className="close-btn" onClick={onClose}>&times;</button>
                 </div>
 
@@ -81,19 +110,114 @@ export default function BookModal({ book, isOpen, onClose }) {
                         <div className="modal-image-container">
                             <img
                                 className="modal-cover"
-                                src={book.coverImage}
+                                src={book.coverImage || "https://placehold.co/300x450?text=No+Image"}
                                 alt={book.title}
                             />
                         </div>
 
                         <div className="modal-info">
-                            <p><strong>作者：</strong> {book.author}</p>
-                            <p><strong>出版社：</strong> {book.publisher}</p>
-                            <p><strong>語言：</strong> {book.language}</p>
-                            <p><strong>版本：</strong> {book.version}</p>
-                            <p><strong>裝訂：</strong> {book.binding}</p>
-                            <p><strong>分級：</strong> {book.grade}</p>
-                            <p><strong>ISBN：</strong> {book.isbn}</p>
+                            {book.author && book.author !== "未知" ? (
+                                <p><strong>作者：</strong> {book.author}</p>
+                            ) : (
+                                <div className="input-row">
+                                    <label><strong>作者：</strong></label>
+                                    <input
+                                        type="text"
+                                        placeholder="例如：高森美由紀..."
+                                        value={author}
+                                        onChange={(e) => setAuthor(e.target.value)}
+                                    />
+                                </div>
+                            )}
+
+                            {/* 2. 出版社 */}
+                            {book.publisher && book.publisher !== "未知" && book.publisher !== "" ? (
+                                <p><strong>出版社：</strong> {book.publisher}</p>
+                            ) : (
+                                <div className="input-row">
+                                    <label><strong>出版社：</strong></label>
+                                    <input
+                                        type="text"
+                                        placeholder="例如：馬可孛羅..."
+                                        value={publisher}
+                                        onChange={(e) => setPublisher(e.target.value)}
+                                    />
+                                </div>
+                            )}
+
+                            {/* 3. 語言 */}
+                            {book.language && book.language !== "未知" && book.language !== "" ? (
+                                <p><strong>語言：</strong> {book.language}</p>
+                            ) : (
+                                <div className="input-row">
+                                    <label><strong>語言：</strong></label>
+                                    <input
+                                        type="text"
+                                        placeholder="例如：繁體中文..."
+                                        value={language}
+                                        onChange={(e) => setLanguage(e.target.value)}
+                                    />
+                                </div>
+                            )}
+
+                            {/* 4. ISBN */}
+                            {book.isbn && book.isbn !== "無 ISBN" && book.isbn !== "" ? (
+                                <p><strong>ISBN：</strong> {book.isbn}</p>
+                            ) : (
+                                <div className="input-row">
+                                    <label><strong>ISBN：</strong></label>
+                                    <input
+                                        type="text"
+                                        placeholder="例如：978626..."
+                                        value={isbnState}
+                                        onChange={(e) => setIsbnState(e.target.value)}
+                                    />
+                                </div>
+                            )}
+                            {/* 版本 */}
+                            {book.version && book.version !== "未知" ? (
+                                <p><strong>版本：</strong> {book.version}</p>
+                            ) : (
+                                <div className="input-row">
+                                    <label><strong>版本：</strong></label>
+                                    <input
+                                        type="text"
+                                        placeholder="例如：初版..."
+                                        value={version}
+                                        onChange={(e) => setVersion(e.target.value)}
+                                    />
+                                </div>
+                            )}
+
+                            {/* 裝訂 */}
+                            {book.binding && book.binding !== "未知" ? (
+                                <p><strong>裝訂：</strong> {book.binding}</p>
+                            ) : (
+                                <div className="input-row">
+                                    <label><strong>裝訂：</strong></label>
+                                    <input
+                                        type="text"
+                                        placeholder="例如：平裝..."
+                                        value={binding}
+                                        onChange={(e) => setBinding(e.target.value)}
+                                    />
+                                </div>
+                            )}
+
+                            {/* 分級 */}
+                            {book.grade && book.grade !== "未知" ? (
+                                <p><strong>分級：</strong> {book.grade}</p>
+                            ) : (
+                                <div className="input-row">
+                                    <label><strong>分級：</strong></label>
+                                    <input
+                                        type="text"
+                                        placeholder="例如：普通級..."
+                                        value={grade}
+                                        onChange={(e) => setGrade(e.target.value)}
+                                    />
+                                </div>
+                            )}
 
                             {/* 閱讀狀態、來源、分類 (橫向並排) */}
                             <div className="tag-container">

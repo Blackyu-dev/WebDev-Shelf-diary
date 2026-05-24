@@ -8,8 +8,12 @@ import "./AddBook.css";
 export default function AddBook() {
     const navigate = useNavigate();
     const [isbn, setIsbn] = useState("");
+    const [keyword, setKeyword] = useState("");
+    const [searchResults, setSearchResults] =
+        useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const API_KEY = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY;
 
     const [selectedBook, setSelectedBook] =
         useState(null);
@@ -42,7 +46,7 @@ export default function AddBook() {
 
             if (!title) {
 
-                setError("找不到這本書，請改用手動輸入");
+                setError("找不到這本書，請改用書名或手動輸入");
 
                 return;
             }
@@ -65,7 +69,7 @@ export default function AddBook() {
             const dts = doc.querySelectorAll("dt");
             if (dts.length === 0) {
 
-                setError("找不到這本書，請改用手動輸入");
+                setError("找不到這本書，請改用書名或手動輸入");
 
                 return;
             }
@@ -183,6 +187,87 @@ export default function AddBook() {
             setLoading(false);
         }
     };
+    // Google 書名搜尋
+    const handleGoogleSearch = async () => {
+        if (!keyword.trim()) return;
+
+        try {
+            setLoading(true);
+
+            const response = await fetch(
+                `https://www.googleapis.com/books/v1/volumes?q=${keyword}&key=${API_KEY}`
+            );
+
+            const data = await response.json();
+
+            if (!data.items) {
+                setError("找不到相關書籍，請改用ISBN或手動輸入");
+                return;
+            }
+
+            // 整理資料
+            const books = data.items.map((item) => {
+                const info = item.volumeInfo;
+
+                return {
+                    id: item.id,
+
+                    title:
+                        info.title || "未知書名",
+
+                    author:
+                        info.authors?.join(", ") ||
+                        "未知作者",
+
+                    publisher:
+                        info.publisher || "",
+
+                    publishDate:
+                        info.publishedDate || "",
+
+                    language:
+                        info.language || "",
+
+                    version: "",
+
+                    binding: "",
+
+                    grade: "",
+
+                    isbn:
+                        info.industryIdentifiers?.[0]
+                            ?.identifier || "",
+
+                    coverImage:
+                        info.imageLinks?.thumbnail ||
+                        "",
+
+                    description:
+                        info.description || "",
+
+                    category: "未分類",
+
+                    serialStatus: "連載中",
+
+                    status: "未讀",
+
+                    source: "未知",
+                };
+            });
+
+            setSearchResults(books);
+
+        } catch (error) {
+
+            console.error(error);
+
+            setError("找不到相關書籍，請改用ISBN或手動輸入");
+
+        } finally {
+
+            setLoading(false);
+        }
+    };
 
     // 關閉 modal
     const handleCloseModal = () => {
@@ -197,65 +282,99 @@ export default function AddBook() {
         <section className="add-book-page">
             <h2>➕ 新增書籍</h2>
 
-            {/* ISBN 區塊 */}
-            <div className="isbn-section">
-                <input
-                    type="text"
-                    placeholder="輸入 ISBN..."
-                    value={isbn}
-                    onChange={(e) =>
-                        setIsbn(
-                            e.target.value
-                        )
-                    }
-                    className="isbn-input"
-                />
+            {/* === 搜尋區塊 (這裡確保絕對只有兩排！) === */}
+            <div className="search-container">
+                {/* 第一排：ISBN 搜尋 */}
+                <div className="isbn-section">
+                    <input
+                        type="text"
+                        placeholder="輸入 ISBN..."
+                        value={isbn}
+                        onChange={(e) => setIsbn(e.target.value)}
+                        className="isbn-input"
+                    />
+                    <button className="isbn-button" onClick={handleISBNImport}>
+                        {loading ? "搜尋中..." : "ISBN 匯入"}
+                    </button>
+                </div>
 
-                <button
-                    className="isbn-button"
-                    onClick={
-                        handleISBNImport
-                    }
-                >
-                    {loading
-                        ? "搜尋中..."
-                        : "ISBN 匯入"}
-                </button>
+                {/* 第二排：Google 書名搜尋 */}
+                <div className="isbn-section">
+                    <input
+                        type="text"
+                        placeholder="輸入書名..."
+                        value={keyword}
+                        onChange={(e) => setKeyword(e.target.value)}
+                        className="isbn-input"
+                    />
+                    <button className="isbn-button" onClick={handleGoogleSearch}>
+                        {loading ? "搜尋中..." : "書名搜尋"}
+                    </button>
+                </div>
             </div>
 
+            {/* 錯誤訊息 */}
             {error && (
-                <p className="isbn-error">
+                <p className="isbn-error" style={{ textAlign: "center", color: "red" }}>
                     {error}
                 </p>
             )}
 
-            {/* 卡片 */}
-            <div className="add-book-grid">
-                <Card
-                    book={{
-                        title: "ISBN 匯入",
-                        description:
-                            "輸入 ISBN 自動抓取書籍資訊",
+            {/* === 🌟 解答：什麼是手動加入？ === */}
+            {/* 這裡我們做一個大大的按鈕，這就是「手動加入」的入口！ */}
+            <div style={{ textAlign: "center", margin: "20px 0" }}>
+                <button
+                    className="isbn-button"
+                    style={{ backgroundColor: "#8b5a2b", padding: "10px 20px" }}
+                    onClick={() => {
+                        // 點擊後，我們塞給 Modal 一個「完全空白」的書本物件
+                        setSelectedBook({
+                            id: Date.now(), // 給它一個隨機 ID
+                            title: "",      // 書名留白讓你填
+                            author: "",
+                            publisher: "",
+                            language: "",
+                            version: "",
+                            binding: "",
+                            grade: "",
+                            isbn: "",
+                            description: "",
+                            status: "未讀",
+                            source: "其他",
+                            category: "其他"
+                        });
+                        setIsModalOpen(true); // 打開 Modal
                     }}
-                />
-
-                <Card
-                    book={{
-                        title: "手動輸入",
-                        description:
-                            "自行輸入書籍資料",
-                    }}
-                />
+                >
+                    ✍️ 找不到書？點此完全手動輸入
+                </button>
             </div>
+
+            {/* === Google 搜尋結果 === */}
+            {searchResults.length > 0 && (
+                <div className="add-book-grid">
+                    {searchResults.map((book) => (
+                        <div
+                            key={book.id}
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                                setSelectedBook(book);
+                                setIsModalOpen(true);
+                            }}
+                        >
+                            <Card book={book} />
+                        </div>
+                    ))}
+                </div>
+            )}
 
             {/* Modal */}
             {selectedBook && (
                 <BookModal
+                    key={selectedBook.id}
                     book={selectedBook}
                     isOpen={isModalOpen}
-                    onClose={
-                        handleCloseModal
-                    }
+                    onClose={handleCloseModal}
                 />
             )}
         </section>

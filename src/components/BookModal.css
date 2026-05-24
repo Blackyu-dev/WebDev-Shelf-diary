@@ -1,3 +1,14 @@
+.add-book-grid {
+    display: grid;
+    /* 這個語法超級好用！它會自動計算螢幕寬度，每本書最少 150px，自動填滿畫面 */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    /* 卡片與卡片之間的間距 */
+    margin-top: 20px;
+    align-items: start;
+    /* 確保每張卡片頂部對齊 */
+}
+
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -108,15 +119,22 @@
 }
 
 .modal-info {
+    text-align: left;
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 12px;
+    /* 每一行之間加上呼吸空間，才不會太擠 */
+    width: 100%;
+    /* 確保它佔滿右側空間 */
+
 }
 
 .modal-info p {
     margin-bottom: 8px;
     line-height: 1.5;
     font-size: 14px;
+    margin: 0;
 }
 
 /* =========================
@@ -347,4 +365,30 @@
         flex-direction: column;
         /* 手機版空間不夠，改回直向排列 */
     }
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    justify-content: flex-start;
+    gap: 8px;
+    text-align: left;
+
+
+}
+
+.input-row label {
+    width: 60px;
+    white-space: nowrap;
+    font-size: 14px;
+    text-align: left;
+}
+
+.input-row input {
+    flex: 1;
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
 }
