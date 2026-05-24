@@ -73,7 +73,6 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
             <div className="info-section">
               {/* ...保持之前的基本資訊顯示不變... */}
               <div className="line strong">{book.author}</div>
-              {renderStars()}
               <div className="line">{book.publisher}</div>
               <div className="line">{book.publishDate?.replace("年", "-").replace("月", "-").replace("日", "")}</div>
               <div className="line">{book.publishPlace} ｜ {book.language}</div>
