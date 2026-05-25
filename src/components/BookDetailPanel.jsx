@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import "./BookDetailPanel.css";
 
-import NoteModal from "./NoteModal";
-
 import BookInfoCard from "./panels/BookInfoCard";
 import BookTagCard from "./panels/BookTagCard";
 import BookDescriptionCard from "./panels/BookDescriptionCard";

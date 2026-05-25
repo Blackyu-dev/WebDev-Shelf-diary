@@ -5,12 +5,10 @@ import "./App.css";
 
 import Home from "./pages/Home";
 import AddBook from "./pages/AddBook";
-import Search from "./pages/Search";
 import Collections from "./pages/Collections";
 import Settings from "./pages/Setting";
 import Icon1Img from './assets/home.png';
 import Icon2Img from './assets/plus.png';
-import Icon3Img from './assets/search.png';
 import Icon4Img from './assets/heart.png';
 import Icon5Img from './assets/settings.png';
 
@@ -20,7 +18,6 @@ export default function App() {
   const menuItems = [
     { path: "/", icon: Icon1Img, label: "首頁" },
     { path: "/add", icon: Icon2Img, label: "新增" },
-    { path: "/search", icon: Icon3Img, label: "搜尋" },
     { path: "/collections", icon: Icon4Img, label: "收藏" },
     { path: "/settings", icon: Icon5Img, label: "設定" },
   ];
@@ -61,7 +58,6 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/add" element={<AddBook />} />
-              <Route path="/search" element={<Search />} />
               <Route path="/collections" element={<Collections />} />
               <Route path="/settings" element={<Settings />} />
             </Routes>
