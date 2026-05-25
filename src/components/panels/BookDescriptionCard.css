@@ -17,3 +17,7 @@
   max-height: 180px;
   overflow-y: auto;
 }
+
+.desc-text::-webkit-scrollbar {
+  width: 0px;
+}
