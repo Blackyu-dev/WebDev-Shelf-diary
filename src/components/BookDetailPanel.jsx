@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./BookDetailPanel.css";
 import NoteModal from "./NoteModal";
 import { updateBook } from "../data/booksStorage";
@@ -8,6 +8,10 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
   const [noteText, setNoteText] = useState(
     book?.note?.text || ""
   );
+
+  useEffect(() => {
+    setNoteText(book?.note?.text || "");
+  }, [book]);
 
 
 
