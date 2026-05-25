@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import "./BookDetailPanel.css";
+
 import NoteModal from "./NoteModal";
+
+import BookInfoCard from "./panels/BookInfoCard";
+import BookTagCard from "./panels/BookTagCard";
+import BookDescriptionCard from "./panels/BookDescriptionCard";
+import BookNoteCard from "./panels/BookNoteCard";
+
 import { updateBook } from "../data/booksStorage";
 
 export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
@@ -43,22 +50,7 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
       onUpdateBook(updatedBook);
     }
   };
-  const renderStars = () => {
-    const currentRating = book.rating || 0;
-    return (
-      <div className="star-rating">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <span
-            key={star}
-            className={`star ${star <= currentRating ? "filled" : ""}`}
-            onClick={() => handleSelectChange("rating", star)}
-          >
-            ★
-          </span>
-        ))}
-      </div>
-    );
-  };
+
 
   const latestNote = book.notes && book.notes.length > 0 ? book.notes[book.notes.length - 1] : null;
 
@@ -70,101 +62,29 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
       </div>
 
       <div className="panel-body">
-        {/* ===== 卡片1：基本資訊 ===== */}
-        <div className="card info-card">
-          <div className="top-section">
-            <img src={book.coverImage} className="panel-cover" alt="封面" />
-            <div className="info-section">
-              {/* ...保持之前的基本資訊顯示不變... */}
-              <div className="line strong">{book.author}</div>
-              <div className="line">{book.publisher}</div>
-              <div className="line">{book.publishDate?.replace("年", "-").replace("月", "-").replace("日", "")}</div>
-              <div className="line">{book.publishPlace} ｜ {book.language}</div>
-              <div className="line">{book.version} ｜ {book.binding} ｜ {book.grade}</div>
-              <div className="line isbn">ISBN {book.isbn}</div>
-              {renderStars()}{/* 顯示星級評分 */}
-            </div>
-          </div>
-        </div>
 
-        {/* ===== 卡片2：Tags 可編輯的下拉選單 ===== */}
-        <div className="card tag-card">
+        <BookInfoCard
+          book={book}
+          onChange={handleSelectChange}
+        />
 
-          {/* 閱讀狀態 */}
-          <select
-            className="tag-select"
-            value={book.status || "未讀"}
-            onChange={(e) => handleSelectChange("status", e.target.value)}
-          >
-            <option value="未讀">未讀</option>
-            <option value="閱讀中">閱讀中</option>
-            <option value="已讀">已讀</option>
-          </select>
+        <BookTagCard
+          book={book}
+          onChange={handleSelectChange}
+        />
 
-          {/* 來源 */}
-          <select
-            className="tag-select"
-            value={book.source || "其他"}
-            onChange={(e) => handleSelectChange("source", e.target.value)}
-          >
-            <option value="博客來">博客來</option>
-            <option value="讀冊">讀冊</option>
-            <option value="Kindle">Kindle</option>
-            <option value="其他">其他</option>
-          </select>
+        <BookDescriptionCard
+          description={book.description}
+        />
 
-          {/* 分類 */}
-          <select
-            className="tag-select"
-            value={book.category || "其他"}
-            onChange={(e) => handleSelectChange("category", e.target.value)}
-          >
-            <option value="文學小說">文學小說</option>
-            <option value="漫畫">漫畫</option>
-            <option value="輕小說">輕小說</option>
-            <option value="其他">其他</option>
-          </select>
+        <BookNoteCard
+          book={book}
+          noteText={noteText}
+          setNoteText={setNoteText}
+          onSave={handleSaveNote}
+        />
 
-          {/* 連載狀態  */}
-          <select
-            className="tag-select"
-            value={book.serialStatus || "完結"}
-            onChange={(e) => handleSelectChange("serialStatus", e.target.value)}
-          >
-            <option value="連載">連載</option>
-            <option value="完結">完結</option>
-          </select>
-
-        </div>
-
-        {/* ===== 卡片3：簡介 ===== */}
-        <div className="card desc-card">
-          <div className="desc-title">簡介</div>
-          <p className="desc-text">{book.description}</p>
-        </div>
-
-        {/* ===== 卡片4：備註  ===== */}
-        <div className="card note-card">
-          <div className="desc-title">備註</div>
-
-          <textarea
-            className="note-input"
-            value={noteText}
-            onChange={(e) => setNoteText(e.target.value)}
-            placeholder="輸入你的備註..."
-          />
-
-          <div className="note-footer">
-            <div className="note-time">
-              {book.note?.updatedAt ? `最後更新：${book.note.updatedAt}` : "尚未有備註"}
-            </div>
-
-            <button className="add-note-btn" onClick={handleSaveNote}>
-              儲存
-            </button>
-          </div>
-        </div>
-      </div> {/* <-- 這是 panel-body 的結尾 */}
+      </div>
 
       {isNoteModalOpen && (
         <NoteModal
@@ -176,3 +96,16 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
     </div>
   );
 }
+
+
+
+// components/
+// │
+// ├── BookDetailPanel.jsx
+// │
+// ├── panels/
+// │   ├── BookInfoCard.jsx (管理書籍基本資訊和評分)
+// │   ├── BookTagCard.jsx  (管理書籍的閱讀狀態、來源、分類、連載狀態等標籤)
+// │   ├── BookDescriptionCard.jsx  (顯示書籍簡介)
+// │   ├── BookNoteCard.jsx  (管理書籍備註)
+// │   └── BookSeriesCard.jsx  (管理系列書相關資訊，如是否為系列書、系列名稱、系列順序等)

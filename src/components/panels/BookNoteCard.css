@@ -1,0 +1,40 @@
+.note-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.note-input {
+  width: 360px;
+  min-height: 120px;
+  resize: vertical;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d4c5b9;
+  background: #fdfaf5;
+  font-size: 13px;
+}
+
+.note-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note-time {
+  font-size: 12px;
+  color: #888;
+}
+
+.add-note-btn {
+  background: #5a4636;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.add-note-btn:hover {
+  background: #453427;
+}

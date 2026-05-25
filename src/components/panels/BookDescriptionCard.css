@@ -1,0 +1,19 @@
+.desc-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.desc-title {
+  text-align: center;
+  width: 100%;
+}
+
+.desc-text {
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #444;
+  white-space: pre-line;
+
+  max-height: 180px;
+  overflow-y: auto;
+}

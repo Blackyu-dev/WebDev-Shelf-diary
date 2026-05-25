@@ -1,79 +1,3 @@
-/* ====== 上半部左右排版 (強制橫向排列) ====== */
-.top-section {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: flex-start !important;
-  /* 確保頂部對齊 */
-  gap: 50px !important;
-  /* 加大圖片與文字的間距，讓它有呼吸空間 */
-  justify-content: flex-start !important;
-}
-
-/* ====== 嚴格限制封面大小 ====== */
-.panel-cover {
-  width: 120px !important;
-  min-width: 120px !important;
-  height: 170px !important;
-  border-radius: 6px;
-  object-fit: cover !important;
-  /* 確保圖片不變形 */
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;
-  /* 確保圖片不會被右邊的文字擠壓變形 */
-}
-
-/* 右側資訊區塊 */
-.info-section {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1;
-  text-align: left !important;
-  /* 強制覆蓋掉不知從哪來的置中設定 */
-  align-items: flex-start !important;
-  /* 確保內容靠左 */
-}
-
-.line {
-  font-size: 13.5px;
-  color: #555;
-  line-height: 1.5;
-  text-align: left !important;
-  margin: 0;
-}
-
-.line.strong {
-  font-size: 15px;
-  color: #333;
-}
-
-/* ====== ✨ 新增：星號評分樣式 ====== */
-.star-rating {
-  display: flex;
-  gap: 4px;
-  margin-top: 4px;
-  margin-bottom: 4px;
-}
-
-.star {
-  font-size: 18px;
-  color: #e0d8c8;
-  /* 預設灰白色 */
-  cursor: pointer;
-  transition: color 0.2s, transform 0.1s;
-}
-
-.star.filled {
-  color: #f5c518;
-  /* 經典金黃色 */
-}
-
-.star:hover {
-  transform: scale(1.1);
-  /* 滑過時微微放大 */
-}
-
-/* ====== 側邊欄整體 ====== */
 .side-panel {
   width: 0;
   opacity: 0;
@@ -81,7 +5,6 @@
   background: white;
   transition: width 0.3s ease, padding 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
 
-  /* 關鍵修復 1：嚴格限制側邊欄最大高度，讓它不會超出螢幕，並允許整體滾動 */
   max-height: calc(100vh - 40px);
   overflow-y: auto;
   overflow-x: hidden;
@@ -104,16 +27,9 @@
   align-items: center;
 }
 
-/* Chrome / Edge / Safari 隱藏滾動條，但仍然可滾動*/
-.side-panel.open::-webkit-scrollbar {
-  width: 0px;
-}
-
-
-/* ====== Header 與標題 (修復叉叉位置) ====== */
+/* header */
 .panel-header {
   position: relative;
-  /* 讓子元素可以進行絕對定位 */
   padding: 0 0 12px 0;
   border-bottom: 1px solid #ddd;
   margin-bottom: 16px;
@@ -122,22 +38,14 @@
 
 .panel-title {
   margin: 0;
-  padding-right: 30px;
-  /* 右側留白，避免文字蓋到叉叉 */
   font-size: 18px;
   font-weight: 700;
   color: #333;
-  line-height: 1.4;
-  word-break: break-all;
   text-align: left;
-
-  /* 確保覆蓋掉原本的置中與絕對定位設定 */
-  position: static;
-  transform: none;
+  word-break: break-all;
 }
 
 .close-btn {
-  /* 關鍵修復 2：強制將叉叉定位在右上角 */
   position: absolute;
   top: 0;
   right: 0;
@@ -146,153 +54,8 @@
   font-size: 24px;
   cursor: pointer;
   color: #888;
-  padding: 0;
-  line-height: 1;
-  transition: 0.2s;
 }
 
 .close-btn:hover {
   color: #222;
-}
-
-/* ====== 標籤卡片區 (增加間距) ====== */
-.tag-card {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  /* 把擠在一起的選單拉開 */
-  padding: 12px 0;
-  border-top: 1px dashed #eee;
-  /* 上下加個虛線分隔，更有層次 */
-  border-bottom: 1px dashed #eee;
-}
-
-/* ====== 💄 下拉選單大改造 ====== */
-.tag-select {
-  appearance: none;
-  -webkit-appearance: none;
-  background-color: #fdfaf5;
-  color: #5a4636;
-  border: 1px solid #d4c5b9;
-  padding: 6px 30px 6px 14px;
-  /* 右側留空間給自訂箭頭 */
-  border-radius: 20px;
-  /* 圓角膠囊形狀 */
-  font-size: 13px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-
-  /* 自訂優雅的小箭頭圖示 */
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%238c7662%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px top 50%;
-  background-size: 8px auto;
-}
-
-.tag-select:hover {
-  background-color: #f4eee1;
-  border-color: #baaa9e;
-}
-
-/* ======  備註 ====== */
-.note-card {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.note-input {
-  width: 360px;
-  min-height: 120px;
-  resize: vertical;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #d4c5b9;
-  background: #fdfaf5;
-  font-size: 13px;
-  line-height: 1.6;
-  color: #5a4636;
-}
-
-.note-time {
-  font-size: 12px;
-  color: #888;
-  margin-top: 6px;
-  margin-bottom: 10px;
-  flex: 1;
-  /* 讓時間訊息占滿剩餘空間，將儲存按鈕推到右側 */
-}
-
-.add-note-btn {
-  background-color: #5a4636;
-  color: #fff;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  width: auto;
-  margin-top: 10px;
-  box-shadow: 0 4px 8px rgba(90, 70, 54, 0.15);
-}
-
-.add-note-btn:hover {
-  background-color: #453427;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 14px rgba(90, 70, 54, 0.2);
-}
-
-.add-note-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 3px 6px rgba(90, 70, 54, 0.15);
-}
-
-.note-footer {
-  display: flex;
-  justify-content: space-between;
-  /* 左右分開 */
-  align-items: center;
-  /* 垂直置中 */
-  margin-top: 0px;
-  gap: 10px;
-}
-
-/* ====== 簡介卡片 (修復滾動) ====== */
-.desc-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0px;
-}
-
-.desc-title {
-  text-align: center;
-  width: 100%;
-}
-
-.desc-text {
-  font-size: 12.5px;
-  line-height: 1.7;
-  color: #444;
-  text-align: left;
-  white-space: pre-line;
-  margin: 0;
-
-  /* 關鍵修復 3：限制簡介區域高度，超過就出現專屬滾動條 */
-  max-height: 180px;
-  overflow-y: auto;
-  padding-right: 5px;
-}
-
-/* 自訂簡介區的滾動條樣式 */
-.desc-text::-webkit-scrollbar {
-  width: 4px;
-}
-
-.desc-text::-webkit-scrollbar-thumb {
-  background: #d4c5b9;
-  border-radius: 4px;
 }
