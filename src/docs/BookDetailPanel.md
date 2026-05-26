@@ -1,3 +1,6 @@
+TODO:
+- 新增防呆機制 -> 當詳細資訊 panel 關掉跳出是否儲存提示框
+
 components/
 │
 ├── BookDetailPanel.jsx
