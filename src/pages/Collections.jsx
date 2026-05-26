@@ -1,38 +1,34 @@
+import { useState } from "react"; // 🌟 移除 useEffect
 import Card from "../components/Card";
+import { getBooks } from "../data/booksStorage";
+import "./collections.css";
 
 export default function Collections() {
 
-    const books = [
-        {
-            id: 1779508128063,
-            title: "全知讀者視角01",
-            author: "sing N song",
-            publisher: "深空出版",
-            coverImage: "https://isbn.tw/9789860614312.jpg",
-            status: "未讀",
-        },
-        {
-            id: 1779511959679,
-            title: "獵人只想安靜生活04",
-            author: "103",
-            publisher: "深空出版",
-            coverImage: "https://isbn.tw/9786267412961.jpg",
-            status: "未讀",
-        }
-    ];
+    // 直接在 useState 裡面傳入一個箭頭函式
+    const [favoriteBooks] = useState(() => {
+        const allBooks = getBooks();
+        return allBooks.filter(book => book.favorite === true);
+    });
 
     return (
         <section>
-            <h2>📖 我的收藏</h2>
+            <h2> 我的收藏</h2>
 
-            <div className="books-grid">
-                {books.map((book) => (
-                    <Card
-                        key={book.id}
-                        book={book}
-                    />
-                ))}
-            </div>
+            {favoriteBooks.length === 0 ? (
+                <p style={{ marginTop: "20px", color: "#666" }}>
+                    目前還沒有收藏的書籍喔！去首頁把喜歡的書打勾吧～
+                </p>
+            ) : (
+                <div className="books-grid">
+                    {favoriteBooks.map((book) => (
+                        <Card
+                            key={book.id}
+                            book={book}
+                        />
+                    ))}
+                </div>
+            )}
         </section>
     );
 }
