@@ -8,14 +8,17 @@ export default function Home() {
     const [selectedBook, setSelectedBook] = useState(null);
 
     // ===== 搜尋 Hook =====
-    const { searchTerm, setSearchTerm, filteredBooks } = useSearchBooks();
+    const { searchTerm, setSearchTerm, filteredBooks, refreshBooks } = useSearchBooks();
 
     const handleBookClick = (book) => {
         setSelectedBook(book);
     };
 
     const handleUpdateBook = (updatedBook) => {
-        setSelectedBook(updatedBook);
+        setSelectedBook(updatedBook); // 1. 更新目前面板顯示的書
+        if (refreshBooks) {
+            refreshBooks(); // 2. 通知 Hook 重新去 LocalStorage 拿最新的資料！
+        }
     };
 
     return (

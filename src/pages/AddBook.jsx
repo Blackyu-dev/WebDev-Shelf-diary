@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { addBook } from "../data/booksStorage";
+// import { useNavigate } from "react-router-dom";
+// import { addBook } from "../data/booksStorage";
 import Card from "../components/Card";
 import BookModal from "../components/BookModal";
 import "./AddBook.css";
 
 export default function AddBook() {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [isbn, setIsbn] = useState("");
     const [keyword, setKeyword] = useState("");
     const [searchResults, setSearchResults] =
@@ -282,7 +282,7 @@ export default function AddBook() {
         <section className="add-book-page">
             <h2>➕ 新增書籍</h2>
 
-            {/* === 搜尋區塊 (這裡確保絕對只有兩排！) === */}
+            {/* === 搜尋區塊 === */}
             <div className="search-container">
                 {/* 第一排：ISBN 搜尋 */}
                 <div className="isbn-section">
@@ -320,8 +320,7 @@ export default function AddBook() {
                 </p>
             )}
 
-            {/* === 🌟 解答：什麼是手動加入？ === */}
-            {/* 這裡我們做一個大大的按鈕，這就是「手動加入」的入口！ */}
+
             <div style={{ textAlign: "center", margin: "20px 0" }}>
                 <button
                     className="isbn-button"

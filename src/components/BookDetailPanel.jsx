@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./BookDetailPanel.css";
 
 import BookInfoCard from "./panels/BookInfoCard";
@@ -9,14 +9,18 @@ import BookNoteCard from "./panels/BookNoteCard";
 import { updateBook } from "../data/booksStorage";
 
 export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
-  const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
   const [noteText, setNoteText] = useState(
     book?.note?.text || ""
   );
 
-  useEffect(() => {
+  // 用一個 state 來記住「上一次」傳進來的書
+  const [prevBook, setPrevBook] = useState(book);
+
+  // 當發現傳進來的書跟上次不一樣時，直接更新 noteText
+  if (book !== prevBook) {
+    setPrevBook(book);
     setNoteText(book?.note?.text || "");
-  }, [book]);
+  }
 
 
 
@@ -50,8 +54,6 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
   };
 
 
-  const latestNote = book.notes && book.notes.length > 0 ? book.notes[book.notes.length - 1] : null;
-
   return (
     <div className={`side-panel ${book ? "open" : ""}`}>
       <div className="panel-header">
@@ -84,19 +86,9 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
 
       </div>
 
-      {isNoteModalOpen && (
-        <NoteModal
-          onClose={() => setIsNoteModalOpen(false)}
-          onSave={handleSaveNote}
-          notesHistory={book.notes || []}
-        />
-      )}
     </div>
   );
 }
-
-
-
 // components/
 // │
 // ├── BookDetailPanel.jsx
@@ -107,3 +99,4 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
 // │   ├── BookDescriptionCard.jsx  (顯示書籍簡介)
 // │   ├── BookNoteCard.jsx  (管理書籍備註)
 // │   └── BookSeriesCard.jsx  (管理系列書相關資訊，如是否為系列書、系列名稱、系列順序等)
+

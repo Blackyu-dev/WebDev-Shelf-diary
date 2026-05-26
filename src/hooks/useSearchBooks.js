@@ -2,8 +2,15 @@ import { useState } from "react";
 import { getBooks } from "../data/booksStorage";
 
 export default function useSearchBooks() {
-    const [books] = useState(getBooks());
+    const [books, setBooks] = useState(getBooks());
     const [searchTerm, setSearchTerm] = useState("");
+
+    // 把抓資料的邏輯獨立成一個可以被重複呼叫的函式
+    const fetchBooks = () => {
+        const allBooks = getBooks();
+        setBooks(allBooks);
+    };
+
 
     const filteredBooks = books.filter((book) => {
         const t = searchTerm.toLowerCase();
@@ -16,6 +23,7 @@ export default function useSearchBooks() {
     return {
         searchTerm,
         setSearchTerm,
-        filteredBooks
+        filteredBooks,
+        refreshBooks: fetchBooks
     };
 }

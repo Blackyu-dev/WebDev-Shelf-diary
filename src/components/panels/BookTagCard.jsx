@@ -4,6 +4,18 @@ export default function BookTagCard({
   book,
   onChange
 }) {
+  // 動態產生「來源」選項：如果書本的來源不在預設清單中，就把它加到最前面
+  const defaultSources = ["博客來", "讀冊", "Kindle", "其他"];
+  const displaySources = book.source && !defaultSources.includes(book.source)
+    ? [book.source, ...defaultSources]
+    : defaultSources;
+
+  // 動態產生「分類」選項：如果書本的分類不在預設清單中，就把它加到最前面
+  const defaultCategories = ["文學小說", "漫畫", "輕小說", "其他"];
+  const displayCategories = book.category && !defaultCategories.includes(book.category)
+    ? [book.category, ...defaultCategories]
+    : defaultCategories;
+
   return (
     <div className="card tag-card">
 
@@ -25,28 +37,22 @@ export default function BookTagCard({
       <select
         className="tag-select"
         value={book.source || "其他"}
-        onChange={(e) =>
-          onChange("source", e.target.value)
-        }
+        onChange={(e) => onChange("source", e.target.value)}
       >
-        <option value="博客來">博客來</option>
-        <option value="讀冊">讀冊</option>
-        <option value="Kindle">Kindle</option>
-        <option value="其他">其他</option>
+        {displaySources.map(src => (
+          <option key={src} value={src}>{src}</option>
+        ))}
       </select>
 
       {/* 分類 */}
       <select
         className="tag-select"
         value={book.category || "其他"}
-        onChange={(e) =>
-          onChange("category", e.target.value)
-        }
+        onChange={(e) => onChange("category", e.target.value)}
       >
-        <option value="文學小說">文學小說</option>
-        <option value="漫畫">漫畫</option>
-        <option value="輕小說">輕小說</option>
-        <option value="其他">其他</option>
+        {displayCategories.map(cat => (
+          <option key={cat} value={cat}>{cat}</option>
+        ))}
       </select>
 
       {/* 連載狀態 */}
