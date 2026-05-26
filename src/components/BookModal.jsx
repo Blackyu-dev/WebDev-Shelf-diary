@@ -8,7 +8,7 @@ export default function BookModal({ book, isOpen, onClose }) {
     const [status, setStatus] = useState(book?.status || "未讀");
 
     // 設定來源選項 (如果書本本身的來源不在預設內，自動加進去)
-    const defaultSources = ["博客來", "讀冊", "Kindle", "其他"];
+    const defaultSources = ["博客來", "讀墨", "誠品", "Hyread", "Kobo", "BOOKWALKER", "其他"];
     const initSources = book && book.source && !defaultSources.includes(book.source)
         ? [book.source, ...defaultSources]
         : defaultSources;
@@ -16,7 +16,7 @@ export default function BookModal({ book, isOpen, onClose }) {
     const [source, setSource] = useState(book?.source || "博客來");
 
     // 設定分類選項
-    const defaultCategories = ["文學小說", "漫畫", "輕小說", "其他"];
+    const defaultCategories = ["文學小說", "漫畫", "輕小說", "技術/學習", "雜誌", "其他"];
     const initCategories = book && book.category && !defaultCategories.includes(book.category)
         ? [book.category, ...defaultCategories]
         : defaultCategories;
@@ -313,43 +313,3 @@ export default function BookModal({ book, isOpen, onClose }) {
     );
 }
 
-// TODO:架構圖
-// BookModal（彈窗）
-// │
-// ├── modal-overlay（背景遮罩）
-// │
-// └── modal-content（主要視窗）
-//     │
-//     ├── modal-header（標題列）
-//     │   ├── 書名 book.title
-//     │   └── 關閉按鈕 ×
-//     │
-//     └── modal-main-layout（左右分欄）
-//         │
-//         ├── 左側 modal-body-left（基本資訊）
-//         │   │
-//         │   ├── 圖片區 modal-image-container
-//         │   │   └── 書封面 book.cover
-//         │   │
-//         │   ├── info 區 modal-info
-//         │   │   ├── 作者 author
-//         │   │   ├── 出版社 publisher
-//         │   │   ├── 出版日期 publishDate
-//         │   │   ├── 出版地 publishPlace
-//         │   │   ├── 語言 language
-//         │   │   ├── 版本 version
-//         │   │   ├── 裝訂 binding
-//         │   │   ├── 分級 grade
-//         │   │   ├── ISBN isbn
-//         │   │   │
-//         │   │   ├── tag-container
-//         │   │   │   ├── status-tag（已讀 / 閱讀中）
-//         │   │   │   └── source-tag（來源）
-//         │   │   │
-//         │   │   └── expand-btn（展開詳細資料）
-//         │
-//         └── 右側 modal-body-right（條件顯示）
-//             │
-//             ├── modal-divider（分隔線）
-//             └── modal-description（書籍簡介）
-//                 （只有 isExpanded = true 才顯示）

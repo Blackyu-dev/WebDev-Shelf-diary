@@ -5,13 +5,13 @@ export default function BookTagCard({
   onChange
 }) {
   // 動態產生「來源」選項：如果書本的來源不在預設清單中，就把它加到最前面
-  const defaultSources = ["博客來", "讀冊", "Kindle", "其他"];
+  const defaultSources = ["博客來", "讀墨", "誠品", "Hyread", "Kobo", "BOOKWALKER", "其他"];
   const displaySources = book.source && !defaultSources.includes(book.source)
     ? [book.source, ...defaultSources]
     : defaultSources;
 
   // 動態產生「分類」選項：如果書本的分類不在預設清單中，就把它加到最前面
-  const defaultCategories = ["文學小說", "漫畫", "輕小說", "其他"];
+  const defaultCategories = ["文學小說", "漫畫", "輕小說", "技術/學習", "雜誌", "其他"];
   const displayCategories = book.category && !defaultCategories.includes(book.category)
     ? [book.category, ...defaultCategories]
     : defaultCategories;
