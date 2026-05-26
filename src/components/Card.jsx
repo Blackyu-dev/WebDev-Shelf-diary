@@ -1,6 +1,11 @@
 import './Card.css';
 
-export default function Card({ book, onClick }) {
+export default function Card({ book, onClick, isEditMode, onDelete }) {
+
+    const handleDeleteClick = (e) => {
+        e.stopPropagation();
+        onDelete(book.id);
+    };
 
     if (!book) return null;
 
@@ -9,9 +14,15 @@ export default function Card({ book, onClick }) {
 
     return (
         <div
-            className="book-card"
+            className={`book-card ${isEditMode ? 'edit-mode' : ''}`}
             onClick={() => onClick && onClick(book)}
         >
+            {isEditMode && (
+                <button className="delete-badge" onClick={handleDeleteClick}>
+                    ✕
+                </button>
+            )}
+
             <img
                 src={book.coverImage || defaultCover}
                 alt={book.title || "未知書名"}

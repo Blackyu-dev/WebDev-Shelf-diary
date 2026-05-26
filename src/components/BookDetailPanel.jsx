@@ -8,7 +8,7 @@ import BookNoteCard from "./panels/BookNoteCard";
 
 import { updateBook } from "../data/booksStorage";
 
-export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
+export default function BookDetailPanel({ book, onClose, onUpdateBook, onDeleteBook }) {
   const [noteText, setNoteText] = useState(
     book?.note?.text || ""
   );
@@ -83,6 +83,14 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook }) {
           setNoteText={setNoteText}
           onSave={handleSaveNote}
         />
+        <div className="panel-footer">
+          <button
+            className="ghost-delete-btn"
+            onClick={() => onDeleteBook(book.id)}
+          >
+            移除此書本
+          </button>
+        </div>
 
       </div>
 

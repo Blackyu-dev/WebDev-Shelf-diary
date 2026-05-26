@@ -1,34 +1,81 @@
+/* 確保你的主容器有設定 relative，這樣裡面的 absolute 才會對齊它 */
+.home-container {
+    position: relative;
+    /* 其他你原本的設定保持不變 */
+}
+
+/* 📚 書籍區保持你的設定不變 */
 .bookshelf-row {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
     align-items: flex-end;
-
     margin-top: 80px;
-    /*  往下移 */
 }
 
+/* 🔍 修改這裡：搜尋與按鈕的共用容器 */
 .floating-search {
-    position: fixed;
+    position: absolute;
+    /* 改成 absolute，讓它對齊白底區塊，而不是整個螢幕 */
     top: 20px;
     right: 20px;
-    width: 260px;
-    z-index: 1000;
+    /* 這樣就會剛好在白底區塊的右上方 */
+    display: flex;
+    /* 🌟 加入 flex 讓裡面的搜尋框跟按鈕橫向排列 */
+    align-items: center;
+    /* 讓它們垂直置中 */
+    gap: 12px;
+    /* 搜尋框和按鈕之間的距離 */
+    z-index: 10;
+    /* ⚠️ 注意：把你原本的 width: 260px 刪掉，不然寬度會不夠放按鈕 */
 }
 
+/* 搜尋框本身 */
 .floating-search input {
-    width: 100%;
+    width: 220px;
+    /* 把寬度設定在 input 本身 */
     padding: 10px 12px;
     border-radius: 20px;
     border: 1px solid #ccc;
     outline: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    /* 陰影稍微調淡一點會更有質感 */
     background: #fff;
     color: #3b3b3b;
+    transition: all 0.3s ease;
+    /* 加一點動畫過渡 */
 }
 
-/* ✨ 點下去效果 */
+/* ✨ 點下去效果 (保持你的巧思！) */
 .floating-search input:focus {
     animation: breathe 1.6s ease-in-out infinite;
+    border-color: #dcd8ce;
+}
+
+/* 🌟 新增：管理按鈕的樣式 (搭配你的米色調) */
+.edit-toggle-btn {
+    background-color: #f4f1ea;
+    color: #5c554b;
+    border: 1px solid #e0dcd3;
+    padding: 10px 16px;
+    /* 跟 input 高度一致 */
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    /* 不讓按鈕文字換行 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.edit-toggle-btn:hover {
+    background-color: #eaddc5;
+}
+
+.edit-toggle-btn.active {
+    background-color: #e57373;
+    /* 進入編輯模式變紅色 */
+    color: white;
+    border-color: #e57373;
 }

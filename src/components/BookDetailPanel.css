@@ -75,3 +75,34 @@
 .close-btn:hover {
   color: #222;
 }
+
+/* BookDetailPanel.css */
+
+.panel-footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid #e0dcd3;
+  /* 柔和的米色/淺灰分隔線 */
+  display: flex;
+  justify-content: center;
+}
+
+/* 幽靈按鈕：平時低調，hover 才顯示破壞性操作的警告色 */
+.ghost-delete-btn {
+  background: transparent;
+  color: #a09d96;
+  /* 低對比文字 */
+  border: 1px solid #dcd8ce;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ghost-delete-btn:hover {
+  border-color: #e57373;
+  color: #e57373;
+  background-color: rgba(229, 115, 115, 0.05);
+  /* 淡淡的紅底色 */
+}
