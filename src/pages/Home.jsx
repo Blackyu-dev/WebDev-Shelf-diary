@@ -10,7 +10,7 @@ export default function Home() {
     //刪除時的編輯模式
     const [isEditMode, setIsEditMode] = useState(false);
     // ===== 搜尋 Hook =====
-    const { searchTerm, setSearchTerm, filteredBooks, refreshBooks } = useSearchBooks();
+    const { searchTerm, setSearchTerm, filteredBooks, refreshBooks, totalBooks } = useSearchBooks();
 
     const handleBookClick = (book) => {
         if (isEditMode) return;
@@ -38,7 +38,9 @@ export default function Home() {
 
     return (
         <div className="home-container">
-
+            <div className="library-stats">
+                共收藏 {totalBooks} 本
+            </div>
             {/* 📚 書籍區 */}
             <div className="bookshelf-row">
                 {filteredBooks.map((book) => (
@@ -54,6 +56,7 @@ export default function Home() {
 
             {/* 🔍 右上角搜尋框 */}
             <div className="floating-search">
+
                 <input
                     type="text"
                     placeholder="搜尋書名 / 作者..."

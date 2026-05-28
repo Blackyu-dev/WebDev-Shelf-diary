@@ -24,6 +24,8 @@ export default function useSearchBooks() {
         searchTerm,
         setSearchTerm,
         filteredBooks,
-        refreshBooks: fetchBooks
+        refreshBooks: fetchBooks,
+        totalBooks: books.length
+
     };
 }

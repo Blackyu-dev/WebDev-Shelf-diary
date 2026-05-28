@@ -79,3 +79,13 @@
     color: white;
     border-color: #e57373;
 }
+
+.library-stats {
+    position: absolute;
+    top: 32px;
+    left: 40px;
+    color: #a39d93;
+    font-size: 13px;
+    letter-spacing: 1px;
+    z-index: 5;
+}
