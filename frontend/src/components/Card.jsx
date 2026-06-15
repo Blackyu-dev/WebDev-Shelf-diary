@@ -4,7 +4,7 @@ export default function Card({ book, onClick, isEditMode, onDelete }) {
 
     const handleDeleteClick = (e) => {
         e.stopPropagation();
-        onDelete(book.id);
+        onDelete(book._id);
     };
 
     if (!book) return null;

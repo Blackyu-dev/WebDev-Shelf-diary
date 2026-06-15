@@ -6,6 +6,8 @@ import BookTagCard from "./panels/BookTagCard";
 import BookDescriptionCard from "./panels/BookDescriptionCard";
 import BookNoteCard from "./panels/BookNoteCard";
 
+
+//  updateBook (更新備註與狀態) 暫時還是存原本的 localStorage。
 import { updateBook } from "../data/booksStorage";
 
 export default function BookDetailPanel({ book, onClose, onUpdateBook, onDeleteBook }) {
@@ -22,8 +24,6 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook, onDeleteB
     setNoteText(book?.note?.text || "");
   }
 
-
-
   if (!book) return null;
 
   // 處理備註新增
@@ -37,17 +37,19 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook, onDeleteB
     };
 
     updateBook(updatedBook);
-    onUpdateBook?.(updatedBook);
+    if (onUpdateBook) {
+      onUpdateBook(updatedBook);
+    }
   };
 
-  // 🟢 新增：處理下拉選單變更的函式
+  // 處理下拉選單變更的函式
   const handleSelectChange = (field, value) => {
     // 複製原本的書籍物件，並更新改變的欄位
     const updatedBook = { ...book, [field]: value };
 
     updateBook(updatedBook); // 存回 LocalStorage
 
-    // 通知 Home.jsx 重新渲染，此時首頁的「已讀/未讀」等篩選也能即時生效！
+    // 通知 Home.jsx 重新渲染
     if (onUpdateBook) {
       onUpdateBook(updatedBook);
     }
@@ -86,7 +88,7 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook, onDeleteB
         <div className="panel-footer">
           <button
             className="ghost-delete-btn"
-            onClick={() => onDeleteBook(book.id)}
+            onClick={() => onDeleteBook(book._id)}
           >
             移除此書本
           </button>
@@ -97,5 +99,3 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook, onDeleteB
     </div>
   );
 }
-
-
