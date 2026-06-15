@@ -1,8 +1,10 @@
-import { useState } from "react";
-import { getBooks } from "../data/booksStorage";
+import { useState, useEffect, useCallback } from "react";
+// 原本地的 getBooks
+// import { getBooks } from "../data/booksStorage";
 
 export default function useSearchBooks() {
-    const [books, setBooks] = useState(getBooks());
+
+    const [books, setBooks] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
 
     // 篩選條件
@@ -13,10 +15,26 @@ export default function useSearchBooks() {
         serialStatus: []  // 連載狀態
     });
 
-    const fetchBooks = () => {
-        const allBooks = getBooks();
-        setBooks(allBooks);
-    };
+    // 向 Express API 發送 GET 請求取得所有書籍
+    const fetchBooks = useCallback(async () => {
+        try {
+            const response = await fetch("http://localhost:3000/api/books");
+            if (response.ok) {
+                const data = await response.json();
+                setBooks(data);
+            } else {
+                console.error("無法取得書籍資料");
+            }
+        } catch (error) {
+            console.error("伺服器連線錯誤:", error);
+        }
+    }, []);
+
+    //  把 fetchBooks 放進依賴陣列中，滿足 Linter 的安全規範
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        fetchBooks();
+    }, [fetchBooks]);
 
     const toggleFilter = (filterKey, option) => {
         setSelectedFilters(prev => {
@@ -35,7 +53,6 @@ export default function useSearchBooks() {
         const stats = { status: {}, source: {}, category: {}, serialStatus: {} };
 
         books.forEach(book => {
-
             if (book.status) stats.status[book.status] = (stats.status[book.status] || 0) + 1;
             if (book.source) stats.source[book.source] = (stats.source[book.source] || 0) + 1;
             if (book.category) stats.category[book.category] = (stats.category[book.category] || 0) + 1;

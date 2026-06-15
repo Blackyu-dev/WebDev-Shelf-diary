@@ -1,9 +1,10 @@
 import './BookModal.css';
 import { useState } from 'react';
-import { addBook } from "../data/booksStorage";
+// 原本地的儲存邏輯
+// import { addBook } from "../data/booksStorage";
 
 export default function BookModal({ book, isOpen, onClose }) {
-    // 控制「詳細內容」是否展開的狀態
+    // 「詳細內容」是否展開的狀態
     const [isExpanded, setIsExpanded] = useState(false);
     const [status, setStatus] = useState(book?.status || "未讀");
 
@@ -26,20 +27,18 @@ export default function BookModal({ book, isOpen, onClose }) {
     const [customSource, setCustomSource] = useState("");
     const [customCategory, setCustomCategory] = useState("");
 
-    // ==========================================
-    // 🌟 全面擴充：讓所有基本欄位都變成可編輯狀態
-    // ==========================================
+
+    // 所有基本欄位皆可編輯狀態
+
     const [title, setTitle] = useState(book?.title || "");
     const [author, setAuthor] = useState(book?.author || "");
     const [publisher, setPublisher] = useState(book?.publisher || "");
     const [language, setLanguage] = useState(book?.language || "");
-    const [isbnState, setIsbnState] = useState(book?.isbn || ""); // 避免跟內建變數衝突，取名 isbnState
+    const [isbnState, setIsbnState] = useState(book?.isbn || "");
 
     const [version, setVersion] = useState(book?.version || "");
     const [binding, setBinding] = useState(book?.binding || "");
     const [grade, setGrade] = useState(book?.grade || "");
-
-
 
     // 新增自訂來源並確認
     const handleConfirmSource = () => {
@@ -50,7 +49,7 @@ export default function BookModal({ book, isOpen, onClose }) {
                 setSourceOptions([...newOpts, customSource, "其他"]);
             }
             setSource(customSource);
-            setCustomSource(""); // 清空輸入框
+            setCustomSource("");
         }
     };
 
@@ -66,10 +65,16 @@ export default function BookModal({ book, isOpen, onClose }) {
         }
     };
 
-    const handleSave = () => {
-        const updatedBook = {
+    // 將資料用 POST 送給 Express API
+    const handleSave = async () => {
+        // 1. 送給後端的資料 
+        const newBookData = {
             ...book,
             title: title || "未命名書籍",
+            author: author || "未知",
+            publisher: publisher || "未知",
+            language: language || "未知",
+            isbn: isbnState || "無 ISBN",
             status,
             source,
             category,
@@ -77,8 +82,31 @@ export default function BookModal({ book, isOpen, onClose }) {
             binding: binding || "未知",
             grade: grade || "未知"
         };
-        addBook(updatedBook);
-        onClose();
+
+        // 刪除前端暫時產生的 id，讓 MongoDB 自動生成 _id
+        delete newBookData.id;
+
+        try {
+            // 2. 發送 POST 請求 
+            const response = await fetch("http://localhost:3000/api/books", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newBookData),
+            });
+
+            if (response.ok) {
+                alert("書籍新增成功！");
+                onClose();
+            } else {
+                const errorData = await response.json();
+                alert(`新增失敗: ${errorData.message}`);
+            }
+        } catch (error) {
+            console.error("伺服器連線錯誤:", error);
+            alert("伺服器連線錯誤，請確認後端伺服器是否執行中！");
+        }
     };
 
     if (!isOpen || !book) return null;
@@ -312,4 +340,3 @@ export default function BookModal({ book, isOpen, onClose }) {
         </div>
     );
 }
-
