@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json()); // 自動將前端傳來的 JSON 解析到 req.body
 
 // === MongoDB 連線設定 ===
-const LOCAL_MONGODB_URI = "mongodb://127.0.0.1:27017/Shelf-Diary";
+const LOCAL_MONGODB_URI = "mongodb://127.0.0.1:27017/shelf-diary";
 
 async function connectDB() {
     try {
@@ -76,5 +76,5 @@ app.delete("/api/books/:id", async (req, res) => {
 
 // === 啟動伺服器 ===
 app.listen(PORT, () => {
-    console.log(`後端伺服器已啟動：http://localhost:${PORT}`);
+    console.log(`http://localhost:${PORT}`);
 });
