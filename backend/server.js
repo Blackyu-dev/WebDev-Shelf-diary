@@ -74,6 +74,25 @@ app.delete("/api/books/:id", async (req, res) => {
     }
 });
 
+// 4. PUT API：根據 _id 更新書籍資料 (備註、收藏狀態、閱讀狀態等)
+app.put("/api/books/:id", async (req, res) => {
+    try {
+
+        const updatedBook = await Book.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
+
+        if (!updatedBook) {
+            return res.status(404).json({ message: "找不到要更新的書籍" });
+        }
+        res.json(updatedBook);
+    } catch (error) {
+        res.status(500).json({ message: "更新失敗", error: error.message });
+    }
+});
+
 // === 啟動伺服器 ===
 app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}`);

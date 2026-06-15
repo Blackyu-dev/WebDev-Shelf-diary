@@ -12,7 +12,15 @@ const bookSchema = new mongoose.Schema(
         publisher: { type: String, default: "" },
         isbn: { type: String, default: "" },
         coverImage: { type: String, default: "" },
-        description: { type: String, default: "" }
+        description: { type: String, default: "" },
+
+        favorite: { type: Boolean, default: false },
+
+
+        note: {
+            text: { type: String, default: "" },
+            updatedAt: { type: String, default: "" }
+        }
     },
     { timestamps: true }
 );
