@@ -47,7 +47,7 @@ app.post("/api/books", async (req, res) => {
             language, version, binding, grade, rating } = req.body;
 
 
-        if (!title || !author) {
+        if (title=='未命名書籍' || author=='未知') {
             return res.status(400).json({ message: "書名與作者為必填" });
         }
 
