@@ -57,6 +57,9 @@ export default function BookModal({ book, isOpen, onClose }) {
     const [version, setVersion] = useState(book?.version || "");
     const [binding, setBinding] = useState(book?.binding || "");
     const [grade, setGrade] = useState(book?.grade || "");
+    const [description, setDescription] = useState(
+        book?.description || ""
+    );
 
     // 新增自訂來源並確認
     const handleConfirmSource = () => {
@@ -102,6 +105,7 @@ export default function BookModal({ book, isOpen, onClose }) {
         formData.append("version", version);
         formData.append("binding", binding);
         formData.append("grade", grade);
+        formData.append("description", description);
 
         if (coverFile) {
             formData.append("coverImage", coverFile);
@@ -284,6 +288,16 @@ export default function BookModal({ book, isOpen, onClose }) {
                                     />
                                 </div>
                             )}
+                            {/*  簡介 */}
+                            <div className="input-row description-row">
+                                <label><strong>簡介：</strong></label>
+                                <textarea
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                    placeholder="輸入書籍簡介..."
+                                    rows={5}
+                                />
+                            </div>
 
                             {/* 閱讀狀態、來源、分類 (橫向並排) */}
                             <div className="tag-container">
