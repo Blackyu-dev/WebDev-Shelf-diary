@@ -15,6 +15,11 @@ const bookSchema = new mongoose.Schema(
         description: { type: String, default: "" },
 
         favorite: { type: Boolean, default: false },
+        language: { type: String, default: "未知" }, // 語言
+        version: { type: String, default: "未知" },  // 版本
+        binding: { type: String, default: "未知" },  // 裝訂
+        grade: { type: String, default: "未知" },    // 分級
+        rating: { type: Number, default: 0 },        // 星號評分 (預設為 0 分)
 
 
         note: {

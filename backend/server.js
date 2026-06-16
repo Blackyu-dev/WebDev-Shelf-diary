@@ -42,7 +42,9 @@ app.get("/api/books", async (req, res) => {
 // 2. POST API
 app.post("/api/books", async (req, res) => {
     try {
-        const { title, author, status, source, category, serialStatus, publisher, isbn, coverImage, description } = req.body;
+        const { title, author, status, source, category, serialStatus,
+            publisher, isbn, coverImage, description,
+            language, version, binding, grade, rating } = req.body;
 
 
         if (!title || !author) {
@@ -51,7 +53,8 @@ app.post("/api/books", async (req, res) => {
 
 
         const newBook = await Book.create({
-            title, author, status, source, category, serialStatus, publisher, isbn, coverImage, description
+            title, author, status, source, category, serialStatus, publisher, isbn, coverImage, description,
+            language, version, binding, grade, rating
         });
 
         res.status(201).json(newBook);
