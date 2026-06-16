@@ -2,21 +2,11 @@ import Card from "../components/Card";
 import { useState } from "react";
 import BookDetailPanel from "../components/BookDetailPanel";
 import useSearchBooks from "../hooks/useSearchBooks";
-// 原測試用本地的 deleteBook
-// import { deleteBook } from "../data/booksStorage";
 import "./Home.css";
-
-// 定義篩選類別與選項 
-const FILTER_CONFIG = [
-    { key: 'status', title: '閱讀狀態', options: ['未讀', '已讀', '閱讀中', '想讀'] },
-    { key: 'source', title: '書籍來源', options: ['博客來', '讀墨', '誠品', 'Hyread', 'Kobo', 'BOOKWALKER', '其他'] },
-    { key: 'category', title: '類型', options: ['文學小說', '漫畫', '輕小說', '技術/學習', '雜誌', '其他'] },
-    { key: 'serialStatus', title: '連載狀態', options: ['連載中', '完結'] },
-];
 
 export default function Home() {
     const [selectedBook, setSelectedBook] = useState(null);
-    //刪除時的編輯模式
+    // 刪除時的編輯模式
     const [isEditMode, setIsEditMode] = useState(false);
     // 篩選 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -25,6 +15,30 @@ export default function Home() {
         searchTerm, setSearchTerm, filteredBooks, refreshBooks, totalBooks,
         selectedFilters, toggleFilter, filterStats
     } = useSearchBooks();
+
+    //  動態產生篩選選項的邏輯 
+    // 1. 定義基礎篩選配置 (不包含「其他」，因為等一下會動態把它塞在最後面)
+    const baseFilters = [
+        { key: 'status', title: '閱讀狀態', defaults: ['未讀', '想讀', '閱讀中', '已讀'] },
+        { key: 'source', title: '書籍來源', defaults: ['博客來', '讀墨', '誠品', 'Hyread', 'Kobo', 'BOOKWALKER'] },
+        { key: 'category', title: '類型', defaults: ['文學小說', '漫畫', '輕小說', '技術/學習', '雜誌'] },
+        { key: 'serialStatus', title: '連載狀態', defaults: ['連載中', '已完結'] }, // 對齊 TagCard 的「已完結」
+    ];
+
+    // 2. 合併預設選項與真實存在的新選項
+    const dynamicFilterConfig = baseFilters.map(group => {
+        // 從 hooks 統計出來的 filterStats 抓出現有的 key (例如你新增的 '科幻')
+        const existOptions = Object.keys(filterStats[group.key] || {});
+        // 用 Set 來合併預設值與現有值，並自動去除重複
+        const allOptions = Array.from(new Set([...group.defaults, ...existOptions]));
+        // 把「其他」獨立抽出來，確保它永遠排在陣列的最後一個
+        const optionsWithoutOther = allOptions.filter(opt => opt !== '其他');
+
+        return {
+            ...group,
+            options: [...optionsWithoutOther, '其他']
+        };
+    });
 
     const handleBookClick = (book) => {
         if (isEditMode) return;
@@ -50,7 +64,6 @@ export default function Home() {
                 if (response.ok) {
                     refreshBooks(); // 重新向後端抓取並更新畫面
 
-
                     if (selectedBook && selectedBook._id === bookId) {
                         setSelectedBook(null);
                     }
@@ -71,9 +84,9 @@ export default function Home() {
             </div>
 
             <div className="content-layout">
-                {/* 動態渲染篩選面板 */}
+                {/*  使用動態生成的 dynamicFilterConfig 渲染篩選面板  */}
                 <div className={`filter-panel ${isFilterOpen ? 'open' : ''}`}>
-                    {FILTER_CONFIG.map(group => (
+                    {dynamicFilterConfig.map(group => (
                         <div key={group.key} className="filter-group">
                             <h3 className="filter-title">{group.title}</h3>
                             <div className="filter-options">
