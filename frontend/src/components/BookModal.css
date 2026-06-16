@@ -149,6 +149,8 @@
     border-radius: 20px;
     cursor: pointer;
     font-size: 14px;
+    width: 70%;         /* 🔥 關鍵 */
+    justify-content: center; /* 讓按鈕置中 */
 }
 
 /* 隱藏原生 input */
