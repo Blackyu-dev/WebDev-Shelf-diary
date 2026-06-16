@@ -2,7 +2,7 @@ TODO:
 - 篩選按鈕 (complete)
 - logo設計
 - 統計書籍總數 (complete)
-- 系列書呈現方式
+- 系列書呈現方式 (cancel)
 
 
 
