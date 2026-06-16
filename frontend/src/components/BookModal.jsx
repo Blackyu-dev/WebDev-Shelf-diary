@@ -28,7 +28,7 @@ export default function BookModal({ book, isOpen, onClose }) {
     const [customCategory, setCustomCategory] = useState("");
 
     // 封面圖片 URL
-    const [coverImage, setCoverImage] = useState(book?.coverImage || "");
+    const [coverFile, setCoverFile] = useState(null);
 
     // 所有基本欄位皆可編輯狀態
 
@@ -73,46 +73,46 @@ export default function BookModal({ book, isOpen, onClose }) {
 
     // 將資料用 POST 送給 Express API
     const handleSave = async () => {
-        // 1. 送給後端的資料 
-        const newBookData = {
-            ...book,
-            title: title || "未命名書籍",
-            author: author || "未知",
-            publisher: publisher || "未知",
-            language: language || "未知",
-            isbn: isbnState || "無 ISBN",
-            status,
-            source,
-            category,
-            version: version || "未知",
-            binding: binding || "未知",
-            grade: grade || "未知",
-            coverImage
-        };
+        const formData = new FormData();
 
-        // 刪除前端暫時產生的 id，讓 MongoDB 自動生成 _id
-        delete newBookData.id;
+        formData.append("title", title);
+        formData.append("author", author);
+        formData.append("publisher", publisher);
+        formData.append("language", language);
+        formData.append("isbn", isbnState);
+        formData.append("status", status);
+        formData.append("source", source);
+        formData.append("category", category);
+        formData.append("version", version);
+        formData.append("binding", binding);
+        formData.append("grade", grade);
+
+        if (coverFile) {
+            formData.append("coverImage", coverFile);
+        }
+
+        const url = book?._id
+            ? `http://localhost:3000/api/books/${book._id}`
+            : "http://localhost:3000/api/books";
+
+        const method = book?._id ? "PUT" : "POST";
 
         try {
-            // 2. 發送 POST 請求 
-            const response = await fetch("http://localhost:3000/api/books", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(newBookData),
+            const response = await fetch(url, {
+                method,
+                body: formData, // ❗ 不要 Content-Type（瀏覽器會自動處理）
             });
 
             if (response.ok) {
-                alert("書籍新增成功！");
+                alert(book?._id ? "更新成功！" : "新增成功！");
                 onClose();
             } else {
-                const errorData = await response.json();
-                alert(`新增失敗: ${errorData.message}`);
+                const err = await response.json();
+                alert(err.message);
             }
         } catch (error) {
-            console.error("伺服器連線錯誤:", error);
-            alert("伺服器連線錯誤，請確認後端伺服器是否執行中！");
+            console.error(error);
+            alert("伺服器錯誤");
         }
     };
 
@@ -146,8 +146,11 @@ export default function BookModal({ book, isOpen, onClose }) {
                             {/* 使用 book.coverImage，如果沒有就使用預設圖片 */}
                             <img
                                 className="modal-cover"
-                                src={coverImage || "https://placehold.co/300x450?text=No+Image"}
-                                alt={book.title}
+                                src={
+                                    book?.coverImage
+                                        ? `http://localhost:3000${book.coverImage}`
+                                        : "https://placehold.co/300x450?text=No+Image"
+                                }
                             />
 
                             <label className="upload-btn">
@@ -158,12 +161,7 @@ export default function BookModal({ book, isOpen, onClose }) {
                                     onChange={(e) => {
                                         const file = e.target.files[0];
                                         if (!file) return;
-
-                                        const reader = new FileReader();
-                                        reader.onloadend = () => {
-                                            setCoverImage(reader.result);
-                                        };
-                                        reader.readAsDataURL(file);
+                                        setCoverFile(file);
                                     }}
                                 />
                             </label>

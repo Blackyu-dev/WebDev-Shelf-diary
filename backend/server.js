@@ -4,6 +4,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import Book from "./models/Book.js";
+import bookRoutes from "./routes/bookRoutes.js";
+import path from "path";
+
 
 dotenv.config();
 
@@ -12,6 +15,9 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json()); // 自動將前端傳來的 JSON 解析到 req.body
+app.use("/api/books", bookRoutes);
+app.use("/uploads", express.static("uploads"));
+
 
 // === MongoDB 連線設定 ===
 const LOCAL_MONGODB_URI = "mongodb://127.0.0.1:27017/shelf-diary";
