@@ -25,6 +25,14 @@ export default function AddBook() {
     const handleISBNImport = async () => {
         if (!isbn.trim()) return;
 
+        // 1. 先檢查 ISBN 是否為 10 或 13 碼
+        const isbnDigits = isbn.replace(/-/g, "");
+        if (isbnDigits.length !== 10 && isbnDigits.length !== 13) {
+            setError("請輸入有效的 ISBN (10 或 13 碼)");
+            return;
+        }
+
+        // 2. 透過 ISBN 匯入書籍資料
         try {
             setLoading(true);
             setError("");
