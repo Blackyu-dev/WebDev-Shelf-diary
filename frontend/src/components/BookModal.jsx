@@ -29,9 +29,25 @@ export default function BookModal({ book, isOpen, onClose }) {
 
     // 封面圖片 URL
     const [coverFile, setCoverFile] = useState(null);
+    // 根據 URL 判斷圖片來源，並返回正確的完整 URL
+    const getCoverUrl = (url) => {
+        if (!url) return "https://placehold.co/300x450?text=No+Image";
+
+        // 外部圖片
+        if (url.startsWith("http://") || url.startsWith("https://")) {
+            return url;
+        }
+
+        // 後端 uploads
+        return `http://localhost:3000${url}`;
+    };
+    // 如果使用者上傳了新圖片，優先使用預覽 URL；否則使用 book.coverImage 的 URL
+    const previewUrl = coverFile
+        ? URL.createObjectURL(coverFile)
+        : getCoverUrl(book.coverImage);
+
 
     // 所有基本欄位皆可編輯狀態
-
     const [title, setTitle] = useState(book?.title || "");
     const [author, setAuthor] = useState(book?.author || "");
     const [publisher, setPublisher] = useState(book?.publisher || "");
@@ -105,6 +121,7 @@ export default function BookModal({ book, isOpen, onClose }) {
 
             if (response.ok) {
                 alert(book?._id ? "更新成功！" : "新增成功！");
+                const updatedBook = await response.json();
                 onClose();
             } else {
                 const err = await response.json();
@@ -146,11 +163,8 @@ export default function BookModal({ book, isOpen, onClose }) {
                             {/* 使用 book.coverImage，如果沒有就使用預設圖片 */}
                             <img
                                 className="modal-cover"
-                                src={
-                                    book?.coverImage
-                                        ? `http://localhost:3000${book.coverImage}`
-                                        : "https://placehold.co/300x450?text=No+Image"
-                                }
+                                src={previewUrl}
+                                alt={book.title}
                             />
 
                             <label className="upload-btn">

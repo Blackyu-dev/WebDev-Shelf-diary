@@ -4,13 +4,15 @@ import multer from "multer";
 import path from "path";
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
-    cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
-  }
+    destination: function (req, file, cb) {
+        cb(null, "uploads/");
+    },
+    filename: function (req, file, cb) {
+        const uniqueName =
+            file.fieldname + "-" + Date.now() + path.extname(file.originalname);
+
+        cb(null, uniqueName);
+    }
 });
 
 const upload = multer({ storage: storage });
@@ -22,10 +24,11 @@ router.post("/", upload.single("coverImage"), async (req, res) => {
     try {
         const bookData = {
             ...req.body,
-            coverImage: req.file
-                ? `/uploads/${req.file.filename}`
-                : "",
         };
+
+        if (req.file) {
+            bookData.coverImage = `/uploads/${req.file.filename}`;
+        }
 
         const book = new Book(bookData);
         const saved = await book.save();
@@ -38,12 +41,12 @@ router.post("/", upload.single("coverImage"), async (req, res) => {
 
 // ➜ 取得所有書籍
 router.get("/", async (req, res) => {
-  try {
-    const books = await Book.find();
-    res.json(books);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
+    try {
+        const books = await Book.find();
+        res.json(books);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 });
 
 // 更新書籍
