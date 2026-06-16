@@ -40,29 +40,29 @@ export default function BookInfoCard({
 
         <div className="info-section">
           <div className="info-inner">
-            <div className="line strong">
+            <div className="line strong" title="作者">
               {book.author}
             </div>
 
-            <div className="line">
+            <div className="line" title="出版社">
               {book.publisher}
             </div>
 
             {/* // 出版日期、出版地點、語言、版本、裝幀、分級等資訊 */}
-            <div className="line">
+            <div className="line" title="出版日期">
               {book.publishDate
                 ?.replace("年", "-")
                 .replace("月", "-")
                 .replace("日", "")}
             </div>
 
-            <div className="line">
+            <div className="line" title="出版地點 | 語言">
               {[book.publishPlace, book.language]
                 .filter(Boolean)
                 .join(" ｜ ")}
             </div>
 
-            <div className="line">
+            <div className="line" title="版本 | 裝訂 | 分級">
               {book.version} ｜ {book.binding} ｜ {book.grade}
             </div>
 
