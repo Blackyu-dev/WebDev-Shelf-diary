@@ -138,6 +138,25 @@
 }
 
 /* =========================
+   上傳圖片 
+========================= */
+.upload-btn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 10px;
+    background: #4a90e2;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 隱藏原生 input */
+.upload-btn input[type="file"] {
+    display: none;
+}
+
+/* =========================
    Tags (下拉選單區域)
 ========================= */
 .tag-container {

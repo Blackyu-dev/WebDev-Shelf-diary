@@ -27,6 +27,8 @@ export default function BookModal({ book, isOpen, onClose }) {
     const [customSource, setCustomSource] = useState("");
     const [customCategory, setCustomCategory] = useState("");
 
+    // 封面圖片 URL
+    const [coverImage, setCoverImage] = useState(book?.coverImage || "");
 
     // 所有基本欄位皆可編輯狀態
 
@@ -84,7 +86,8 @@ export default function BookModal({ book, isOpen, onClose }) {
             category,
             version: version || "未知",
             binding: binding || "未知",
-            grade: grade || "未知"
+            grade: grade || "未知",
+            coverImage
         };
 
         // 刪除前端暫時產生的 id，讓 MongoDB 自動生成 _id
@@ -140,11 +143,30 @@ export default function BookModal({ book, isOpen, onClose }) {
                     {/* ===================== 左側：書本基本資訊 ===================== */}
                     <div className="modal-body-left">
                         <div className="modal-image-container">
+                            {/* 使用 book.coverImage，如果沒有就使用預設圖片 */}
                             <img
                                 className="modal-cover"
-                                src={book.coverImage || "https://placehold.co/300x450?text=No+Image"}
+                                src={coverImage || "https://placehold.co/300x450?text=No+Image"}
                                 alt={book.title}
                             />
+
+                            <label className="upload-btn">
+                                上傳圖片
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                        const file = e.target.files[0];
+                                        if (!file) return;
+
+                                        const reader = new FileReader();
+                                        reader.onloadend = () => {
+                                            setCoverImage(reader.result);
+                                        };
+                                        reader.readAsDataURL(file);
+                                    }}
+                                />
+                            </label>
                         </div>
 
                         <div className="modal-info">
