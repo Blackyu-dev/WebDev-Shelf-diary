@@ -392,3 +392,44 @@
     border-radius: 4px;
 
 }
+
+/* 自訂標籤外框（模擬選單形狀） */
+.custom-tag-wrapper {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ccc;
+
+    border-radius: 4px;
+
+    background-color: #fff;
+    overflow: hidden;
+    height: 28px;
+}
+
+/* 隱藏預設 input 樣式 */
+.custom-tag-input {
+    border: none;
+    outline: none;
+    padding: 0 8px;
+    font-size: 0.5em;
+    color: #333;
+    width: 90px;
+    background: transparent;
+}
+
+/* 確認小按鈕 */
+.custom-tag-btn {
+    background-color: #f0f0f0;
+    border: none;
+    border-left: 1px solid #ccc;
+    color: #333;
+    padding: 0 10px;
+    cursor: pointer;
+    height: 100%;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.custom-tag-btn:hover {
+    background-color: #e0e0e0;
+}

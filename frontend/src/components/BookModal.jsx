@@ -49,8 +49,10 @@ export default function BookModal({ book, isOpen, onClose }) {
                 setSourceOptions([...newOpts, customSource, "其他"]);
             }
             setSource(customSource);
-            setCustomSource("");
+        } else {
+            setSource("博客來"); // 空白則退回預設
         }
+        setCustomSource("");
     };
 
     // 新增自訂分類並確認
@@ -61,8 +63,10 @@ export default function BookModal({ book, isOpen, onClose }) {
                 setCategoryOptions([...newOpts, customCategory, "其他"]);
             }
             setCategory(customCategory);
-            setCustomCategory("");
+        } else {
+            setCategory("文學小說"); // 空白則退回預設
         }
+        setCustomCategory("");
     };
 
     // 將資料用 POST 送給 Express API
@@ -266,52 +270,56 @@ export default function BookModal({ book, isOpen, onClose }) {
                                 {/* 來源 */}
                                 <div className="select-group">
                                     <label>來源</label>
-                                    <select
-                                        value={source}
-                                        onChange={(e) => setSource(e.target.value)}
-                                    >
-                                        {sourceOptions.map(opt => (
-                                            <option key={opt} value={opt}>{opt}</option>
-                                        ))}
-                                    </select>
-
-                                    {source === "其他" && (
-                                        <div className="custom-input-group">
+                                    {source === "其他" ? (
+                                        <div className="custom-tag-wrapper">
                                             <input
+                                                className="custom-tag-input"
+                                                autoFocus
                                                 type="text"
                                                 placeholder="輸入來源..."
                                                 value={customSource}
                                                 onChange={(e) => setCustomSource(e.target.value)}
                                                 onKeyDown={(e) => e.key === 'Enter' && handleConfirmSource()}
                                             />
-                                            <button className="custom-confirm-btn" onClick={handleConfirmSource}>確認</button>
+                                            <button className="custom-tag-btn" onClick={handleConfirmSource}>✓</button>
                                         </div>
+                                    ) : (
+                                        <select
+                                            value={source}
+                                            onChange={(e) => setSource(e.target.value)}
+                                        >
+                                            {sourceOptions.map(opt => (
+                                                <option key={opt} value={opt}>{opt}</option>
+                                            ))}
+                                        </select>
                                     )}
                                 </div>
 
                                 {/* 分類 */}
                                 <div className="select-group">
                                     <label>分類</label>
-                                    <select
-                                        value={category}
-                                        onChange={(e) => setCategory(e.target.value)}
-                                    >
-                                        {categoryOptions.map(opt => (
-                                            <option key={opt} value={opt}>{opt}</option>
-                                        ))}
-                                    </select>
-
-                                    {category === "其他" && (
-                                        <div className="custom-input-group">
+                                    {category === "其他" ? (
+                                        <div className="custom-tag-wrapper">
                                             <input
+                                                className="custom-tag-input"
+                                                autoFocus
                                                 type="text"
                                                 placeholder="輸入分類..."
                                                 value={customCategory}
                                                 onChange={(e) => setCustomCategory(e.target.value)}
                                                 onKeyDown={(e) => e.key === 'Enter' && handleConfirmCategory()}
                                             />
-                                            <button className="custom-confirm-btn" onClick={handleConfirmCategory}>確認</button>
+                                            <button className="custom-tag-btn" onClick={handleConfirmCategory}>✓</button>
                                         </div>
+                                    ) : (
+                                        <select
+                                            value={category}
+                                            onChange={(e) => setCategory(e.target.value)}
+                                        >
+                                            {categoryOptions.map(opt => (
+                                                <option key={opt} value={opt}>{opt}</option>
+                                            ))}
+                                        </select>
                                     )}
                                 </div>
                             </div>
