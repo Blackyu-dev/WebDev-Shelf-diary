@@ -9,7 +9,7 @@ export default function BookModal({ book, isOpen, onClose }) {
     const [status, setStatus] = useState(book?.status || "未讀");
 
     // 設定來源選項 (如果書本本身的來源不在預設內，自動加進去)
-    const defaultSources = ["博客來", "讀墨", "誠品", "Hyread", "Kobo", "BOOKWALKER", "其他"];
+    const defaultSources = ["博客來", "讀墨", "Play圖書", "誠品", "Hyread", "Kobo", "BOOKWALKER", "其他"];
     const initSources = book && book.source && !defaultSources.includes(book.source)
         ? [book.source, ...defaultSources]
         : defaultSources;

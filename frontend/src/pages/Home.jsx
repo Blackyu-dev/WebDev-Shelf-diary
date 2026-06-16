@@ -20,7 +20,7 @@ export default function Home() {
     // 1. 定義基礎篩選配置 (不包含「其他」，因為等一下會動態把它塞在最後面)
     const baseFilters = [
         { key: 'status', title: '閱讀狀態', defaults: ['未讀', '想讀', '閱讀中', '已讀'] },
-        { key: 'source', title: '書籍來源', defaults: ['博客來', '讀墨', '誠品', 'Hyread', 'Kobo', 'BOOKWALKER'] },
+        { key: 'source', title: '書籍來源', defaults: ['博客來', '讀墨', "Play圖書", '誠品', 'Hyread', 'Kobo', 'BOOKWALKER'] },
         { key: 'category', title: '類型', defaults: ['文學小說', '漫畫', '輕小說', '技術/學習', '雜誌'] },
         { key: 'serialStatus', title: '連載狀態', defaults: ['連載中', '已完結'] }, // 對齊 TagCard 的「已完結」
     ];

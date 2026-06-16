@@ -5,7 +5,7 @@ export default function BookTagCard({ book, onChange }) {
   const [customSource, setCustomSource] = useState("");
   const [customCategory, setCustomCategory] = useState("");
 
-  const defaultSources = ["博客來", "讀墨", "誠品", "Hyread", "Kobo", "BOOKWALKER", "其他"];
+  const defaultSources = ["博客來", "讀墨", "Play圖書", "誠品", "Hyread", "Kobo", "BOOKWALKER", "其他"];
   const displaySources = book.source && !defaultSources.includes(book.source)
     ? [book.source, ...defaultSources]
     : defaultSources;
