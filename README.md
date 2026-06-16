@@ -58,21 +58,27 @@ npm run dev
 
 ## 八、MongoDB Schema 說明
 
-| 欄位名稱         | 型態    | 預設值     | 說明                                    |
-| :--------------- | :------ | :--------- | :-------------------------------------- |
-| `title`          | String  | 無 (必填)  | 書名                                    |
-| `author`         | String  | 無 (必填)  | 作者                                    |
-| `status`         | String  | 未讀       | 閱讀狀態 (特色欄位：未讀/閱讀中/已讀)   |
-| `source`         | String  | 未知       | 購買/借閱來源 (特色欄位：可自訂)        |
-| `category`       | String  | 未分類     | 書籍分類 (特色欄位：可自訂)             |
-| `serialStatus`   | String  | 連載中     | 連載狀態 (連載中/完結)                  |
-| `publisher`      | String  | 空字串     | 出版社                                  |
-| `isbn`           | String  | 空字串     | 國際標準書號                            |
-| `coverImage`     | String  | 空字串     | 封面圖片 URL                            |
-| `description`    | String  | 空字串     | 書籍簡介                                |
-| `favorite`       | Boolean | false      | 是否加入我的收藏                        |
-| `note.text`      | String  | 空字串     | 個人閱讀備註內容                        |
-| `note.updatedAt` | String  | 空字串     | 備註最後更新時間                        |
+| 欄位名稱 | 型態 | 預設值 | 說明 |
+| --- | --- | --- | --- |
+| `title` | String | 無 (必填) | 書名 |
+| `author` | String | 無 (必填) | 作者 |
+| `status` | String | 未讀 | 閱讀狀態 (特色欄位：未讀/想讀/閱讀中/已讀) |
+| `source` | String | 未知 | 購買/借閱來源 (特色欄位：可自訂) |
+| `category` | String | 未分類 | 書籍分類 (特色欄位：可自訂) |
+| `serialStatus` | String | 連載中 | 連載狀態 (連載中/已完結) |
+| `publisher` | String | 空字串 | 出版社 |
+| `isbn` | String | 空字串 | 國際標準書號 |
+| `coverImage` | String | 空字串 | 封面圖片 URL |
+| `description` | String | 空字串 | 書籍簡介 |
+| `favorite` | Boolean | false | 是否加入我的收藏 |
+| `language` | String | 未知 | 語言 (例如：繁體中文、日文) |
+| `version` | String | 未知 | 版本 (例如：初版、二版) |
+| `binding` | String | 未知 | 裝訂 (例如：平裝、精裝) |
+| `grade` | String | 未知 | 分級 (例如：普通級、限制級) |
+| `rating` | Number | 0 | 星號評分 (0 ~ 5 分) |
+| `note.text` | String | 空字串 | 個人閱讀備註內容 |
+| `note.updatedAt` | String | 空字串 | 備註最後更新時間 |
+
 
 ## 九、系統截圖
 
