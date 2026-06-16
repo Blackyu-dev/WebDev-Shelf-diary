@@ -109,6 +109,8 @@ export default function BookModal({ book, isOpen, onClose }) {
 
         if (coverFile) {
             formData.append("coverImage", coverFile);
+        } else {
+            formData.append("coverImage", book.coverImage || "");
         }
 
         const url = book?._id

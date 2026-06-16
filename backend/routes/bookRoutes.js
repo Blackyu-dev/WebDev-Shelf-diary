@@ -28,8 +28,10 @@ router.post("/", upload.single("coverImage"), async (req, res) => {
 
         if (req.file) {
             bookData.coverImage = `/uploads/${req.file.filename}`;
+        } else if (req.body.coverImage) {
+            bookData.coverImage = req.body.coverImage;
         }
-
+        
         const book = new Book(bookData);
         const saved = await book.save();
 
