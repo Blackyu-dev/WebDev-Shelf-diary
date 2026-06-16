@@ -100,20 +100,19 @@ export default function BookModal({ book, isOpen, onClose }) {
     // 將資料用 POST 送給 Express API
     const handleSave = async () => {
         const formData = new FormData();
-
-        formData.append("title", safeValue(title));
-        formData.append("author", safeValue(author));
-        formData.append("publishDate", safeValue(publishDate));
-        formData.append("publisher", safeValue(publisher));
-        formData.append("publishPlace", safeValue(publishPlace));
-        formData.append("language", safeValue(language));
-        formData.append("isbn", safeValue(isbnState));
-        formData.append("status", safeValue(status));
-        formData.append("source", safeValue(source));
-        formData.append("category", safeValue(category));
-        formData.append("version", safeValue(version));
-        formData.append("binding", safeValue(binding));
-        formData.append("grade", safeValue(grade));
+        formData.append("title", title);
+        formData.append("author", author);
+        formData.append("publishDate", publishDate?.trim() || "出版日期");
+        formData.append("publisher", publisher?.trim() || "出版社");
+        formData.append("publishPlace", publishPlace?.trim() || "出版地");
+        formData.append("language", language?.trim() || "語言");
+        formData.append("isbn", isbnState?.trim() || "未知");
+        formData.append("status", status?.trim() || "未讀");
+        formData.append("source", source?.trim() || "博客來");
+        formData.append("category", category?.trim() || "文學小說");
+        formData.append("version", version?.trim() || "初版");
+        formData.append("binding", binding?.trim() || "平裝");
+        formData.append("grade", grade?.trim() || "普通級");
         formData.append("description", description);
 
         if (coverFile) {

@@ -50,10 +50,12 @@ export default function BookInfoCard({
 
             {/* // 出版日期、出版地點、語言、版本、裝幀、分級等資訊 */}
             <div className="line" title="出版日期">
-              {book.publishDate
-                ?.replace("年", "-")
-                .replace("月", "-")
-                .replace("日", "")}
+              {book.publishDate && book.publishDate !== "出版日期"
+                ? book.publishDate
+                  .replace("年", "-")
+                  .replace("月", "-")
+                  .replace("日", "")
+                : book.publishDate}
             </div>
 
             <div className="line" title="出版地點 | 語言">
