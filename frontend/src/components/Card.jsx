@@ -12,6 +12,21 @@ export default function Card({ book, onClick, isEditMode, onDelete }) {
     const defaultCover =
         "https://placehold.co/120x180?text=No+Image";
 
+    const getCoverUrl = (coverImage) => {
+        if (!coverImage) return defaultCover;
+
+        // 外部圖片（http / https）
+        if (
+            coverImage.startsWith("http://") ||
+            coverImage.startsWith("https://")
+        ) {
+            return coverImage;
+        }
+
+        // 本地 uploads
+        return `http://localhost:3000${coverImage}`;
+    };
+
     return (
         <div
             className={`book-card ${isEditMode ? 'edit-mode' : ''}`}
@@ -24,7 +39,7 @@ export default function Card({ book, onClick, isEditMode, onDelete }) {
             )}
 
             <img
-                src={book.coverImage || defaultCover}
+                src={getCoverUrl(book.coverImage)}
                 alt={book.title || "未知書名"}
                 className="book-cover"
             />
