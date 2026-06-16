@@ -46,6 +46,9 @@ export default function BookModal({ book, isOpen, onClose }) {
         ? URL.createObjectURL(coverFile)
         : getCoverUrl(book.coverImage);
 
+    const safeValue = (value) => {
+        return value && value.trim() !== "" ? value : "未知";
+    };
 
     // 所有基本欄位皆可編輯狀態
     const [title, setTitle] = useState(book?.title || "");
@@ -98,20 +101,20 @@ export default function BookModal({ book, isOpen, onClose }) {
     const handleSave = async () => {
         const formData = new FormData();
 
-        formData.append("title", title);
-        formData.append("author", author);
-        formData.append("publishDate", publishDate);
-        formData.append("publisher", publisher);
-        formData.append("publishPlace", publishPlace);
-        formData.append("language", language);
-        formData.append("isbn", isbnState);
-        formData.append("status", status);
-        formData.append("source", source);
-        formData.append("category", category);
-        formData.append("version", version);
-        formData.append("binding", binding);
-        formData.append("grade", grade);
-        formData.append("description", description);
+        formData.append("title", safeValue(title));
+        formData.append("author", safeValue(author));
+        formData.append("publishDate", safeValue(publishDate));
+        formData.append("publisher", safeValue(publisher));
+        formData.append("publishPlace", safeValue(publishPlace));
+        formData.append("language", safeValue(language));
+        formData.append("isbn", safeValue(isbnState));
+        formData.append("status", safeValue(status));
+        formData.append("source", safeValue(source));
+        formData.append("category", safeValue(category));
+        formData.append("version", safeValue(version));
+        formData.append("binding", safeValue(binding));
+        formData.append("grade", safeValue(grade));
+        formData.append("description", safeValue(description));
 
         if (coverFile) {
             formData.append("coverImage", coverFile);
