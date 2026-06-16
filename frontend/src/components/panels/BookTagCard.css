@@ -71,3 +71,17 @@
 .custom-tag-btn:hover {
   background-color: #e6dace;
 }
+
+/* 收藏愛心樣式 */
+.favorite-heart {
+  cursor: pointer;
+}
+
+.favorite-heart input {
+  display: none;
+}
+
+.heart {
+  font-size: 20px;
+  user-select: none;
+}

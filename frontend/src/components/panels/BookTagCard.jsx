@@ -113,13 +113,16 @@ export default function BookTagCard({ book, onChange }) {
       </select>
 
       {/* 收藏 */}
-      <label className="checkbox-tag">
+      <label className="favorite-heart">
         <input
           type="checkbox"
           checked={book.favorite || false}
           onChange={(e) => onChange("favorite", e.target.checked)}
         />
-        收藏
+
+        <span className="heart">
+          {book.favorite ? "❤️" : "🤍"}
+        </span>收藏
       </label>
 
     </div>
