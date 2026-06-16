@@ -50,7 +50,9 @@ export default function BookModal({ book, isOpen, onClose }) {
     // 所有基本欄位皆可編輯狀態
     const [title, setTitle] = useState(book?.title || "");
     const [author, setAuthor] = useState(book?.author || "");
+    const [publishDate, setPublishDate] = useState(book?.publishDate || "");
     const [publisher, setPublisher] = useState(book?.publisher || "");
+    const [publishPlace, setPublishPlace] = useState(book?.publishPlace || "");
     const [language, setLanguage] = useState(book?.language || "");
     const [isbnState, setIsbnState] = useState(book?.isbn || "");
 
@@ -96,7 +98,9 @@ export default function BookModal({ book, isOpen, onClose }) {
 
         formData.append("title", title);
         formData.append("author", author);
+        formData.append("publishDate", publishDate);
         formData.append("publisher", publisher);
+        formData.append("publishPlace", publishPlace);
         formData.append("language", language);
         formData.append("isbn", isbnState);
         formData.append("status", status);
@@ -217,7 +221,36 @@ export default function BookModal({ book, isOpen, onClose }) {
                                 </div>
                             )}
 
-                            {/* 3. 語言 */}
+                            {/* 3. 出版日期 */}
+                            {book.publishDate && book.publishDate !== "未知" ? (
+                                <p><strong>出版日期：</strong> {book.publishDate}</p>
+                            ) : (
+                                <div className="input-row">
+                                    <label><strong>出版日期：</strong></label>
+                                    <input
+                                        type="date"
+                                        value={publishDate}
+                                        onChange={(e) => setPublishDate(e.target.value)}
+                                    />
+                                </div>
+                            )}
+
+                            {/* 4. 出版地 */}
+                            {book.publishPlace && book.publishPlace !== "未知" ? (
+                                <p><strong>出版地：</strong> {book.publishPlace}</p>
+                            ) : (
+                                <div className="input-row">
+                                    <label><strong>出版地：</strong></label>
+                                    <input
+                                        type="text"
+                                        placeholder="例如：台灣、東京..."
+                                        value={publishPlace}
+                                        onChange={(e) => setPublishPlace(e.target.value)}
+                                    />
+                                </div>
+                            )}
+
+                            {/* 5. 語言 */}
                             {book.language && book.language !== "未知" && book.language !== "" ? (
                                 <p><strong>語言：</strong> {book.language}</p>
                             ) : (
@@ -232,7 +265,7 @@ export default function BookModal({ book, isOpen, onClose }) {
                                 </div>
                             )}
 
-                            {/* 4. ISBN */}
+                            {/* 6. ISBN */}
                             {book.isbn && book.isbn !== "無 ISBN" && book.isbn !== "" ? (
                                 <p><strong>ISBN：</strong> {book.isbn}</p>
                             ) : (
@@ -246,7 +279,7 @@ export default function BookModal({ book, isOpen, onClose }) {
                                     />
                                 </div>
                             )}
-                            {/* 版本 */}
+                            {/* 7. 版本 */}
                             {book.version && book.version !== "未知" ? (
                                 <p><strong>版本：</strong> {book.version}</p>
                             ) : (
@@ -261,7 +294,7 @@ export default function BookModal({ book, isOpen, onClose }) {
                                 </div>
                             )}
 
-                            {/* 裝訂 */}
+                            {/* 8. 裝訂 */}
                             {book.binding && book.binding !== "未知" ? (
                                 <p><strong>裝訂：</strong> {book.binding}</p>
                             ) : (
@@ -276,7 +309,7 @@ export default function BookModal({ book, isOpen, onClose }) {
                                 </div>
                             )}
 
-                            {/* 分級 */}
+                            {/* 9. 分級 */}
                             {book.grade && book.grade !== "未知" ? (
                                 <p><strong>分級：</strong> {book.grade}</p>
                             ) : (
@@ -290,7 +323,7 @@ export default function BookModal({ book, isOpen, onClose }) {
                                     />
                                 </div>
                             )}
-                            {/*  簡介 */}
+                            {/* 10. 簡介 */}
                             <div className="input-row description-row">
                                 <label><strong>簡介：</strong></label>
                                 <textarea
