@@ -15,8 +15,8 @@ export default function BookInfoCard({
           <span
             key={star}
             className={`star ${star <= currentRating
-                ? "filled"
-                : ""
+              ? "filled"
+              : ""
               }`}
             onClick={() =>
               onChange("rating", star)
@@ -40,35 +40,37 @@ export default function BookInfoCard({
 
         <div className="info-section">
           <div className="info-inner">
-          <div className="line strong">
-            {book.author}
-          </div>
+            <div className="line strong">
+              {book.author}
+            </div>
 
-          <div className="line">
-            {book.publisher}
-          </div>
+            <div className="line">
+              {book.publisher}
+            </div>
 
-          {/* // 出版日期、出版地點、語言、版本、裝幀、分級等資訊 */}
-          <div className="line">
-            {book.publishDate
-              ?.replace("年", "-")
-              .replace("月", "-")
-              .replace("日", "")}
-          </div>
+            {/* // 出版日期、出版地點、語言、版本、裝幀、分級等資訊 */}
+            <div className="line">
+              {book.publishDate
+                ?.replace("年", "-")
+                .replace("月", "-")
+                .replace("日", "")}
+            </div>
 
-          <div className="line">
-            {book.publishPlace} ｜ {book.language}
-          </div>
+            <div className="line">
+              {[book.publishPlace, book.language]
+                .filter(Boolean)
+                .join(" ｜ ")}
+            </div>
 
-          <div className="line">
-            {book.version} ｜ {book.binding} ｜ {book.grade}
-          </div>
+            <div className="line">
+              {book.version} ｜ {book.binding} ｜ {book.grade}
+            </div>
 
-          <div className="line isbn">
-            ISBN {book.isbn}
-          </div>
+            <div className="line isbn">
+              ISBN {book.isbn}
+            </div>
 
-          {renderStars()}
+            {renderStars()}
           </div>
         </div>
       </div>
