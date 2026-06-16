@@ -4,8 +4,8 @@ import { useState } from 'react';
 // import { addBook } from "../data/booksStorage";
 
 export default function BookModal({ book, isOpen, onClose }) {
-    // 「詳細內容」是否展開的狀態
-    const [isExpanded, setIsExpanded] = useState(false);
+    // 「簡介內容」是否展開的狀態
+    const [isExpanded, setIsExpanded] = useState(true);
     const [status, setStatus] = useState(book?.status || "未讀");
 
     // 設定來源選項 (如果書本本身的來源不在預設內，自動加進去)
@@ -62,6 +62,8 @@ export default function BookModal({ book, isOpen, onClose }) {
     const [description, setDescription] = useState(
         book?.description || ""
     );
+    // 是否正在編輯簡介的狀態（點擊簡介後進入編輯模式）
+    const [isEditingDesc, setIsEditingDesc] = useState(false);
 
     // 新增自訂來源並確認
     const handleConfirmSource = () => {
@@ -323,16 +325,6 @@ export default function BookModal({ book, isOpen, onClose }) {
                                     />
                                 </div>
                             )}
-                            {/* 10. 簡介 */}
-                            <div className="input-row description-row">
-                                <label><strong>簡介：</strong></label>
-                                <textarea
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
-                                    placeholder="輸入書籍簡介..."
-                                    rows={5}
-                                />
-                            </div>
 
                             {/* 閱讀狀態、來源、分類 (橫向並排) */}
                             <div className="tag-container">
@@ -415,18 +407,34 @@ export default function BookModal({ book, isOpen, onClose }) {
                                 className="expand-btn"
                                 onClick={() => setIsExpanded(!isExpanded)}
                             >
-                                {isExpanded ? '收起詳細資料 ' : '查看詳細資料 '}
+                                {isExpanded ? '收起簡介 ' : '查看簡介 '}
                             </button>
                         </div>
                     </div>
 
-                    {/* ===================== 右側：條件渲染的詳細描述 ===================== */}
-                    {isExpanded && (
-                        <div className="modal-body-right scrollable">
-                            <hr className="modal-divider" />
-                            <p className="modal-description">{book.description || "暫無詳細資料。"}</p>
-                        </div>
-                    )}
+                    {/* ===================== 右側：條件渲染的簡介 ===================== */}
+                    <div className="modal-body-right">
+                        <hr className="modal-divider" />
+
+                        {isEditingDesc || description.trim() === "" ? (
+                            <textarea
+                                className="modal-description"
+                                value={description}
+                                autoFocus
+                                placeholder="輸入書籍簡介..."
+                                onChange={(e) => setDescription(e.target.value)}
+                                onBlur={() => setIsEditingDesc(false)}
+                            />
+                        ) : (
+                            <p
+                                className="modal-description"
+                                onClick={() => setIsEditingDesc(true)}
+                                style={{ cursor: "pointer" }}
+                            >
+                                {description || "暫無簡介（點擊編輯）"}
+                            </p>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
