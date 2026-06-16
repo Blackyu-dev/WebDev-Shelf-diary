@@ -114,7 +114,7 @@ export default function BookModal({ book, isOpen, onClose }) {
         formData.append("version", safeValue(version));
         formData.append("binding", safeValue(binding));
         formData.append("grade", safeValue(grade));
-        formData.append("description", safeValue(description));
+        formData.append("description", description);
 
         if (coverFile) {
             formData.append("coverImage", coverFile);
