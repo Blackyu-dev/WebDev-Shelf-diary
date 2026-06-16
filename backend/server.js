@@ -51,6 +51,19 @@ app.post("/api/books", async (req, res) => {
             return res.status(400).json({ message: "書名與作者為必填" });
         }
 
+        // 防呆機制 1：檢查「書名」與「作者」是否完全相同
+        const existingBook = await Book.findOne({ title, author });
+        if (existingBook) {
+            return res.status(409).json({ message: "書庫中已經有一本相同「書名」與「作者」的書囉！" });
+        }
+
+        // 防呆機制 2：如果使用者有輸入 ISBN，檢查 ISBN 是否重複
+        if (isbn && isbn !== "無 ISBN" && isbn !== "") {
+            const existingIsbn = await Book.findOne({ isbn });
+            if (existingIsbn) {
+                return res.status(409).json({ message: `這組 ISBN (${isbn}) 已經存在於書庫中了！` });
+            }
+        }
 
         const newBook = await Book.create({
             title, author, status, source, category, serialStatus, publisher, isbn, coverImage, description,
