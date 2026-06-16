@@ -259,6 +259,7 @@ export default function BookModal({ book, isOpen, onClose }) {
                                         <option value="未讀">未讀</option>
                                         <option value="閱讀中">閱讀中</option>
                                         <option value="已讀">已讀</option>
+                                        <option value="想讀">想讀</option>
                                     </select>
                                 </div>
 
