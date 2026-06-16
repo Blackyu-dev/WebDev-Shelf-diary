@@ -31,3 +31,43 @@
   border-radius: 8px;
   border: 1px solid #ccc;
 }
+
+/* 自訂標籤外框 */
+.custom-tag-wrapper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #d3c5b8;
+  border-radius: 20px;
+  background-color: #fff;
+  overflow: hidden;
+  height: 32px;
+  margin-right: 8px;
+}
+
+/* 隱藏預設 input 樣式 */
+.custom-tag-input {
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  font-size: 0.6em;
+  color: #554940;
+  width: 75px;
+  background: transparent;
+}
+
+/* 確認按鈕 */
+.custom-tag-btn {
+  background-color: #f7f3f0;
+  border: none;
+  border-left: 1px solid #d3c5b8;
+  color: #554940;
+  padding: 0 12px;
+  cursor: pointer;
+  height: 100%;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.custom-tag-btn:hover {
+  background-color: #e6dace;
+}
