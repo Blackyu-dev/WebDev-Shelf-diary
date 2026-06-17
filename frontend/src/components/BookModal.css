@@ -1,14 +1,6 @@
-.add-book-grid {
-    display: grid;
-    /* 這個語法超級好用！它會自動計算螢幕寬度，每本書最少 150px，自動填滿畫面 */
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
-    /* 卡片與卡片之間的間距 */
-    margin-top: 20px;
-    align-items: start;
-    /* 確保每張卡片頂部對齊 */
-}
-
+/* =========================
+   1. Overlay & Main Container (外層遮罩與彈窗外殼)
+========================= */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -20,10 +12,8 @@
     padding: 20px;
 }
 
-/* =========================
-   Modal Content
-========================= */
 .modal-content {
+    box-sizing: border-box;
     background-color: #fdfaf6;
     color: #5a4636;
     width: fit-content;
@@ -36,16 +26,32 @@
     animation: modalFadeIn 0.3s ease;
     overflow-y: auto;
     transition: all 0.3s ease;
-    /* 讓寬度變換更滑順 */
+    /* 讓展開/收起時的寬度變換更滑順 */
 }
 
-/* 隱藏滾動條，但仍然可以滾動 */
+/* 隱藏外殼滾動條，讓滾動條交給內層處理 */
 .modal-content::-webkit-scrollbar {
     width: 0px;
 }
 
 /* =========================
-   Header
+   2. Expanded States (展開與收起狀態的寬度限制)
+========================= */
+/* 預設狀態 (未展開)：限制最大寬度，剛好包住左側內容 */
+.modal-overlay:not(.expanded) .modal-content {
+    max-width: 540px;
+    /* 480px(左側內容寬) + 60px(左右 padding) */
+    width: 100%;
+}
+
+/* 展開狀態：放寬限制，讓右側的 Description 空間可以順利並排顯示 */
+.modal-overlay.expanded .modal-content {
+    max-width: 980px;
+    width: 100%;
+}
+
+/* =========================
+   3. Header & Close Button (頂部標題與關閉按鈕)
 ========================= */
 .modal-header {
     display: flex;
@@ -63,14 +69,11 @@
     line-height: 1.4;
     /* 增加行高，換行時比較好看 */
     word-break: break-word;
-    /* 強迫過長的字串自動換行 */
+    /* 強迫過長的書名自動換行 */
     padding-right: 20px;
     /* 避免標題文字跟右邊的叉叉重疊 */
 }
 
-/* =========================
-   Close Button
-========================= */
 .close-btn {
     background: none;
     border: none;
@@ -85,104 +88,15 @@
 }
 
 /* =========================
-   Main Layout
+   4. Layout Body (主體左右排版框架)
 ========================= */
 .modal-main-layout {
     display: flex;
     align-items: flex-start;
 }
 
-/* 預設狀態 (未展開)：限制最大寬度，剛好包住左側內容，強迫長標題換行 */
-.modal-overlay:not(.expanded) .modal-content {
-    max-width: 540px;
-    /* 480px(左側內容) + 60px(左右padding) */
-    width: 100%;
-}
-
-/* 展開狀態：放寬限制，讓右側的 Description 空間可以順利顯示 */
-.modal-overlay.expanded .modal-content {
-    max-width: 980px;
-    width: 100%;
-}
-
-.select-group select:hover,
-.select-group input:hover {
-    border-color: #ba9d77;
-}
-
-.select-group select:focus,
-.select-group input:focus {
-    border-color: #6b4f3b;
-    box-shadow: 0 0 0 3px rgba(107, 79, 59, 0.15);
-}
-
-/* 自訂輸入框與確認按鈕群組 */
-.custom-input-group {
-    display: flex;
-    gap: 6px;
-    margin-top: 6px;
-}
-
-.custom-confirm-btn {
-    background-color: #6b4f3b;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 0 10px;
-    font-size: 13px;
-    cursor: pointer;
-    white-space: nowrap;
-    /* 確保按鈕文字不折行 */
-    transition: 0.2s;
-}
-
-.custom-confirm-btn:hover {
-    background-color: #4e3b2c;
-}
-
 /* =========================
-   Buttons
-========================= */
-.expand-btn {
-    margin-top: auto;
-    background-color: #e2d5c4;
-    color: #4e3b2c;
-    border: none;
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.expand-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 10px rgba(107, 79, 59, 0.3);
-}
-
-
-
-
-
-.scrollable {
-    max-height: 480px;
-    overflow-y: auto;
-    padding-right: 8px;
-}
-
-/* =========================
-   Description
-========================= */
-
-
-.modal-description {
-    line-height: 1.8;
-    font-size: 15px;
-}
-
-/* =========================
-   Animations
+   5. Animations (整體淡入動畫)
 ========================= */
 @keyframes modalFadeIn {
     from {
@@ -196,28 +110,9 @@
     }
 }
 
-
-
 /* =========================
-   Scrollbar & Mobile
+   6. RWD (外殼手機版響應式)
 ========================= */
-.scrollable::-webkit-scrollbar {
-    width: 6px;
-}
-
-.scrollable::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.scrollable::-webkit-scrollbar-thumb {
-    background: #dbc4a5;
-    border-radius: 999px;
-}
-
-.scrollable::-webkit-scrollbar-thumb:hover {
-    background: #ba9d77;
-}
-
 @media (max-width: 768px) {
     .modal-content {
         width: 100%;
@@ -227,51 +122,6 @@
 
     .modal-main-layout {
         flex-direction: column;
+        /* 手機版時，強迫左側 Info 與右側 Desc 變成上下排列 */
     }
-
-
-
-
-
-
-}
-
-
-
-
-.modal-description {
-    width: 100%;
-    /* 1. 給定最大高度，避免撐爆版面 */
-    min-height: 360px;
-    max-height: 450px;
-
-    /* 2. 內容超過最大高度時，自動出現上下滾動條 */
-    overflow-y: auto;
-
-    /* 3. 確保純文字展示時，原本的「換行」格式不會被吃掉 */
-    white-space: pre-wrap;
-
-    resize: none;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #dbc4a5;
-    background: #f7f1e8;
-    font-size: 14px;
-    color: #333;
-    line-height: 1.6;
-    outline: none;
-    font-family: inherit;
-    box-sizing: border-box;
-}
-
-
-
-input,
-select,
-textarea {
-    font-family: inherit;
-    border: 1px solid #d4c5b9;
-    background: #fdfaf5;
-    font-size: 13px;
-    color: #333;
 }
