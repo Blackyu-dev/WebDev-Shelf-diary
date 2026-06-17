@@ -1,8 +1,8 @@
 // frontend/src/components/BookModal.jsx
 import './BookModal.css';
-import { useBookForm } from '../hooks/useBookForm.js';
-import BookModalInfo from './BookModalInfo';
-import BookModalDesc from './BookModalDesc';
+import { useBookForm } from '../../hooks/useBookForm.js';
+import BookModalInfo from './BookModalInfo.jsx';
+import BookModalDesc from './BookModalDesc.jsx';
 
 export default function BookModal({ book, isOpen, onClose }) {
     // 呼叫我們封裝好的 Hook，一次取得所有的狀態與函式
