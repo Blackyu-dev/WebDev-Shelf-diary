@@ -1,4 +1,3 @@
-// backend/server.js
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -13,12 +12,11 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-//const upload = multer();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(cors());
-app.use(express.json()); // 自動將前端傳來的 JSON 解析到 req.body
+app.use(express.json()); // 將前端傳來的 JSON 解析到 req.body
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/books", bookRoutes);
 

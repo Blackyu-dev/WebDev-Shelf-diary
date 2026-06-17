@@ -15,6 +15,7 @@ const storage = multer.diskStorage({
     }
 });
 
+// Multer 中介軟體
 const upload = multer({ storage: storage });
 const router = express.Router();
 
@@ -84,7 +85,7 @@ router.post("/", upload.single("coverImage"), async (req, res) => {
     }
 });
 
-// === 3. GET API：匯出所有書籍 (獨立路由供匯出使用) ===
+// === 3. GET API：匯出所有書籍  ===
 router.get("/export", async (req, res) => {
     try {
         const books = await Book.find().sort({ createdAt: -1 });
@@ -95,7 +96,6 @@ router.get("/export", async (req, res) => {
 });
 
 // === 4. DELETE API：清空所有書籍 ===
-// ⚠️ 必須放在 /:id 之前，避免 "clear" 被當成 ID 解析
 router.delete("/clear", async (req, res) => {
     try {
         await Book.deleteMany({});
