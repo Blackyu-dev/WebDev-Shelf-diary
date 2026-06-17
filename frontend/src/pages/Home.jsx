@@ -110,6 +110,15 @@ export default function Home() {
         }
     };
 
+    // 清除所有篩選條件
+    const clearAllFilters = () => {
+        Object.keys(selectedFilters).forEach(groupKey => {
+            selectedFilters[groupKey].forEach(option => {
+                toggleFilter(groupKey, option);
+            });
+        });
+    };
+
     return (
         <div className="home-container">
             <div className="library-stats">
@@ -140,8 +149,16 @@ export default function Home() {
                                     );
                                 })}
                             </div>
+
                         </div>
                     ))}
+                    {/* 取消全部勾選按鈕 */}
+                    <button
+                        className="clear-filters-btn"
+                        onClick={clearAllFilters}
+                    >
+                        取消全部勾選
+                    </button>
                 </div>
 
                 {/* 書籍區 */}
@@ -189,6 +206,6 @@ export default function Home() {
                 onUpdateBook={handleUpdateBook}
                 onDeleteBook={handleDeleteBook}
             />
-        </div>
+        </div >
     );
 }

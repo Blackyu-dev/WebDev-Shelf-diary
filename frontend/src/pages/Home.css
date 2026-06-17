@@ -167,6 +167,23 @@
     border-color: #a39d93;
 }
 
+/* 清除篩選按鈕樣式 */
+.clear-filters-btn {
+    background-color: #fff0f0;
+    color: #e57373;
+    border: 1px solid #ffcdd2;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.clear-filters-btn:hover {
+    background-color: #ffe0e0;
+}
+
 /* 隱藏原生滾動條*/
 .filter-panel::-webkit-scrollbar {
     width: 6px;
