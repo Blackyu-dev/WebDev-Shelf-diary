@@ -163,25 +163,7 @@
 
 
 
-/* =========================
-   Right Side
-========================= */
-.modal-body-right {
-    width: 400px;
-    margin-left: 24px;
-    padding: 20px;
 
-    min-height: 220px;
-
-    background: transparent;
-    border: none;
-    border-radius: 0;
-
-    animation: fadeSlide 0.3s ease forwards;
-
-    display: flex;
-    flex-direction: column;
-}
 
 .scrollable {
     max-height: 480px;
@@ -192,11 +174,7 @@
 /* =========================
    Description
 ========================= */
-.modal-divider {
-    border: none;
-    border-top: 1px solid #dbc4a5;
-    margin: 0 0 16px;
-}
+
 
 .modal-description {
     line-height: 1.8;
@@ -218,18 +196,7 @@
     }
 }
 
-@keyframes fadeSlide {
-    from {
-        opacity: 0;
-        transform: translateX(-15px);
-        /* 修改成從內側滑出 */
-    }
 
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
 
 /* =========================
    Scrollbar & Mobile
@@ -264,11 +231,7 @@
 
 
 
-    .modal-body-right {
-        width: 100%;
-        margin-left: 0;
-        margin-top: 20px;
-    }
+
 
 
 }
@@ -301,23 +264,7 @@
     box-sizing: border-box;
 }
 
-/* 4. 讓簡介的滾動條也有好看的樣式 (套用你原本 .scrollable 的配色) */
-.modal-description::-webkit-scrollbar {
-    width: 6px;
-}
 
-.modal-description::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.modal-description::-webkit-scrollbar-thumb {
-    background: #dbc4a5;
-    border-radius: 999px;
-}
-
-.modal-description::-webkit-scrollbar-thumb:hover {
-    background: #ba9d77;
-}
 
 input,
 select,

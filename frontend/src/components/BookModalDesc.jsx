@@ -1,4 +1,5 @@
 
+import './BookModalDesc.css';
 export default function BookModalDesc({ states, setters }) {
     return (
         <div className="modal-body-right">

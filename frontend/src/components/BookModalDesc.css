@@ -1,0 +1,92 @@
+/* =========================
+   1. Right Side Layout (右側主佈局)
+========================= */
+.modal-body-right {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    min-height: 220px;
+    margin-left: 24px;
+    padding: 20px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    animation: fadeSlide 0.3s ease forwards;
+}
+
+.modal-divider {
+    border: none;
+    border-top: 1px solid #dbc4a5;
+    margin: 0 0 16px;
+}
+
+/* =========================
+   2. Description Area (簡介展示與編輯框)
+========================= */
+.modal-description {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 360px;
+    max-height: 450px;
+    padding: 10px;
+    border: 1px solid #dbc4a5;
+    border-radius: 10px;
+    background: #f7f1e8;
+    color: #333;
+    font-size: 15px;
+    /* 合併：採用你設定的漂亮字級 */
+    line-height: 1.8;
+    /* 合併：採用你設定的舒適行高 */
+    font-family: inherit;
+    outline: none;
+    resize: none;
+    overflow-y: auto;
+    /* 內容超過最大高度時，自動出現上下滾動條 */
+    white-space: pre-wrap;
+    /* 確保純文字展示時，原本的「換行」格式不被吃掉 */
+}
+
+/* 簡介滾動條樣式 */
+.modal-description::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-description::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-description::-webkit-scrollbar-thumb {
+    background: #dbc4a5;
+    border-radius: 999px;
+}
+
+.modal-description::-webkit-scrollbar-thumb:hover {
+    background: #ba9d77;
+}
+
+/* =========================
+   3. Animations (滑出動畫)
+========================= */
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateX(-15px);
+        /* 從內側滑出 */
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* =========================
+   4. RWD (手機版適應)
+========================= */
+@media (max-width: 768px) {
+    .modal-body-right {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+}
