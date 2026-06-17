@@ -28,11 +28,13 @@
 
 cd backend 
 
+npm install multer
+
 npm install
 
 npm run dev
 
-## 五、後端執行方式
+## 五、前端執行方式
 
 cd frontend
 
