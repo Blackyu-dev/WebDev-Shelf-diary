@@ -1,30 +1,38 @@
 import './Card.css';
+import { useState } from "react";
 
-export default function Card({ book, onClick, isEditMode, onDelete }) {
-
-    const handleDeleteClick = (e) => {
-        e.stopPropagation();
-        onDelete(book._id);
-    };
+export default function Card({ book, onClick, isEditMode, onDelete, onToggleFavorite }) {
 
     if (!book) return null;
 
-    const defaultCover =
-        "https://placehold.co/120x180?text=No+Image";
+    const [heartAnim, setHeartAnim] = useState(false);
+
+    const defaultCover = "https://placehold.co/120x180?text=No+Image";
 
     const getCoverUrl = (coverImage) => {
         if (!coverImage) return defaultCover;
 
-        // 外部圖片（http / https）
         if (
             coverImage.startsWith("http://") ||
             coverImage.startsWith("https://")
         ) {
             return coverImage;
         }
-        const formattedPath = coverImage.startsWith("/") ? coverImage : `/${coverImage}`;
-        // 本地 uploads
+
+        const formattedPath = coverImage.startsWith("/")
+            ? coverImage
+            : `/${coverImage}`;
+
         return `http://localhost:3000${formattedPath}`;
+    };
+
+    const handleHeartClick = (e) => {
+        e.stopPropagation();
+
+        setHeartAnim(true);
+        setTimeout(() => setHeartAnim(false), 300);
+
+        onToggleFavorite && onToggleFavorite(book._id);
     };
 
     return (
@@ -32,37 +40,39 @@ export default function Card({ book, onClick, isEditMode, onDelete }) {
             className={`book-card ${isEditMode ? 'edit-mode' : ''}`}
             onClick={() => onClick && onClick(book)}
         >
-            {isEditMode && (
-                <button className="delete-badge" onClick={handleDeleteClick}>
-                    ✕
-                </button>
-            )}
+            <div className="cover-wrapper">
 
-            <img
-                src={getCoverUrl(book.coverImage)}
-                alt={book.title || "未知書名"}
-                className="book-cover"
-            />
+                {isEditMode && (
+                    <button
+                        className="delete-badge"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onDelete(book._id);
+                        }}
+                    >
+                        ✕
+                    </button>
+                )}
+
+                <img
+                    src={getCoverUrl(book.coverImage)}
+                    alt={book.title || "未知書名"}
+                    className="book-cover"
+                />
+
+                <button
+                    className={`favorite-heart-overlay ${heartAnim ? "active" : ""}`}
+                    onClick={handleHeartClick}
+                >
+                    {book.favorite ? "❤️" : "🤍"}
+                </button>
+
+            </div>
 
             <div className="book-info">
-
                 <h3 className="book-title">
                     {book.title || "未知書名"}
                 </h3>
-
-                {/*  合併狀態：一行 */}
-                <div className="book-status-row">
-
-                    <span className={`book-status status-${book.status || "未讀"}`}>
-                        {book.status || "未讀"}
-                    </span>
-
-                    <span className={`book-serial serial-${book.serialStatus || "連載中"}`}>
-                        {book.serialStatus || "連載中"}
-                    </span>
-
-                </div>
-
             </div>
         </div>
     );
