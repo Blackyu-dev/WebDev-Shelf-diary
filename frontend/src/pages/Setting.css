@@ -41,6 +41,12 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 24px;
+    gap: 16px;
+}
+
+.item-info {
+    flex: 1;
+    min-width: 0;        /* ⭐最重要：避免 flex 撐爆 */
 }
 
 .item-info h4 {
