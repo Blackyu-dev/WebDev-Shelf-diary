@@ -3,9 +3,9 @@ import { useState } from "react";
 
 export default function Card({ book, onClick, isEditMode, onDelete, onToggleFavorite }) {
 
-    if (!book) return null;
-
     const [heartAnim, setHeartAnim] = useState(false);
+
+    if (!book) return null;
 
     const defaultCover = "https://placehold.co/120x180?text=No+Image";
 
