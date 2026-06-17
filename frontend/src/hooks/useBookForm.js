@@ -5,6 +5,7 @@ export function useBookForm(book, onClose) {
     // ================= 狀態區 =================
     const [isExpanded, setIsExpanded] = useState(true);
     const [status, setStatus] = useState(book?.status || "未讀");
+    const [serialStatus, setSerialStatus] = useState(book?.serialStatus || "未連載");
 
     const defaultSources = ["博客來", "讀墨", "Play圖書", "誠品", "Hyread", "Kobo", "BOOKWALKER", "其他"];
     const initSources = book?.source && !defaultSources.includes(book.source)
@@ -100,6 +101,7 @@ export function useBookForm(book, onClose) {
         formData.append("status", status?.trim() || "未讀");
         formData.append("source", finalSource);
         formData.append("category", finalCategory);
+        formData.append("serialStatus", serialStatus);
         formData.append("version", version?.trim() || "初版");
         formData.append("binding", binding?.trim() || "平裝");
         formData.append("grade", grade?.trim() || "普通級");
@@ -134,6 +136,7 @@ export function useBookForm(book, onClose) {
             setIsExpanded, setStatus, setSource, setCategory, setCustomSource,
             setCustomCategory, setCoverFile, setTitle, setAuthor, setPublishDate,
             setPublisher, setPublishPlace, setLanguage, setIsbnState, setVersion,
+            setSerialStatus,
             setBinding, setGrade, setDescription, setIsEditingDesc
         },
         handlers: {

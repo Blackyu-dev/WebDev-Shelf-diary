@@ -154,66 +154,87 @@ export default function BookModalInfo({ book, states, setters, handlers }) {
                 )}
 
                 {/* 標籤容器 (閱讀狀態、來源、分類) */}
+                {/* 標籤容器 */}
                 <div className="tag-container">
-                    {/* 閱讀狀態 */}
-                    <div className="select-group">
-                        <label>閱讀狀態</label>
-                        <select value={states.status} onChange={(e) => setters.setStatus(e.target.value)}>
-                            <option value="未讀">未讀</option>
-                            <option value="閱讀中">閱讀中</option>
-                            <option value="已讀">已讀</option>
-                            <option value="想讀">想讀</option>
-                        </select>
+
+                    {/* 第一行：閱讀狀態 + 連載狀態 */}
+                    <div className="tag-row">
+                        <div className="select-group">
+                            <label>閱讀狀態</label>
+                            <select value={states.status} onChange={(e) => setters.setStatus(e.target.value)}>
+                                <option value="未讀">未讀</option>
+                                <option value="閱讀中">閱讀中</option>
+                                <option value="已讀">已讀</option>
+                                <option value="想讀">想讀</option>
+                            </select>
+                        </div>
+
+                        <div className="select-group">
+                            <label>連載狀態</label>
+                            <select
+                                value={states.serialStatus}
+                                onChange={(e) => setters.setSerialStatus(e.target.value)}
+                            >
+                                <option value="未連載">未連載</option>
+                                <option value="連載中">連載中</option>
+                                <option value="已完結">已完結</option>
+                            </select>
+                        </div>
                     </div>
 
-                    {/* 來源 */}
-                    <div className="select-group">
-                        <label>來源</label>
-                        {states.source === "其他" ? (
-                            <div className="custom-tag-wrapper">
-                                <input
-                                    className="custom-tag-input"
-                                    autoFocus
-                                    type="text"
-                                    placeholder="輸入來源..."
-                                    value={states.customSource}
-                                    onChange={(e) => setters.setCustomSource(e.target.value)}
-                                    onKeyDown={(e) => e.key === 'Enter' && handlers.handleConfirmSource()}
-                                />
-                                <button className="custom-tag-btn" onClick={handlers.handleConfirmSource}>✓</button>
-                            </div>
-                        ) : (
-                            <select value={states.source} onChange={(e) => setters.setSource(e.target.value)}>
-                                {states.sourceOptions.map(opt => (
-                                    <option key={opt} value={opt}>{opt}</option>
-                                ))}
-                            </select>
-                        )}
-                    </div>
+                    {/* 第二行：來源 + 分類 */}
+                    <div className="tag-row">
 
-                    {/* 分類 */}
-                    <div className="select-group">
-                        <label>分類</label>
-                        {states.category === "其他" ? (
-                            <div className="custom-tag-wrapper">
-                                <input
-                                    className="custom-tag-input"
-                                    autoFocus
-                                    type="text"
-                                    placeholder="輸入分類..."
-                                    value={states.customCategory}
-                                    onChange={(e) => setters.setCustomCategory(e.target.value)}
-                                    onKeyDown={(e) => e.key === 'Enter' && handlers.handleConfirmCategory()}
-                                />
-                                <button className="custom-tag-btn" onClick={handlers.handleConfirmCategory}>✓</button>
-                            </div>
-                        ) : (
-                            <select value={states.category} onChange={(e) => setters.setCategory(e.target.value)}>
-                                {states.categoryOptions.map(opt => (
-                                    <option key={opt} value={opt}>{opt}</option>
-                                ))}
-                            </select>
-                        )}
+                        {/* 來源 */}
+                        <div className="select-group">
+                            <label>來源</label>
+                            {states.source === "其他" ? (
+                                <div className="custom-tag-wrapper">
+                                    <input
+                                        className="custom-tag-input"
+                                        autoFocus
+                                        type="text"
+                                        placeholder="輸入來源..."
+                                        value={states.customSource}
+                                        onChange={(e) => setters.setCustomSource(e.target.value)}
+                                        onKeyDown={(e) => e.key === 'Enter' && handlers.handleConfirmSource()}
+                                    />
+                                    <button className="custom-tag-btn" onClick={handlers.handleConfirmSource}>✓</button>
+                                </div>
+                            ) : (
+                                <select value={states.source} onChange={(e) => setters.setSource(e.target.value)}>
+                                    {states.sourceOptions.map(opt => (
+                                        <option key={opt} value={opt}>{opt}</option>
+                                    ))}
+                                </select>
+                            )}
+                        </div>
+
+                        {/* 分類 */}
+                        <div className="select-group">
+                            <label>分類</label>
+                            {states.category === "其他" ? (
+                                <div className="custom-tag-wrapper">
+                                    <input
+                                        className="custom-tag-input"
+                                        autoFocus
+                                        type="text"
+                                        placeholder="輸入分類..."
+                                        value={states.customCategory}
+                                        onChange={(e) => setters.setCustomCategory(e.target.value)}
+                                        onKeyDown={(e) => e.key === 'Enter' && handlers.handleConfirmCategory()}
+                                    />
+                                    <button className="custom-tag-btn" onClick={handlers.handleConfirmCategory}>✓</button>
+                                </div>
+                            ) : (
+                                <select value={states.category} onChange={(e) => setters.setCategory(e.target.value)}>
+                                    {states.categoryOptions.map(opt => (
+                                        <option key={opt} value={opt}>{opt}</option>
+                                    ))}
+                                </select>
+                            )}
+                        </div>
+
                     </div>
                 </div>
 
