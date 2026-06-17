@@ -1,4 +1,3 @@
-
 const API_KEY = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY;
 
 // ISBN 爬蟲解析
@@ -17,6 +16,7 @@ export const fetchBookByISBN = async (isbn) => {
     const dts = doc.querySelectorAll("dt");
     if (dts.length === 0) throw new Error("找不到這本書，請改用書名或手動輸入");
 
+    // 解析書籍資訊
     dts.forEach((dt) => {
         const key = dt.innerText.trim();
         const value = dt.nextElementSibling?.innerText?.trim() || "";
@@ -33,6 +33,7 @@ export const fetchBookByISBN = async (isbn) => {
         }
     });
 
+    // 解析書籍簡介
     let description = "";
     const introHeaders = doc.querySelectorAll(".card-header");
     introHeaders.forEach((header) => {
@@ -49,6 +50,7 @@ export const fetchBookByISBN = async (isbn) => {
         }
     });
 
+    // 回傳書籍資料
     return {
         id: Date.now(),
         title, author, publisher, publishDate, publishPlace,

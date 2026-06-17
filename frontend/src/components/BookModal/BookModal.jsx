@@ -1,13 +1,13 @@
-// frontend/src/components/BookModal.jsx
 import './BookModal.css';
 import { useBookForm } from '../../hooks/useBookForm.js';
 import BookModalInfo from './BookModalInfo.jsx';
 import BookModalDesc from './BookModalDesc.jsx';
 
 export default function BookModal({ book, isOpen, onClose }) {
-    // 呼叫我們封裝好的 Hook，一次取得所有的狀態與函式
+    // 呼叫封裝好的 Hook，一次取得所有的狀態與函式
     const { states, setters, handlers } = useBookForm(book, onClose);
 
+    // 如果 modal 沒有開啟，或是沒有傳入書籍資料，就不渲染任何東西
     if (!isOpen || !book) return null;
 
     return (

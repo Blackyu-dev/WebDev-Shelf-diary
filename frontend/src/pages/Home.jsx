@@ -28,7 +28,7 @@ export default function Home() {
 
     // 2. 合併預設選項與真實存在的新選項
     const dynamicFilterConfig = baseFilters.map(group => {
-        // 從 hooks 統計出來的 filterStats 抓出現有的 key (例如你新增的 '科幻')
+        // 從 hooks 統計出來的 filterStats 抓出現有的 key 
         const existOptions = Object.keys(filterStats[group.key] || {});
         // 用 Set 來合併預設值與現有值，並自動去除重複
         const allOptions = Array.from(new Set([...group.defaults, ...existOptions]));
@@ -48,12 +48,12 @@ export default function Home() {
         setSelectedBookId(book._id);
     };
 
-const handleUpdateBook = (updatedBook) => {
-    
-    if (updateLocalBook) {
-        updateLocalBook(updatedBook);
-    }
-};
+    const handleUpdateBook = (updatedBook) => {
+
+        if (updateLocalBook) {
+            updateLocalBook(updatedBook);
+        }
+    };
 
     // 呼叫後端的 DELETE API
     const handleDeleteBook = async (bookId) => {
@@ -120,12 +120,13 @@ const handleUpdateBook = (updatedBook) => {
 
     return (
         <div className="home-container">
+            {/* // 書櫃統計資訊 */}
             <div className="library-stats">
                 共 {totalBooks} 本書
             </div>
 
             <div className="content-layout">
-                {/*  使用動態生成的 dynamicFilterConfig 渲染篩選面板  */}
+                {/* 篩選面板 */}
                 <div className={`filter-panel ${isFilterOpen ? 'open' : ''}`}>
                     {dynamicFilterConfig.map(group => (
                         <div key={group.key} className="filter-group">

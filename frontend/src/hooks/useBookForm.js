@@ -34,9 +34,6 @@ export function useBookForm(book, onClose) {
     };
     const previewUrl = coverFile ? URL.createObjectURL(coverFile) : getCoverUrl(book?.coverImage);
 
-    // const safeValue = (value) => {
-    //     return value && value.trim() !== "" ? value : "未知";
-    // };
 
     // 基本欄位
     const [title, setTitle] = useState(book?.title || "");
@@ -66,6 +63,7 @@ export function useBookForm(book, onClose) {
         setCustomSource("");
     };
 
+    // 來源確認：如果空白就設為預設值
     const handleConfirmCategory = () => {
         if (customCategory.trim() !== "") {
             if (!categoryOptions.includes(customCategory)) {
@@ -91,6 +89,7 @@ export function useBookForm(book, onClose) {
             ? customCategory.trim()
             : (category?.trim() || "文學小說");
 
+        // 將所有欄位資料打包到 formData 中，準備送給後端 API
         formData.append("title", title);
         formData.append("author", author);
         formData.append("publishDate", publishDate?.trim() || "出版日期");
@@ -114,7 +113,7 @@ export function useBookForm(book, onClose) {
         }
 
         try {
-            // 呼叫我們剛剛建立的 API 函式
+            // 發送 API 請求，根據是否有 book._id 來決定是新增還是更新
             await saveBookApi(book?._id, formData);
             alert(book?._id ? "更新成功！" : "新增成功！");
             onClose();

@@ -1,6 +1,7 @@
 import './BookModalInfo.css';
 export default function BookModalInfo({ book, states, setters, handlers }) {
     return (
+        // 左側：書籍資訊與輸入框
         <div className="modal-body-left">
             <div className="modal-image-container">
                 <img className="modal-cover" src={states.previewUrl} alt={book.title} />
@@ -18,6 +19,7 @@ export default function BookModalInfo({ book, states, setters, handlers }) {
                 </label>
             </div>
 
+            {/*  書籍資訊區 */}
             <div className="modal-info">
                 {/* 1. 作者 */}
                 {book.author && book.author !== "未知" ? (

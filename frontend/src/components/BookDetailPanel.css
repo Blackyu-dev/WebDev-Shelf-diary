@@ -87,11 +87,11 @@
   justify-content: center;
 }
 
-/* 幽靈按鈕：平時低調，hover 才顯示破壞性操作的警告色 */
+/* 取消按鈕樣式 */
 .ghost-delete-btn {
   background: transparent;
   color: #a09d96;
-  /* 低對比文字 */
+
   border: 1px solid #dcd8ce;
   padding: 8px 16px;
   border-radius: 6px;
@@ -104,5 +104,4 @@
   border-color: #e57373;
   color: #e57373;
   background-color: rgba(229, 115, 115, 0.05);
-  /* 淡淡的紅底色 */
 }

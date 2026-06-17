@@ -7,11 +7,13 @@ export default function BookNoteCard({
   onSave
 }) {
   return (
+    // 備註編輯區
     <div className="card note-card">
       <div className="desc-title">
         備註
       </div>
 
+      {/*  備註輸入框 */}
       <textarea
         className="note-input"
         value={noteText}
@@ -21,6 +23,7 @@ export default function BookNoteCard({
         placeholder="輸入你的備註..."
       />
 
+      {/* 最後更新時間與儲存按鈕 */}
       <div className="note-footer">
         <div className="note-time">
           {book.note?.updatedAt

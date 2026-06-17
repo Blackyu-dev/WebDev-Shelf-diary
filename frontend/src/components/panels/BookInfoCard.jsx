@@ -5,7 +5,7 @@ export default function BookInfoCard({
   onChange
 }) {
 
-  // 處理圖片 URL 邏輯 (把魔法加進來)
+  // 處理圖片 URL 邏輯 (把魔法加進來╰(*°▽°*)╯)
   const getCoverUrl = (coverImage) => {
     if (!coverImage) return "https://placehold.co/120x180?text=No+Image";
 
@@ -46,12 +46,13 @@ export default function BookInfoCard({
   return (
     <div className="card info-card">
       <div className="top-section">
+        {/*  書籍封面 */}
         <img
           src={getCoverUrl(book.coverImage)}
           className="panel-cover"
           alt="封面"
         />
-
+        {/*  書籍資訊區 */}
         <div className="info-section">
           <div className="info-inner">
             <div className="line strong" title="作者">

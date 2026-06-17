@@ -1,10 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { fetchBookByISBN, fetchBooksByGoogle } from "../api/searchBookApi";
-// 原本地的 getBooks
-// import { getBooks } from "../data/booksStorage";
 
 export default function useSearchBooks() {
 
+    // 書籍資料與搜尋相關狀態
     const [books, setBooks] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [isbn, setIsbn] = useState("");
@@ -25,6 +24,7 @@ export default function useSearchBooks() {
             return;
         }
 
+        // 呼叫 API 取得書籍資料
         try {
             setLoading(true);
             setError("");
@@ -93,7 +93,7 @@ export default function useSearchBooks() {
         }
     }, []);
 
-    //  把 fetchBooks 放進依賴陣列中，滿足 Linter 的安全規範
+    //  初始載入書籍資料
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         fetchBooks();
@@ -118,6 +118,7 @@ export default function useSearchBooks() {
         });
     };
 
+    // 計算篩選選項的統計數據
     const getFilterStats = () => {
         const stats = {
             status: {}, 
@@ -127,6 +128,7 @@ export default function useSearchBooks() {
             favorite: {}
         };
 
+        // 遍歷所有書籍，統計每個篩選條件的選項數量
         books.forEach(book => {
             if (book.status) stats.status[book.status] = (stats.status[book.status] || 0) + 1;
             if (book.source) stats.source[book.source] = (stats.source[book.source] || 0) + 1;
@@ -139,6 +141,7 @@ export default function useSearchBooks() {
 
     const filterStats = getFilterStats();
 
+    // 根據搜尋詞和篩選條件過濾書籍
     const filteredBooks = books.filter((book) => {
         const t = searchTerm.toLowerCase();
         const matchSearch = book.title?.toLowerCase().includes(t) || book.author?.toLowerCase().includes(t);

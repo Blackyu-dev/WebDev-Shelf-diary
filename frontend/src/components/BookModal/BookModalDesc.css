@@ -34,16 +34,12 @@
     background: #f7f1e8;
     color: #333;
     font-size: 15px;
-    /* 合併：採用你設定的漂亮字級 */
     line-height: 1.8;
-    /* 合併：採用你設定的舒適行高 */
     font-family: inherit;
     outline: none;
     resize: none;
     overflow-y: auto;
-    /* 內容超過最大高度時，自動出現上下滾動條 */
     white-space: pre-wrap;
-    /* 確保純文字展示時，原本的「換行」格式不被吃掉 */
 }
 
 /* 簡介滾動條樣式 */

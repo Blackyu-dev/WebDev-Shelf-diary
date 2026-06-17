@@ -32,7 +32,7 @@
 
 .add-book-grid {
     display: grid;
-    /* 自動計算螢幕寬度，每本書最少 150px，自動填滿畫面 */
+
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 20px;
 

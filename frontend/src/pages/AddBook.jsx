@@ -24,12 +24,14 @@ export default function AddBook() {
                 loading={loading}
             />
 
+            {/* // 錯誤訊息顯示 */}
             {error && (
                 <p className="isbn-error" style={{ textAlign: "center", color: "red" }}>
                     {error}
                 </p>
             )}
 
+            {/* // 提供完全手動輸入書籍資料的按鈕，會開啟一個空白的 BookModal 讓使用者填寫所有欄位 */}
             <div style={{ textAlign: "center", margin: "20px 0" }}>
                 <button
                     className="isbn-button"
@@ -40,6 +42,7 @@ export default function AddBook() {
                 </button>
             </div>
 
+            {/* // 搜尋結果顯示區：如果有搜尋結果，就以 Card 的形式呈現，點擊後會開啟 BookModal 顯示詳細資訊 */}
             {searchResults.length > 0 && (
                 <div className="add-book-grid">
                     {searchResults.map((book) => (

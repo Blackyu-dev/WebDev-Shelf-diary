@@ -1,5 +1,5 @@
 /* =========================
-   1. Overlay & Main Container (外層遮罩與彈窗外殼)
+   1. Overlay & Main Container (外層遮罩與彈窗)
 ========================= */
 .modal-overlay {
     position: fixed;
@@ -26,10 +26,9 @@
     animation: modalFadeIn 0.3s ease;
     overflow-y: auto;
     transition: all 0.3s ease;
-    /* 讓展開/收起時的寬度變換更滑順 */
 }
 
-/* 隱藏外殼滾動條，讓滾動條交給內層處理 */
+/* 隱藏外殼滾動條 */
 .modal-content::-webkit-scrollbar {
     width: 0px;
 }
@@ -37,14 +36,13 @@
 /* =========================
    2. Expanded States (展開與收起狀態的寬度限制)
 ========================= */
-/* 預設狀態 (未展開)：限制最大寬度，剛好包住左側內容 */
+/* 預設狀態 (未展開)：限制最大寬度 */
 .modal-overlay:not(.expanded) .modal-content {
     max-width: 540px;
-    /* 480px(左側內容寬) + 60px(左右 padding) */
     width: 100%;
 }
 
-/* 展開狀態：放寬限制，讓右側的 Description 空間可以順利並排顯示 */
+/* 展開狀態 */
 .modal-overlay.expanded .modal-content {
     max-width: 980px;
     width: 100%;
@@ -67,11 +65,8 @@
     font-size: 24px;
     color: #4e3b2c;
     line-height: 1.4;
-    /* 增加行高，換行時比較好看 */
     word-break: break-word;
-    /* 強迫過長的書名自動換行 */
     padding-right: 20px;
-    /* 避免標題文字跟右邊的叉叉重疊 */
 }
 
 .close-btn {

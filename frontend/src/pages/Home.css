@@ -1,4 +1,3 @@
-/* 主容器有設定 relative，裡面的 absolute 才會對齊 */
 .home-container {
     position: relative;
 
@@ -65,13 +64,13 @@
     color: #5c554b;
     border: 1px solid #e0dcd3;
     padding: 10px 16px;
-    /* 跟 input 高度一致 */
+
     border-radius: 20px;
     font-size: 14px;
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap;
-    /* 不讓按鈕文字換行 */
+
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
@@ -81,7 +80,6 @@
 
 .edit-toggle-btn.active {
     background-color: #e57373;
-    /* 進入編輯模式變紅色 */
     color: white;
     border-color: #e57373;
 }
@@ -96,7 +94,7 @@
     z-index: 5;
 }
 
-/* 篩選面板樣式 (預設隱藏且寬度為 0) */
+/* 篩選面板樣式 */
 .filter-panel {
     width: 0;
     max-width: 0;
@@ -142,7 +140,6 @@
 .filter-label {
     display: flex;
     justify-content: space-between;
-    /* 讓文字和數字一左一右 */
     align-items: center;
     font-size: 14px;
     color: #5c554b;

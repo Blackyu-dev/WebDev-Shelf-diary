@@ -153,7 +153,6 @@
     outline: none;
     padding: 0 8px;
     font-size: 13px;
-    /* 修正原本 0.5em 可能過小的問題 */
     color: #333;
     width: 90px;
     background: transparent;

@@ -1,7 +1,7 @@
-
 import './BookModalDesc.css';
 export default function BookModalDesc({ states, setters }) {
     return (
+        // 右側：簡介編輯區
         <div className="modal-body-right">
             <hr className="modal-divider" />
 

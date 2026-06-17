@@ -12,9 +12,10 @@ export const saveBookApi = async (bookId, formData) => {
 
     const method = bookId ? "PUT" : "POST";
 
+    // 發送請求到後端
     const response = await fetch(url, {
         method,
-        body: formData, // ❗ 注意：使用 FormData 不要設定 Content-Type
+        body: formData, 
     });
 
     if (!response.ok) {
@@ -28,7 +29,6 @@ export const saveBookApi = async (bookId, formData) => {
 
 
 // 匯出所有書籍資料 (轉為 JSON 下載)
-
 export const exportBooksApi = async () => {
     const response = await fetch("http://localhost:3000/api/books/export");
 
@@ -62,7 +62,6 @@ export const exportBooksApi = async () => {
 
 
 //清空所有書籍資料
-
 export const clearAllBooksApi = async () => {
     const response = await fetch("http://localhost:3000/api/books/clear", {
         method: "DELETE",

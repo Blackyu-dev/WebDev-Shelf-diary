@@ -1,8 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { useState } from "react";
-
 import "./App.css";
-
 import Home from "./pages/Home";
 import AddBook from "./pages/AddBook";
 import Settings from "./pages/Setting";
@@ -14,6 +12,7 @@ import Icon5Img from './assets/settings.png';
 export default function App() {
   const [isOpen, setIsOpen] = useState(true);
 
+  // 側邊欄選單項目
   const menuItems = [
     { path: "/", icon: Icon1Img, label: "首頁" },
     { path: "/add", icon: Icon2Img, label: "新增" },
@@ -48,10 +47,6 @@ export default function App() {
 
         {/* 主內容 */}
         <div className="main-content">
-          {/* <header className="topbar">
-            <h1>我的書籍紀錄網站</h1>
-          </header> */}
-
           <main className="content">
             <Routes>
               <Route path="/" element={<Home />} />

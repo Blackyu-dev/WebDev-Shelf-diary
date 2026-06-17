@@ -5,17 +5,19 @@ export default function BookTagCard({ book, onChange }) {
   const [customSource, setCustomSource] = useState("");
   const [customCategory, setCustomCategory] = useState("");
 
+  //  來源的下拉選單
   const defaultSources = ["博客來", "讀墨", "Play圖書", "誠品", "Hyread", "Kobo", "BOOKWALKER", "其他"];
   const displaySources = book.source && !defaultSources.includes(book.source)
     ? [book.source, ...defaultSources]
     : defaultSources;
 
+    // 分類的下拉選單
   const defaultCategories = ["文學小說", "漫畫", "輕小說", "技術/學習", "雜誌", "其他"];
   const displayCategories = book.category && !defaultCategories.includes(book.category)
     ? [book.category, ...defaultCategories]
     : defaultCategories;
 
-  // 來源確認：如果空白就退回預設值，避免卡在輸入框
+  // 來源確認：如果空白就設為預設值
   const handleConfirmSource = () => {
     if (customSource.trim() !== "") {
       onChange("source", customSource.trim());

@@ -33,10 +33,10 @@ export default function Setting() {
         <div className="setting-container">
             <h2 className="setting-title">設定</h2>
 
-            {/* ===== 資料安全與危險區域 ===== */}
             <section className="setting-section">
                 <h3 className="section-title danger-title">資料管理與進階</h3>
 
+                {/* // 資料管理功能：匯出與清除 */}
                 <div className="setting-card">
                     <div className="setting-item">
                         <div className="item-info">
@@ -50,6 +50,7 @@ export default function Setting() {
 
                     <div className="setting-divider"></div>
 
+                    {/* // 清除資料功能：會呼叫後端 API 刪除 MongoDB 中的所有書籍紀錄 */}
                     <div className="setting-item">
                         <div className="item-info">
                             <h4>清空所有資料</h4>

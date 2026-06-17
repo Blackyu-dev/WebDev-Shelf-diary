@@ -6,9 +6,7 @@ import BookTagCard from "./panels/BookTagCard";
 import BookDescriptionCard from "./panels/BookDescriptionCard";
 import BookNoteCard from "./panels/BookNoteCard";
 
-// 原 localStorage 匯入
-// import { updateBook } from "../data/booksStorage";
-
+// 右側書籍詳細資訊面板
 export default function BookDetailPanel({ book, onClose, onUpdateBook, onDeleteBook }) {
   const [noteText, setNoteText] = useState(
     book?.note?.text || ""
@@ -30,6 +28,7 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook, onDeleteB
       }
     };
 
+    // 發送 PUT 請求到後端 API，更新書籍的備註
     try {
       const response = await fetch(`http://localhost:3000/api/books/${book._id}`, {
         method: "PUT",
@@ -98,12 +97,15 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook, onDeleteB
           description={book.description}
         />
 
+        {/* // 備註編輯區 */}
         <BookNoteCard
           book={book}
           noteText={noteText}
           setNoteText={setNoteText}
           onSave={handleSaveNote}
         />
+
+        {/* // 移除書籍按鈕 */}
         <div className="panel-footer">
           <button
             className="ghost-delete-btn"

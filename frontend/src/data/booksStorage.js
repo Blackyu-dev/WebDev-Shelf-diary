@@ -1,5 +1,3 @@
-// src/data/booksStorage.js
-
 const STORAGE_KEY = "books";
 
 // 取得所有書
