@@ -1,0 +1,233 @@
+/* =========================
+   1. Main Layout (左側主佈局)
+========================= */
+.modal-body-left {
+    display: flex;
+    gap: 20px;
+    width: 480px;
+    flex-shrink: 0;
+}
+
+/* =========================
+   2. Cover & Upload (圖片與上傳按鈕)
+========================= */
+.modal-cover {
+    width: 140px;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.upload-btn {
+    display: flex;
+    /* 改用 flex 讓置中更準確 */
+    justify-content: center;
+    margin-top: 8px;
+    padding: 4px 10px;
+    background: #4a90e2;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 70%;
+}
+
+/* 隱藏原生 input */
+.upload-btn input[type="file"] {
+    display: none;
+}
+
+.modal-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* =========================
+   3. Book Info & Inputs (書籍資訊與輸入框)
+========================= */
+.modal-info {
+    text-align: left;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.modal-info p {
+    margin: 0;
+    margin-bottom: 8px;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.input-row label {
+    width: 60px;
+    white-space: nowrap;
+    font-size: 14px;
+    text-align: left;
+}
+
+.input-row input {
+    flex: 1;
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* =========================
+   4. Tags & Selects (標籤與下拉選單)
+========================= */
+.tag-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 15px 0;
+    width: 100%;
+}
+
+.select-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.select-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b4f3b;
+}
+
+.select-group select,
+.select-group input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #dbc4a5;
+    background: #fff;
+    color: #5a4636;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.select-group select:hover,
+.select-group input:hover {
+    border-color: #ba9d77;
+}
+
+.select-group select:focus,
+.select-group input:focus {
+    border-color: #6b4f3b;
+    box-shadow: 0 0 0 3px rgba(107, 79, 59, 0.15);
+}
+
+/* 自訂標籤外框（模擬選單形狀） */
+.custom-tag-wrapper {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    overflow: hidden;
+    height: 28px;
+}
+
+.custom-tag-input {
+    border: none;
+    outline: none;
+    padding: 0 8px;
+    font-size: 13px;
+    /* 修正原本 0.5em 可能過小的問題 */
+    color: #333;
+    width: 90px;
+    background: transparent;
+}
+
+.custom-tag-btn {
+    background-color: #f0f0f0;
+    border: none;
+    border-left: 1px solid #ccc;
+    color: #333;
+    padding: 0 10px;
+    cursor: pointer;
+    height: 100%;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.custom-tag-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* =========================
+   5. Buttons (按鈕)
+========================= */
+.save-btn {
+    width: 100%;
+    margin: 15px 0;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #6b4f3b;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 10px rgba(107, 79, 59, 0.3);
+}
+
+.save-btn:active {
+    transform: scale(0.98);
+}
+
+.expand-btn {
+    margin-top: auto;
+    background-color: #e2d5c4;
+    color: #4e3b2c;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.expand-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 10px rgba(107, 79, 59, 0.3);
+}
+
+/* =========================
+   6. RWD (手機版適應)
+========================= */
+@media (max-width: 768px) {
+    .modal-body-left {
+        width: 100%;
+    }
+
+    .tag-container {
+        flex-direction: column;
+    }
+}

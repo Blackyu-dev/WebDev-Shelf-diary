@@ -105,110 +105,6 @@
     width: 100%;
 }
 
-/* =========================
-   Left Side
-========================= */
-.modal-body-left {
-    display: flex;
-    gap: 20px;
-    width: 480px;
-    /* 稍微加寬，讓三個下拉選單有空間並排 */
-    flex-shrink: 0;
-}
-
-.modal-cover {
-    width: 140px;
-    height: 210px;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.modal-info {
-    text-align: left;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    /* 每一行之間加上呼吸空間，才不會太擠 */
-    width: 100%;
-    /* 確保它佔滿右側空間 */
-
-}
-
-.modal-info p {
-    margin-bottom: 8px;
-    line-height: 1.5;
-    font-size: 14px;
-    margin: 0;
-}
-
-/* =========================
-   上傳圖片 
-========================= */
-.upload-btn {
-    display: inline-block;
-    margin-top: 8px;
-    padding: 4px 10px;
-    background: #4a90e2;
-    color: white;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    width: 70%;
-    /* 🔥 關鍵 */
-    justify-content: center;
-    /* 讓按鈕置中 */
-}
-
-/* 隱藏原生 input */
-.upload-btn input[type="file"] {
-    display: none;
-}
-
-/* =========================
-   Tags (下拉選單區域)
-========================= */
-.tag-container {
-    display: flex;
-    flex-direction: row;
-    /* 強制橫向排列 */
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 12px;
-    margin: 15px 0;
-    width: 100%;
-}
-
-.select-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    flex: 1;
-    /* 讓三個欄位平分寬度 */
-}
-
-.select-group label {
-    font-size: 13px;
-    font-weight: 600;
-    color: #6b4f3b;
-    /* 修正顏色以搭配淺色背景 */
-}
-
-/* 修正輸入框與下拉選單的顏色，原本白底白字導致看不見 */
-.select-group select,
-.select-group input {
-    width: 100%;
-    padding: 8px 10px;
-    border-radius: 8px;
-    border: 1px solid #dbc4a5;
-    background: #fff;
-    color: #5a4636;
-    font-size: 14px;
-    outline: none;
-    transition: 0.2s;
-}
-
 .select-group select:hover,
 .select-group input:hover {
     border-color: #ba9d77;
@@ -265,48 +161,9 @@
     box-shadow: 0 8px 10px rgba(107, 79, 59, 0.3);
 }
 
-.save-btn {
-    width: 100%;
-    margin: 15px 0;
-    padding: 12px 16px;
-    border: none;
-    border-radius: 8px;
-    background: #6b4f3b;
-    color: white;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
 
-.save-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 10px rgba(107, 79, 59, 0.3);
-}
 
-.save-btn:active {
-    transform: scale(0.98);
-}
 
-/* =========================
-   Right Side
-========================= */
-.modal-body-right {
-    width: 400px;
-    margin-left: 24px;
-    padding: 20px;
-
-    min-height: 220px;
-
-    background: transparent;
-    border: none;
-    border-radius: 0;
-
-    animation: fadeSlide 0.3s ease forwards;
-
-    display: flex;
-    flex-direction: column;
-}
 
 .scrollable {
     max-height: 480px;
@@ -317,11 +174,7 @@
 /* =========================
    Description
 ========================= */
-.modal-divider {
-    border: none;
-    border-top: 1px solid #dbc4a5;
-    margin: 0 0 16px;
-}
+
 
 .modal-description {
     line-height: 1.8;
@@ -343,18 +196,7 @@
     }
 }
 
-@keyframes fadeSlide {
-    from {
-        opacity: 0;
-        transform: translateX(-15px);
-        /* 修改成從內側滑出 */
-    }
 
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
 
 /* =========================
    Scrollbar & Mobile
@@ -387,88 +229,15 @@
         flex-direction: column;
     }
 
-    .modal-body-left {
-        width: 100%;
-    }
 
-    .modal-body-right {
-        width: 100%;
-        margin-left: 0;
-        margin-top: 20px;
-    }
 
-    .tag-container {
-        flex-direction: column;
-        /* 手機版空間不夠，改回直向排列 */
-    }
-}
 
-.input-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-    justify-content: flex-start;
-    gap: 8px;
-    text-align: left;
 
 
 }
 
-.input-row label {
-    width: 60px;
-    white-space: nowrap;
-    font-size: 14px;
-    text-align: left;
-}
 
-.input-row input {
-    flex: 1;
-    padding: 4px 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
 
-}
-
-/* 自訂標籤外框（模擬選單形狀） */
-.custom-tag-wrapper {
-    display: inline-flex;
-    align-items: center;
-    border: 1px solid #ccc;
-
-    border-radius: 4px;
-
-    background-color: #fff;
-    overflow: hidden;
-    height: 28px;
-}
-
-/* 隱藏預設 input 樣式 */
-.custom-tag-input {
-    border: none;
-    outline: none;
-    padding: 0 8px;
-    font-size: 0.5em;
-    color: #333;
-    width: 90px;
-    background: transparent;
-}
-
-/* 確認小按鈕 */
-.custom-tag-btn {
-    background-color: #f0f0f0;
-    border: none;
-    border-left: 1px solid #ccc;
-    color: #333;
-    padding: 0 10px;
-    cursor: pointer;
-    height: 100%;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
-}
-
-.custom-tag-btn:hover {
-    background-color: #e0e0e0;
-}
 
 .modal-description {
     width: 100%;
@@ -495,23 +264,7 @@
     box-sizing: border-box;
 }
 
-/* 4. 讓簡介的滾動條也有好看的樣式 (套用你原本 .scrollable 的配色) */
-.modal-description::-webkit-scrollbar {
-    width: 6px;
-}
 
-.modal-description::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.modal-description::-webkit-scrollbar-thumb {
-    background: #dbc4a5;
-    border-radius: 999px;
-}
-
-.modal-description::-webkit-scrollbar-thumb:hover {
-    background: #ba9d77;
-}
 
 input,
 select,
