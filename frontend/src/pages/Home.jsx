@@ -78,6 +78,35 @@ export default function Home() {
         }
     };
 
+    // 切換收藏狀態，並呼叫後端的 PUT API 更新書籍資料
+    const handleToggleFavorite = async (bookId) => {
+        try {
+            const book = filteredBooks.find(
+                b => b._id === bookId
+            );
+
+            const response = await fetch(
+                `http://localhost:3000/api/books/${bookId}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        ...book,
+                        favorite: !book.favorite,
+                    }),
+                }
+            );
+
+            if (response.ok) {
+                refreshBooks();
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <div className="home-container">
             <div className="library-stats">
@@ -121,6 +150,7 @@ export default function Home() {
                             onClick={handleBookClick}
                             isEditMode={isEditMode}
                             onDelete={handleDeleteBook}
+                            onToggleFavorite={handleToggleFavorite}
                         />
                     ))}
                 </div>
