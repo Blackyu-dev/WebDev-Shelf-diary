@@ -100,8 +100,8 @@ export default function BookModal({ book, isOpen, onClose }) {
     // 將資料用 POST 送給 Express API
     const handleSave = async () => {
         const formData = new FormData();
-        formData.append("title", title);
-        formData.append("author", author);
+        formData.append("title", title.trim());
+        formData.append("author", author.trim());
         formData.append("publishDate", publishDate?.trim() || "出版日期");
         formData.append("publisher", publisher?.trim() || "出版社");
         formData.append("publishPlace", publishPlace?.trim() || "出版地");
