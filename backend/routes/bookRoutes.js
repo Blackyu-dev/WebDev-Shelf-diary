@@ -3,6 +3,7 @@ import Book from "../models/Book.js";
 import multer from "multer";
 import path from "path";
 
+// === Multer 圖片上傳設定 ===
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "uploads/");
@@ -10,24 +11,31 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
         const uniqueName =
             file.fieldname + "-" + Date.now() + path.extname(file.originalname);
-
         cb(null, uniqueName);
     }
 });
 
 const upload = multer({ storage: storage });
-
 const router = express.Router();
 
-// ➜ 新增書籍
+
+// === 1. GET API：取得所有書籍 (加入由新到舊排序) ===
+router.get("/", async (req, res) => {
+    try {
+        const books = await Book.find().sort({ createdAt: -1 });
+        res.json(books);
+    } catch (err) {
+        res.status(500).json({ message: "取得書籍資料失敗", error: err.message });
+    }
+});
+
+
+// === 2. POST API：新增書籍 (結合圖片上傳 + 防呆機制) ===
 router.post("/", upload.single("coverImage"), async (req, res) => {
     try {
-
         const { title, author, isbn } = req.body;
 
-        // ========================
-        // ✅ 1. 必填驗證（最前面）
-        // ========================
+        // 防呆機制 0：必填欄位檢查
         if (!title?.trim()) {
             return res.status(400).json({ message: "請輸入書名" });
         }
@@ -36,9 +44,7 @@ router.post("/", upload.single("coverImage"), async (req, res) => {
             return res.status(400).json({ message: "請輸入作者" });
         }
 
-        // ========================
-        // ✅ 2. 重複書名 + 作者
-        // ========================
+        // 防呆機制 1：檢查「書名」與「作者」是否完全相同
         const existingBook = await Book.findOne({
             title: title.trim(),
             author: author.trim()
@@ -50,13 +56,10 @@ router.post("/", upload.single("coverImage"), async (req, res) => {
             });
         }
 
-        // ========================
-        // ✅ 3. ISBN 檢查
-        // ========================
+        // 防呆機制 2：如果使用者有輸入 ISBN，檢查 ISBN 是否重複與格式
         if (isbn?.trim() && isbn.trim() !== "未知") {
             // ISBN 必須是 10 或 13 位數字
-            const isValidFormat =
-                /^(?:\d{10}|\d{13})$/.test(isbn?.trim());
+            const isValidFormat = /^(?:\d{10}|\d{13})$/.test(isbn?.trim());
 
             if (!isValidFormat) {
                 return res.status(400).json({
@@ -76,9 +79,7 @@ router.post("/", upload.single("coverImage"), async (req, res) => {
             }
         }
 
-        // ========================
-        // ✅ 4. 組資料
-        // ========================
+        // 防呆機制 3：整理與組合寫入資料 (處理圖片路徑與去除空白)
         const bookData = {
             ...req.body,
             title: title.trim(),
@@ -91,9 +92,7 @@ router.post("/", upload.single("coverImage"), async (req, res) => {
             bookData.coverImage = req.body.coverImage;
         }
 
-        // ========================
-        // ✅ 5. 存資料（只做一次）
-        // ========================
+        // 防呆機制 4：存入資料庫（確保只寫入一次）
         const book = new Book(bookData);
         const saved = await book.save();
 
@@ -109,23 +108,20 @@ router.post("/", upload.single("coverImage"), async (req, res) => {
     }
 });
 
-// ➜ 取得所有書籍
-router.get("/", async (req, res) => {
-    try {
-        const books = await Book.find();
-        res.json(books);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
 
-// 更新書籍
-// PUT API：根據 _id 更新書籍資料 (備註、收藏狀態、閱讀狀態等)
-router.put("/:id", async (req, res) => {
+// === 3. PUT API：根據 _id 更新書籍資料 (結合圖片上傳) ===
+router.put("/:id", upload.single("coverImage"), async (req, res) => {
     try {
+        const updateData = { ...req.body };
+
+        // 如果在更新時有上傳新的封面圖片，就更新路徑
+        if (req.file) {
+            updateData.coverImage = `/uploads/${req.file.filename}`;
+        }
+
         const updatedBook = await Book.findByIdAndUpdate(
             req.params.id,
-            req.body,
+            updateData,
             { new: true }
         );
 
@@ -138,7 +134,8 @@ router.put("/:id", async (req, res) => {
     }
 });
 
-// ➜ 刪除書籍
+
+// === 4. DELETE API：用 _id 刪除資料 ===
 router.delete("/:id", async (req, res) => {
     try {
         const deletedBook = await Book.findByIdAndDelete(req.params.id);

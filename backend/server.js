@@ -7,15 +7,19 @@ import Book from "./models/Book.js";
 import bookRoutes from "./routes/bookRoutes.js";
 import path from "path";
 import multer from "multer";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const upload = multer();
+//const upload = multer();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(cors());
 app.use(express.json()); // 自動將前端傳來的 JSON 解析到 req.body
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/books", bookRoutes);
 
 
@@ -33,38 +37,6 @@ async function connectDB() {
     }
 }
 connectDB();
-
-
-// // 1. GET API
-// app.get("/api/books", async (req, res) => {
-//     try {
-//         // 由新到舊排序，回傳 JSON 給 React 
-//         const books = await Book.find().sort({ createdAt: -1 });
-//         res.json(books);
-//     } catch (error) {
-//         res.status(500).json({ message: "取得書籍資料失敗", error: error.message });
-//     }
-// });
-
-
-// 4. PUT API：根據 _id 更新書籍資料 (備註、收藏狀態、閱讀狀態等)
-// app.put("/api/books/:id", async (req, res) => {
-//     try {
-
-//         const updatedBook = await Book.findByIdAndUpdate(
-//             req.params.id,
-//             req.body,
-//             { new: true }
-//         );
-
-//         if (!updatedBook) {
-//             return res.status(404).json({ message: "找不到要更新的書籍" });
-//         }
-//         res.json(updatedBook);
-//     } catch (error) {
-//         res.status(500).json({ message: "更新失敗", error: error.message });
-//     }
-// });
 
 // === 啟動伺服器 ===
 app.listen(PORT, () => {

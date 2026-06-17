@@ -22,9 +22,9 @@ export default function Card({ book, onClick, isEditMode, onDelete }) {
         ) {
             return coverImage;
         }
-
+        const formattedPath = coverImage.startsWith("/") ? coverImage : `/${coverImage}`;
         // 本地 uploads
-        return `http://localhost:3000${coverImage}`;
+        return `http://localhost:3000${formattedPath}`;
     };
 
     return (
@@ -50,7 +50,7 @@ export default function Card({ book, onClick, isEditMode, onDelete }) {
                     {book.title || "未知書名"}
                 </h3>
 
-                {/* 🔥 合併狀態：一行 */}
+                {/*  合併狀態：一行 */}
                 <div className="book-status-row">
 
                     <span className={`book-status status-${book.status || "未讀"}`}>

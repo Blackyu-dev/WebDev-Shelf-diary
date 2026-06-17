@@ -5,6 +5,20 @@ export default function BookInfoCard({
   onChange
 }) {
 
+  // 處理圖片 URL 邏輯 (把魔法加進來)
+  const getCoverUrl = (coverImage) => {
+    if (!coverImage) return "https://placehold.co/120x180?text=No+Image";
+
+    // 外部圖片（http / https）
+    if (coverImage.startsWith("http://") || coverImage.startsWith("https://")) {
+      return coverImage;
+    }
+
+    // 確保路徑前面有斜線，並拼上後端網址
+    const formattedPath = coverImage.startsWith("/") ? coverImage : `/${coverImage}`;
+    return `http://localhost:3000${formattedPath}`;
+  };
+
   // ⭐️ 評分星星的渲染函式
   const renderStars = () => {
     const currentRating = book.rating || 0;
@@ -33,7 +47,7 @@ export default function BookInfoCard({
     <div className="card info-card">
       <div className="top-section">
         <img
-          src={book.coverImage}
+          src={getCoverUrl(book.coverImage)}
           className="panel-cover"
           alt="封面"
         />
