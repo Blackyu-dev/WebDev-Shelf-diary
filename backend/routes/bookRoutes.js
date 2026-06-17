@@ -51,11 +51,6 @@ router.post("/", upload.single("coverImage"), async (req, res) => {
         }
 
         if (isbn?.trim() && isbn.trim() !== "未知") {
-            const isValidFormat = /^(?:\d{10}|\d{13})$/.test(isbn?.trim());
-            if (!isValidFormat) {
-                return res.status(400).json({ message: "ISBN 必須是 10 或 13 位數字" });
-            }
-
             const existingIsbn = await Book.findOne({ isbn: isbn.trim() });
             if (existingIsbn) {
                 return res.status(409).json({ message: `ISBN (${isbn}) 已存在` });
