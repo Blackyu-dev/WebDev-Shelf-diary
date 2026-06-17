@@ -41,7 +41,7 @@ export default function Setting() {
                     <div className="setting-item">
                         <div className="item-info">
                             <h4>備份書櫃資料</h4>
-                            <p>將目前資料庫中的所有書本、筆記與標籤匯出成 JSON 檔案</p>
+                            <p>將目前所有書本、筆記與標籤匯出成 JSON 檔案。</p>
                         </div>
                         <button className="btn-primary" onClick={handleExportData}>
                             匯出資料
@@ -53,7 +53,7 @@ export default function Setting() {
                     <div className="setting-item">
                         <div className="item-info">
                             <h4>清空所有資料</h4>
-                            <p>刪除系統中的所有書本紀錄。此動作<strong style={{ color: "#e57373" }}>無法復原</strong>。</p>
+                            <p>刪除系統中的所有書本紀錄。此動作將<strong style={{ color: "#e57373" }}>無法復原</strong>。</p>
                         </div>
                         <button className="btn-danger" onClick={handleClearData}>
                             清除資料
