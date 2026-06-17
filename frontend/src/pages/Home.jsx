@@ -35,9 +35,11 @@ export default function Home() {
         // 把「其他」獨立抽出來，確保它永遠排在陣列的最後一個
         const optionsWithoutOther = allOptions.filter(opt => opt !== '其他');
 
+        const fixedGroups = ['favorite', 'status', 'serialStatus'];
+
         return {
             ...group,
-            options: group.key === 'favorite'
+            options: fixedGroups.includes(group.key)
                 ? group.defaults
                 : [...optionsWithoutOther, '其他']
         };
