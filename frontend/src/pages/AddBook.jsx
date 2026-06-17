@@ -1,6 +1,6 @@
 
 import Card from "../components/Card";
-import BookModal from "../components/BookModal";
+import BookModal from '../components/BookModal/BookModal';
 import SearchBookInputs from "../components/SearchBookInputs";
 import useSearchBooks from "../hooks/useSearchBooks";
 import "./AddBook.css";
