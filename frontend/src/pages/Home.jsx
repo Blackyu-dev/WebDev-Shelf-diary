@@ -5,7 +5,7 @@ import useSearchBooks from "../hooks/useSearchBooks";
 import "./Home.css";
 
 export default function Home() {
-    const [selectedBook, setSelectedBook] = useState(null);
+    const [selectedBookId, setSelectedBookId] = useState(null);
     // 刪除時的編輯模式
     const [isEditMode, setIsEditMode] = useState(false);
     // 篩選 
@@ -45,16 +45,15 @@ export default function Home() {
 
     const handleBookClick = (book) => {
         if (isEditMode) return;
-        setSelectedBook(book);
+        setSelectedBookId(book._id);
     };
 
-    const handleUpdateBook = (updatedBook) => {
-        setSelectedBook(updatedBook);
-
-        if (updateLocalBook) {
-            updateLocalBook(updatedBook);
-        }
-    };
+const handleUpdateBook = (updatedBook) => {
+    
+    if (updateLocalBook) {
+        updateLocalBook(updatedBook);
+    }
+};
 
     // 呼叫後端的 DELETE API
     const handleDeleteBook = async (bookId) => {
@@ -200,12 +199,14 @@ export default function Home() {
             </div>
 
             {/* 側邊詳情 */}
-            <BookDetailPanel
-                book={selectedBook}
-                onClose={() => setSelectedBook(null)}
-                onUpdateBook={handleUpdateBook}
-                onDeleteBook={handleDeleteBook}
-            />
+            {selectedBookId && (
+                <BookDetailPanel
+                    book={filteredBooks.find(b => b._id === selectedBookId)}
+                    onClose={() => setSelectedBookId(null)}
+                    onUpdateBook={handleUpdateBook}
+                    onDeleteBook={handleDeleteBook}
+                />
+            )}
         </div >
     );
 }

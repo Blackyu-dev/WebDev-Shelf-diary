@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./BookDetailPanel.css";
 
 import BookInfoCard from "./panels/BookInfoCard";
@@ -14,12 +14,9 @@ export default function BookDetailPanel({ book, onClose, onUpdateBook, onDeleteB
     book?.note?.text || ""
   );
 
-  const [prevBook, setPrevBook] = useState(book);
-
-  if (book !== prevBook) {
-    setPrevBook(book);
+  useEffect(() => {
     setNoteText(book?.note?.text || "");
-  }
+  }, [book]);
 
   if (!book) return null;
 
