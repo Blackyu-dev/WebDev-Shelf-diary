@@ -1,3 +1,4 @@
+import './BookModalInfo.css';
 export default function BookModalInfo({ book, states, setters, handlers }) {
     return (
         <div className="modal-body-left">
