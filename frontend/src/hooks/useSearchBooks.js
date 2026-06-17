@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { fetchBookByISBN, fetchBooksByGoogle } from "../api/searchBookApi";
 // 原本地的 getBooks
 // import { getBooks } from "../data/booksStorage";
 
@@ -6,6 +7,67 @@ export default function useSearchBooks() {
 
     const [books, setBooks] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [isbn, setIsbn] = useState("");
+    const [keyword, setKeyword] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+
+    // Modal 與選中書籍狀態
+    const [selectedBook, setSelectedBook] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleISBNImport = async () => {
+        if (!isbn.trim()) return;
+        const isbnDigits = isbn.replace(/-/g, "");
+        if (isbnDigits.length !== 10 && isbnDigits.length !== 13) {
+            setError("請輸入有效的 ISBN (10 或 13 碼)");
+            return;
+        }
+
+        try {
+            setLoading(true);
+            setError("");
+            const bookData = await fetchBookByISBN(isbn);
+            setSelectedBook(bookData);
+            setIsModalOpen(true);
+        } catch (err) {
+            console.error(err);
+            setError(err.message || "ISBN 匯入失敗");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleGoogleSearch = async () => {
+        if (!keyword.trim()) return;
+        try {
+            setLoading(true);
+            setError("");
+            const books = await fetchBooksByGoogle(keyword);
+            setSearchResults(books);
+        } catch (err) {
+            console.error(err);
+            setError(err.message || "找不到相關書籍，請改用ISBN或手動輸入");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setTimeout(() => setSelectedBook(null), 300);
+    };
+
+    // 提供手動新增空白書籍的功能
+    const openManualAdd = () => {
+        setSelectedBook({
+            id: Date.now(), title: "", author: "", publisher: "", language: "",
+            version: "", binding: "", grade: "", isbn: "", description: "",
+            status: "未讀", source: "其他", category: "其他"
+        });
+        setIsModalOpen(true);
+    };
 
     // 篩選條件
     const [selectedFilters, setSelectedFilters] = useState({
@@ -82,6 +144,11 @@ export default function useSearchBooks() {
         totalBooks: books.length,
         selectedFilters,
         toggleFilter,
-        filterStats
+        filterStats,
+        isbn, setIsbn, keyword, setKeyword,
+        searchResults, loading, error,
+        selectedBook, setSelectedBook,
+        isModalOpen, setIsModalOpen,
+        handleISBNImport, handleGoogleSearch, handleCloseModal, openManualAdd
     };
 }
