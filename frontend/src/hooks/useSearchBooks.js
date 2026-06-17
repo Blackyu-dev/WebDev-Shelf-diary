@@ -74,7 +74,8 @@ export default function useSearchBooks() {
         status: [],       // 閱讀狀態
         source: [],       // 書籍來源
         category: [],     // 類型
-        serialStatus: []  // 連載狀態
+        serialStatus: [],  // 連載狀態
+        favorite: []       // 收藏狀態
     });
 
     // 向 Express API 發送 GET 請求取得所有書籍
@@ -118,13 +119,20 @@ export default function useSearchBooks() {
     };
 
     const getFilterStats = () => {
-        const stats = { status: {}, source: {}, category: {}, serialStatus: {} };
+        const stats = {
+            status: {}, 
+            source: {}, 
+            category: {}, 
+            serialStatus: {},
+            favorite: {}
+        };
 
         books.forEach(book => {
             if (book.status) stats.status[book.status] = (stats.status[book.status] || 0) + 1;
             if (book.source) stats.source[book.source] = (stats.source[book.source] || 0) + 1;
             if (book.category) stats.category[book.category] = (stats.category[book.category] || 0) + 1;
             if (book.serialStatus) stats.serialStatus[book.serialStatus] = (stats.serialStatus[book.serialStatus] || 0) + 1;
+            if (book.favorite !== undefined) stats.favorite[book.favorite ? '已收藏' : '未收藏'] = (stats.favorite[book.favorite ? '已收藏' : '未收藏'] || 0) + 1;
         });
         return stats;
     };
@@ -138,8 +146,9 @@ export default function useSearchBooks() {
         const matchSource = selectedFilters.source.length === 0 || selectedFilters.source.includes(book.source);
         const matchCategory = selectedFilters.category.length === 0 || selectedFilters.category.includes(book.category);
         const matchSerialStatus = selectedFilters.serialStatus.length === 0 || selectedFilters.serialStatus.includes(book.serialStatus);
+        const matchFavorite = selectedFilters.favorite.length === 0 || selectedFilters.favorite.includes(book.favorite !== undefined ? (book.favorite ? '已收藏' : '未收藏') : null);
 
-        return matchSearch && matchStatus && matchSource && matchCategory && matchSerialStatus;
+        return matchSearch && matchStatus && matchSource && matchCategory && matchSerialStatus && matchFavorite;
     });
 
     return {
