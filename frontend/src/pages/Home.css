@@ -99,23 +99,29 @@
 /* 篩選面板樣式 (預設隱藏且寬度為 0) */
 .filter-panel {
     width: 0;
+    max-width: 0;
+    flex: 0 0 0;
     overflow: hidden;
     opacity: 0;
-    transition: all 0.3s ease;
-    background-color: #faf8f5;
-    border-radius: 12px;
+
+    padding: 0;
     margin-right: 0;
+
+    transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
-/* 篩選面板打開時的狀態 */
 .filter-panel.open {
     width: 240px;
+    max-width: 240px;
+    flex: 0 0 240px;
+
     opacity: 1;
     padding: 20px;
     margin-right: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-    max-height: calc(100vh - 120px);
+
     overflow-y: auto;
+    max-height: calc(100vh - 120px);
 }
 
 /* 篩選面板內的文字樣式 */
