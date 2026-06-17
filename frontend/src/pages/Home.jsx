@@ -13,7 +13,7 @@ export default function Home() {
 
     const {
         searchTerm, setSearchTerm, filteredBooks, refreshBooks, totalBooks,
-        selectedFilters, toggleFilter, filterStats
+        selectedFilters, toggleFilter, filterStats, updateLocalBook
     } = useSearchBooks();
 
     //  動態產生篩選選項的邏輯 
@@ -47,8 +47,9 @@ export default function Home() {
 
     const handleUpdateBook = (updatedBook) => {
         setSelectedBook(updatedBook);
-        if (refreshBooks) {
-            refreshBooks();
+
+        if (updateLocalBook) {
+            updateLocalBook(updatedBook);
         }
     };
 

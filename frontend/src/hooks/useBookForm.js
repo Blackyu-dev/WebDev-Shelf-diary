@@ -80,6 +80,16 @@ export function useBookForm(book, onClose) {
 
     const handleSave = async () => {
         const formData = new FormData();
+
+        // 防呆邏輯：如果下拉選單是「其他」，而且輸入框有打字，就優先儲存輸入框的字
+        const finalSource = source === "其他" && customSource.trim() !== ""
+            ? customSource.trim()
+            : (source?.trim() || "博客來");
+
+        const finalCategory = category === "其他" && customCategory.trim() !== ""
+            ? customCategory.trim()
+            : (category?.trim() || "文學小說");
+
         formData.append("title", title);
         formData.append("author", author);
         formData.append("publishDate", publishDate?.trim() || "出版日期");
@@ -88,8 +98,8 @@ export function useBookForm(book, onClose) {
         formData.append("language", language?.trim() || "語言");
         formData.append("isbn", isbnState?.trim() || "未知");
         formData.append("status", status?.trim() || "未讀");
-        formData.append("source", source?.trim() || "博客來");
-        formData.append("category", category?.trim() || "文學小說");
+        formData.append("source", finalSource);
+        formData.append("category", finalCategory);
         formData.append("version", version?.trim() || "初版");
         formData.append("binding", binding?.trim() || "平裝");
         formData.append("grade", grade?.trim() || "普通級");

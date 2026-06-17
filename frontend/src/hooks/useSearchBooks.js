@@ -98,6 +98,12 @@ export default function useSearchBooks() {
         fetchBooks();
     }, [fetchBooks]);
 
+    const updateLocalBook = (updatedBook) => {
+        setBooks((prevBooks) =>
+            prevBooks.map((b) => (b._id === updatedBook._id ? updatedBook : b))
+        );
+    };
+
     const toggleFilter = (filterKey, option) => {
         setSelectedFilters(prev => {
             const currentSelected = prev[filterKey];
@@ -141,6 +147,7 @@ export default function useSearchBooks() {
         setSearchTerm,
         filteredBooks,
         refreshBooks: fetchBooks,
+        updateLocalBook,
         totalBooks: books.length,
         selectedFilters,
         toggleFilter,
