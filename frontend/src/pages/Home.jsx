@@ -17,7 +17,7 @@ export default function Home() {
     } = useSearchBooks();
 
     //  動態產生篩選選項的邏輯 
-    // 1. 定義基礎篩選配置 (不包含「其他」，因為等一下會動態把它塞在最後面)
+    // 1. 定義基礎篩選配置，不包含其他
     const baseFilters = [
         { key: 'favorite', title: '收藏', defaults: ['已收藏', '未收藏'] },
         { key: 'status', title: '閱讀狀態', defaults: ['未讀', '想讀', '閱讀中', '已讀'] },
@@ -32,16 +32,10 @@ export default function Home() {
         const existOptions = Object.keys(filterStats[group.key] || {});
         // 用 Set 來合併預設值與現有值，並自動去除重複
         const allOptions = Array.from(new Set([...group.defaults, ...existOptions]));
-        // 把「其他」獨立抽出來，確保它永遠排在陣列的最後一個
-        const optionsWithoutOther = allOptions.filter(opt => opt !== '其他');
-
-        const fixedGroups = ['favorite', 'status', 'serialStatus'];
 
         return {
             ...group,
-            options: fixedGroups.includes(group.key)
-                ? group.defaults
-                : [...optionsWithoutOther, '其他']
+            options: allOptions.filter(opt => opt !== '其他')
         };
     });
 
