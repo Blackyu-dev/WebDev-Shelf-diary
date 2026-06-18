@@ -69,8 +69,8 @@ export default function Home() {
                 if (response.ok) {
                     refreshBooks(); // 重新向後端抓取並更新畫面
 
-                    if (selectedBook && selectedBook._id === bookId) {
-                        setSelectedBook(null);
+                    if (selectedBookId === bookId) {
+                        setSelectedBookId(null); // 是的話，就把面板關掉
                     }
                 } else {
                     alert("刪除失敗，請稍後再試！");
