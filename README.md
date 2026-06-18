@@ -137,7 +137,7 @@ npm run dev
 主要負責系統核心架構設計、後端開發與前後端整合，包含：
 
 * MongoDB Schema 設計與資料模型建立
-* RESTful API 開發（Create、Read、Update、Delete）
+* RESTful API 開發（POST、GET、PUT、Delete）
 * Google Books API 查詢功能
 * 書籍 CRUD 與資料流設計
 * 多條件篩選與閱讀狀態管理邏輯
@@ -191,7 +191,7 @@ React Hooks、介面設計、ISBN 爬蟲、表單驗證、Image Upload
 * `frontend/src/pages/Home.jsx`
 * `frontend/src/components/BookModal/*`
 * `backend/routes/bookRoutes.js/*` 
-* `frontend/src/App.jsx/*` 
+* `frontend/src/App.jsx/` 
 
 
 
