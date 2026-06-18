@@ -3,9 +3,12 @@ import { saveBookApi } from '../api/bookApi';
 
 export function useBookForm(book, onClose) {
     // ================= 狀態區 =================
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [isExpanded, setIsExpanded] = useState(true);
     const [status, setStatus] = useState(book?.status || "未讀");
     const [serialStatus, setSerialStatus] = useState(book?.serialStatus || "未連載");
+
+    const [duplicateError, setDuplicateError] = useState("");
 
     const defaultSources = ["博客來", "讀墨", "Play圖書", "誠品", "Hyread", "Kobo", "BOOKWALKER", "其他"];
     const initSources = book?.source && !defaultSources.includes(book.source)
@@ -78,6 +81,11 @@ export function useBookForm(book, onClose) {
     };
 
     const handleSave = async () => {
+
+        if (isSubmitting) return;
+        setIsSubmitting(true);
+        setDuplicateError("");
+
         const formData = new FormData();
 
         // 防呆邏輯：如果下拉選單是「其他」，而且輸入框有打字，就優先儲存輸入框的字
@@ -119,20 +127,29 @@ export function useBookForm(book, onClose) {
             onClose();
         } catch (error) {
             console.error(error);
-            alert(error.message);
+            if (error.status === 409) {
+                setDuplicateError("書籍已存在於資料庫中。");
+                setTimeout(() => {
+                    setDuplicateError("");
+                }, 3000);
+            } else {
+                alert(error.message);
+            }
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
     // 將所有需要的東西打包回傳
     return {
         states: {
-            isExpanded, status, sourceOptions, source, categoryOptions, category,
+            isSubmitting, isExpanded, status, sourceOptions, source, categoryOptions, category,
             customSource, customCategory, previewUrl, title, author, publishDate,
             publisher, publishPlace, language, isbnState, version, binding, grade,
-            description, isEditingDesc
+            description, isEditingDesc, duplicateError
         },
         setters: {
-            setIsExpanded, setStatus, setSource, setCategory, setCustomSource,
+            setDuplicateError, setIsSubmitting, setIsExpanded, setStatus, setSource, setCategory, setCustomSource,
             setCustomCategory, setCoverFile, setTitle, setAuthor, setPublishDate,
             setPublisher, setPublishPlace, setLanguage, setIsbnState, setVersion,
             setSerialStatus,

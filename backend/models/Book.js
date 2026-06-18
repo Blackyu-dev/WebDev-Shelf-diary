@@ -32,5 +32,6 @@ const bookSchema = new mongoose.Schema(
     { timestamps: true } // 自動添加 createdAt 和 updatedAt 欄位
 );
 
+bookSchema.index({ title: 1, author: 1 }, { unique: true }); // 書名和作者的組合必須唯一
 const Book = mongoose.model("Book", bookSchema);
 export default Book; // 匯出 Model 給 server.js 使用

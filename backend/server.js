@@ -39,4 +39,5 @@ connectDB();
 // === 啟動伺服器 ===
 app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}`);
+    console.log(`http://localhost:${PORT}/api/books`);
 });

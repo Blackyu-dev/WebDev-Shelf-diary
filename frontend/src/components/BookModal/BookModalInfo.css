@@ -230,3 +230,44 @@
         flex-direction: column;
     }
 }
+
+/* 上方浮動警告視窗 (Toast) */
+.top-toast-alert {
+    position: fixed;
+    /* 固定在畫面上 */
+    top: 30px;
+    /* 距離頂部 30px */
+    left: 50%;
+    /* 水平置中第一步 */
+    transform: translateX(-50%);
+    /* 水平置中第二步 */
+    background-color: #fef0f0;
+    color: #f56c6c;
+    border: 1px solid #fde2e2;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-size: 15px;
+    font-weight: bold;
+    z-index: 9999;
+    /* 確保它在最上層，不會被 Modal 蓋住 */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    /* 滑下與淡入動畫 */
+    animation: slideDownFade 0.4s ease-out forwards;
+}
+
+/* 視窗滑下來的動畫效果 */
+@keyframes slideDownFade {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}

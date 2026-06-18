@@ -16,7 +16,7 @@ export default function AddBook() {
 
     return (
         <section className="add-book-page">
-            <h2>➕ 新增書籍</h2>
+            <h2>新增書籍</h2>
 
             <SearchBookInputs
                 isbn={isbn} setIsbn={setIsbn} handleISBNImport={handleISBNImport}
