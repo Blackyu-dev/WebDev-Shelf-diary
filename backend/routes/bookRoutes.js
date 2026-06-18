@@ -41,10 +41,20 @@ router.post("/", upload.single("coverImage"), async (req, res) => {
             return res.status(400).json({ message: "請輸入作者" });
         }
 
+        console.log(`[準備新增] 接收到的書名: "${title.trim()}" | 作者: "${author.trim()}"`);
+
+        const authorPattern = author.trim().replace(/[．・‧·\s.-]/g, '.*');
+
+        // 2. 建立正則表達式，忽略大小寫
+        const authorRegex = new RegExp(`^${authorPattern}$`, 'i');
+
+        // 3. 用更有彈性的方式查詢資料庫
         const existingBook = await Book.findOne({
             title: title.trim(),
-            author: author.trim()
+            author: { $regex: authorRegex }
         });
+
+        console.log(`[檢查結果] 是否找到重複書籍？`, existingBook ? "有！" : "沒有");
 
         if (existingBook) {
             return res.status(409).json({ message: "書庫中已存在相同書名與作者" });
@@ -76,6 +86,17 @@ router.post("/", upload.single("coverImage"), async (req, res) => {
 
     } catch (err) {
         console.error("🔥 CREATE BOOK ERROR:", err);
+
+        // 🔥 新增這段：捕捉 MongoDB 的唯一索引衝突錯誤
+        if (err.code === 11000) {
+            // 解析是哪個欄位重複了
+            const duplicateField = Object.keys(err.keyValue)[0];
+            return res.status(409).json({
+                message: duplicateField === 'isbn' ? "此 ISBN 已存在於書庫中" : "書庫中已存在相同書名與作者",
+                error: "Duplicate Entry"
+            });
+        }
+
         return res.status(500).json({ message: "新增書籍失敗", error: String(err) });
     }
 });

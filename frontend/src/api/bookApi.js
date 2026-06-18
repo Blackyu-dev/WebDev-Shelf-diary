@@ -15,13 +15,14 @@ export const saveBookApi = async (bookId, formData) => {
     // 發送請求到後端
     const response = await fetch(url, {
         method,
-        body: formData, 
+        body: formData,
     });
 
     if (!response.ok) {
-        // 解析後端傳來的錯誤訊息
         const err = await response.json();
-        throw new Error(err.message || "伺服器錯誤");
+        const error = new Error(err.message || "儲存失敗");
+        error.status = response.status;
+        throw error;
     }
 
     return await response.json();
