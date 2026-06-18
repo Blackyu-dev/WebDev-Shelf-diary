@@ -231,16 +231,19 @@
     }
 }
 
-/* 上方浮動警告視窗 (Toast) */
+/* =========================
+   7. 防呆機制浮動警告視窗 (Toast)
+========================= */
+
 .top-toast-alert {
     position: fixed;
-    /* 固定在畫面上 */
+
     top: 30px;
-    /* 距離頂部 30px */
+
     left: 50%;
-    /* 水平置中第一步 */
+
     transform: translateX(-50%);
-    /* 水平置中第二步 */
+
     background-color: #fef0f0;
     color: #f56c6c;
     border: 1px solid #fde2e2;
@@ -250,7 +253,7 @@
     font-size: 15px;
     font-weight: bold;
     z-index: 9999;
-    /* 確保它在最上層，不會被 Modal 蓋住 */
+
     display: flex;
     align-items: center;
     gap: 8px;
