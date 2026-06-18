@@ -88,7 +88,11 @@ npm run dev
 | `note.text`      | String  | 空字串    | 個人閱讀備註內容                           |
 | `note.updatedAt` | String  | 空字串    | 備註最後更新時間                           |
 
-## 九、系統截圖
+## 九、系統截圖與 Demo 
+
+觀看完整操作流程：[前往 YouTube 觀看 SHELF DIARY Demo](https://youtu.be/bbcRTXcS0-M?si=_9FP4txt3P9Ls67J)
+
+
 
 ### 1.Home 頁面
 
@@ -128,6 +132,67 @@ npm run dev
 
 ## 十、組員分工
 
-* CBE111031　：
-* CBE111033　：
+### CBE111031｜系統架構與後端開發
+
+主要負責系統核心架構設計、後端開發與前後端整合，包含：
+
+* MongoDB Schema 設計與資料模型建立
+* RESTful API 開發（Create、Read、Update、Delete）
+* Google Books API 查詢功能
+* 書籍 CRUD 與資料流設計
+* 多條件篩選與閱讀狀態管理邏輯
+* 處理前後端資料同步
+* 開發 BookModal 共用元件
+
+**主要技術**
+
+React、Express.js、MongoDB、RESTful API、Google Books API
+
+---
+
+### CBE111033｜使用者功能與介面開發
+
+主要負責使用者功能開發、介面設計與使用體驗優化，包含：
+
+* 書籍新增與表單驗證功能
+* 設計 ISBN 查詢功能
+* Add Book 手動輸入簡介與更改介面設計
+* 完善全局版面配置 (Layout)、 Sidebar 以及 RWD 響應式佈局
+* 提供圖片上傳、預覽與封面顯示功能
+* 書籍詳細資訊面板共用元件開發 
+* UI/UX 優化與頁面互動設計
+
+**主要技術**
+
+React Hooks、介面設計、ISBN 爬蟲、表單驗證、Image Upload 
+
+---
+ ### Contribution Overview
+
+| 模組 | CBE111031 (核心與資料流) | CBE111033 (介面與體驗) | 相關檔案 (涵蓋前後端) |
+| :--- | :--- | :--- | :--- |
+| **後端架構與 API** | MongoDB Schema 設計、RESTful API 開發 | — | `backend/models/Book.js`<br>`backend/routes/bookRoutes.js`<br>`backend/server.js` |
+| **書籍資料 CRUD** | 建立資料流與前後端同步機制 | 書籍新增流程與表單驗證 | `api/bookApi.js`<br>`hook/useBookForm.js`<br>`backend/routes/bookRoutes.js` |
+| **外部 API 串接**<br>(Google Books/ISBN) | API 串接邏輯與非同步處理 (`async/await`) | ISBN 搜尋介面 | `api/searchBookApi.js`<br>`hook/useSearchBooks.js`<br>`components/SearchBookInputs.jsx` |
+| **Add Book 頁面** | 開發 `BookModal` 共用元件,加入自訂欄位功能並完成資料狀態傳遞 |  `BookModal`手動輸入簡介與更改介面設計 | `pages/AddBook.jsx`<br>`components/BookModal/*` |
+| **Home 頁面** | 開發多條件、可複選之動態篩選模式、首頁書籍網格 (Grid) 排版與資料渲染  | 單一書籍卡片視覺設計、篩選面板介面優化、Sidebar 導覽列 | `pages/Home.jsx`<br>`components/Card.jsx`<br>`data/booksStorage.js` |
+| **書籍詳細資訊面板** | 面板資料前後端同步、狀態即時更新機制 | 開發側邊面板共用元件,包含標籤、收藏與備註編輯功能 | `components/BookDetailPanel.jsx`<br>`components/panel/*` |
+| **收藏與筆記系統** | 收藏/筆記狀態 API 串接與資料庫更新 | 愛心按鈕互動切換、UI 狀態同步顯示 | `components/Card.jsx`<br>`components/BookDetailPanel.jsx`<br>`api/bookApi.js` |
+| **手動新增圖片管理** | — | `FormData` 資料處理、支援外部連結、圖片UI介面, 包含上傳按鈕、圖片即時預覽 | `components/BookModal/BookModalInfo.jsx`<br>`backend/routes/bookRoutes.js` |
+| **Setting 頁面** | 實作「清空資料」與「JSON 資料匯出」邏輯 | — | **`pages/Setting.jsx`**<br>`api/bookApi.js`<br>`backend/routes/bookRoutes.js` |
+
+
+> 註：部分檔案由兩位成員共同開發與維護。A 同學主要負責系統架構、資料流設計、API 串接；B 同學主要負責功能實作、使用者互動與介面優化。
+以下檔案由兩位成員共同開發：
+
+#### 主要共同維護檔案
+
+* `frontend/src/components/components/panel/*`
+* `frontend/src/pages/Home.jsx`
+* `frontend/src/components/BookModal/*`
+* `backend/routes/bookRoutes.js/*` 
+* `frontend/src/App.jsx/*` 
+
+
+
 
