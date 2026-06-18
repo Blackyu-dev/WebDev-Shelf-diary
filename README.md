@@ -182,7 +182,7 @@ React Hooks、介面設計、ISBN 爬蟲、表單驗證、Image Upload
 | **Setting 頁面** | 實作「清空資料」與「JSON 資料匯出」邏輯 | — | **`pages/Setting.jsx`**<br>`api/bookApi.js`<br>`backend/routes/bookRoutes.js` |
 
 
-> 註：部分檔案由兩位成員共同開發與維護。A 同學主要負責系統架構、資料流設計、API 串接；B 同學主要負責功能實作、使用者互動與介面優化。
+> 註：部分檔案由兩位成員共同開發與維護。(CBE111031)主要負責系統架構、資料流設計、API 串接；(CBE111033)主要負責功能實作、使用者互動與介面優化。
 以下檔案由兩位成員共同開發：
 
 #### 主要共同維護檔案
