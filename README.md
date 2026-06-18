@@ -76,7 +76,7 @@ npm run dev
 | `publisher`      | String  | 空字串    | 出版社                                     |
 | `publishDate`    | String  | 空字串    | 出版日期                                   |
 | `publishPlace`   | String  | 空字串    | 出版地點                                   |
-| `isbn`           | String  | 空字串    | 國際標準書號                               |
+| `isbn`           | String  | 空字串    | 國際標準書號 (會檢查格式)                    |
 | `coverImage`     | String  | 空字串    | 封面圖片 URL                               |
 | `description`    | String  | 空字串    | 書籍簡介                                   |
 | `favorite`       | Boolean | false     | 是否加入我的收藏                           |
@@ -90,9 +90,44 @@ npm run dev
 
 ## 九、系統截圖
 
+### 1.Home 頁面
+
+**I. 書櫃總覽**
+書櫃預設收合時的視窗。
+
+**II. 快速篩選**
+展開篩選（閱讀狀態、書籍來源、收錄狀態等）。
+
+**III. 書籍詳細資訊與備註**
+點擊書本即可展開側邊面板，查看完整書籍資訊、簡介，並可自由新增個人備註。
+
+<img src="./images/home-main.png" width="30%" /> <img src="./images/home-filter.png" width="30%" /> <img src="./images/home-detail.png" width="30%" />
+
+### 2.addBook 頁面
+
+系統提供便捷的新增書籍介面，輸入 ISBN 或書名即可快速匯入書籍資訊，同時也支援手動輸入
+
+<img src="./images/add-book-page.png" width="600" />
+
+**I. 空白表單**
+提供乾淨的表單，支援手動輸入或自動帶入。
+
+**II. 自動帶入書籍資訊**
+輸入ISBN 或書名後，系統會自動抓封面、作者、出版社等欄位，並可選擇閱讀與連載狀態。
+
+**III. 查看完整簡介**
+點擊「查看簡介」可展開書籍的詳細說明內容。
+
+<img src="./images/add-book-empty.png" width="30%" /> <img src="./images/add-book-filled.png" width="30%" /> <img src="./images/add-book-expanded.png" width="30%" />
+
+### 3.Setting 頁面
+
+可一鍵匯出所有書籍資料 JSON 檔或者一鍵清空所有書籍資料
+
+<img src="./images/setting-page.png" width="600" />
+
 ## 十、組員分工
 
 * CBE111031　：
 * CBE111033　：
 
-## 十一、學習心得
