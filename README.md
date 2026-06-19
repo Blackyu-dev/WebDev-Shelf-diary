@@ -173,13 +173,13 @@ React Hooks、介面設計、ISBN 爬蟲、表單驗證、Image Upload
 | :--- | :--- | :--- | :--- |
 | **後端架構與 API** | MongoDB Schema 設計、RESTful API 開發 | — | `backend/models/Book.js`<br>`backend/routes/bookRoutes.js`<br>`backend/server.js` |
 | **書籍資料 CRUD** | 建立資料流與前後端同步機制 | 書籍新增流程與表單驗證 | `api/bookApi.js`<br>`hook/useBookForm.js`<br>`backend/routes/bookRoutes.js` |
-| **外部 API 串接**<br>(Google Books/ISBN) | API 串接邏輯與非同步處理 (`async/await`) | ISBN 搜尋介面 | `api/searchBookApi.js`<br>`hook/useSearchBooks.js`<br>`components/SearchBookInputs.jsx` |
+| **外部 API 串接**<br>(Google Books/ISBN) | 串接 Google Books API  | ISBN 爬蟲解析 | `api/searchBookApi.js`<br>`hook/useSearchBooks.js`<br>`components/SearchBookInputs.jsx` |
 | **Add Book 頁面** | 開發 `BookModal` 共用元件,加入自訂欄位功能並完成資料狀態傳遞 |  `BookModal`手動輸入簡介與更改介面設計 | `pages/AddBook.jsx`<br>`components/BookModal/*` |
 | **Home 頁面** | 開發多條件、可複選之動態篩選模式、首頁書籍網格 (Grid) 排版與資料渲染  | 單一書籍卡片視覺設計、篩選面板介面優化、Sidebar 導覽列 | `pages/Home.jsx`<br>`components/Card.jsx`<br>`data/booksStorage.js` |
 | **書籍詳細資訊面板** | 面板資料前後端同步、狀態即時更新機制 | 開發側邊面板共用元件,包含標籤、收藏與備註編輯功能 | `components/BookDetailPanel.jsx`<br>`components/panel/*` |
 | **收藏與筆記系統** | 收藏/筆記狀態 API 串接與資料庫更新 | 愛心按鈕互動切換、UI 狀態同步顯示 | `components/Card.jsx`<br>`components/BookDetailPanel.jsx`<br>`api/bookApi.js` |
 | **手動新增圖片管理** | — | `FormData` 資料處理、支援外部連結、圖片UI介面, 包含上傳按鈕、圖片即時預覽 | `components/BookModal/BookModalInfo.jsx`<br>`backend/routes/bookRoutes.js` |
-| **Setting 頁面** | 實作「清空資料」與「JSON 資料匯出」邏輯 | — | **`pages/Setting.jsx`**<br>`api/bookApi.js`<br>`backend/routes/bookRoutes.js` |
+| **Setting 頁面** | 實作「清空資料」與「JSON 資料匯出」邏輯 | — | `pages/Setting.jsx`<br>`api/bookApi.js`<br>`backend/routes/bookRoutes.js` |
 
 
 > 註：部分檔案由兩位成員共同開發與維護。(CBE111031)主要負責系統架構、資料流設計、API 串接；(CBE111033)主要負責功能實作、使用者互動與介面優化。
